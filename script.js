@@ -16,7 +16,7 @@ const galeriaFotos = [
 const sonsAcerto = ['assets/audio/acerto1.mp3'];
 const sonsErro = ['assets/audio/erro1.mp3'];
 
-// Seleção de elementos DOM
+// Seleção DOM
 const screenIntro = document.getElementById('screen-intro');
 const screenGame = document.getElementById('screen-game');
 const screenResult = document.getElementById('screen-result');
@@ -36,12 +36,9 @@ const webcamElement = document.getElementById('webcam');
 
 const optionButtons = [btn0, btn1, btn2, btn3];
 
-// INICIALIZAR CÂMERA (Sem restrição rígida de tamanho)
+// INICIALIZAR CÂMERA
 async function iniciarCamera() {
-  if (!webcamElement) {
-    console.error("Elemento de vídeo não encontrado no DOM!");
-    return;
-  }
+  if (!webcamElement) return;
 
   try {
     const stream = await navigator.mediaDevices.getUserMedia({
@@ -54,10 +51,8 @@ async function iniciarCamera() {
     webcamElement.playsInline = true;
 
     await webcamElement.play();
-    console.log("Câmera conectada com sucesso!");
   } catch (erro) {
     console.error("Falha ao acessar a câmera:", erro);
-    alert("Não foi possível acessar a câmera. Verifique as permissões no navegador.");
   }
 }
 
@@ -68,10 +63,9 @@ async function carregarPerguntas() {
     if (!resposta.ok) {
       resposta = await fetch('Perguntas.json');
     }
-    if (!resposta.ok) throw new Error("Não foi possível encontrar o arquivo de perguntas.");
+    if (!resposta.ok) throw new Error("Erro ao carregar perguntas");
 
     perguntas = await resposta.json();
-    console.log(`${perguntas.length} perguntas carregadas.`);
   } catch (erro) {
     console.error('Erro:', erro);
   }
@@ -138,7 +132,7 @@ function limparClassesBotoes() {
 
 function iniciarJogo() {
   if (perguntas.length === 0) {
-    alert("Aguarde o carregamento das perguntas ou verifique perguntas.json");
+    alert("Aguarde o carregamento das perguntas!");
     return;
   }
 
@@ -159,10 +153,11 @@ function exibirPergunta() {
 
   const q = perguntasSorteadas[perguntaAtualIndex];
   questionText.innerText = q.pergunta;
-  btn0.innerText = `1. ${q.opcoes[0]}`;
-  btn1.innerText = `2. ${q.opcoes[1]}`;
-  btn2.innerText = `3. ${q.opcoes[2]}`;
-  btn3.innerText = `4. ${q.opcoes[3]}`;
+
+  btn0.querySelector('.opt-text').innerText = q.opcoes[0];
+  btn1.querySelector('.opt-text').innerText = q.opcoes[1];
+  btn2.querySelector('.opt-text').innerText = q.opcoes[2];
+  btn3.querySelector('.opt-text').innerText = q.opcoes[3];
 
   iniciarTimer();
 }
@@ -280,7 +275,7 @@ btn1.addEventListener('click', () => verificarResposta(1));
 btn2.addEventListener('click', () => verificarResposta(2));
 btn3.addEventListener('click', () => verificarResposta(3));
 
-// Execução inicial
+// Inicialização
 document.addEventListener('DOMContentLoaded', () => {
   iniciarCamera();
   carregarPerguntas();
