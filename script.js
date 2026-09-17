@@ -214,7 +214,7 @@ function processarResultado(sucesso, mensagem) {
   // Tirar foto do convidado exatamente 1 segundo após o resultado
   setTimeout(() => {
     tirarFotoReacao();
-  }, 1000);
+  }, 2000);
 
   // Aguarda 3.5 segundos e encerra a rodada
   setTimeout(() => {
@@ -234,7 +234,7 @@ function finalizarRodada() {
     webcamElement.classList.remove('active');
     cameraOverlay.classList.add('hidden');
     screenIntro.classList.add('active');
-  }, 4000);
+  }, 7000);
 }
 
 // Eventos
