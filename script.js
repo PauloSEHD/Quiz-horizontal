@@ -43,18 +43,19 @@ const webcamElement = document.getElementById('webcam');
 
 const optionButtons = [btn0, btn1, btn2, btn3];
 
-// Inicializar Câmera em Modo Horizontal (Widescreen)
+// Inicializar Câmera em Modo Horizontal com execução contínua
 async function iniciarCamera() {
   try {
     const stream = await navigator.mediaDevices.getUserMedia({
       video: {
-        width: { ideal: 1920 },
-        height: { ideal: 1080 },
+        width: { ideal: 1280 },
+        height: { ideal: 720 },
         facingMode: "user"
       },
       audio: false
     });
     webcamElement.srcObject = stream;
+    webcamElement.play(); // Força a execução do stream sem interrupções
   } catch (erro) {
     console.error("Erro ao acessar a câmera:", erro);
   }
