@@ -43,19 +43,27 @@ const webcamElement = document.getElementById('webcam');
 
 const optionButtons = [btn0, btn1, btn2, btn3];
 
-// Inicializar Câmera em Modo Horizontal com execução contínua
+// Inicializar Câmera em Modo Horizontal com fallback de resolução
 async function iniciarCamera() {
   try {
+    // Tenta primeiro sem exigir resolução fixa para garantir compatibilidade
     const stream = await navigator.mediaDevices.getUserMedia({
       video: {
-        width: { ideal: 1280 },
-        height: { ideal: 720 },
         facingMode: "user"
       },
       audio: false
     });
-    webcamElement.srcObject = stream;
-    webcamElement.play(); // Força a execução do stream sem interrupções
+    
+    if (webcamElement) {
+      webcamElement.srcObject = stream;
+      
+      // Atributos vitais para navegadores permitirem auto-play de vídeo
+      webcamElement.muted = true;
+      webcamElement.playsInline = true;
+      
+      await webcamElement.play();
+      console.log("Câmera iniciada com sucesso!");
+    }
   } catch (erro) {
     console.error("Erro ao acessar a câmera:", erro);
   }
