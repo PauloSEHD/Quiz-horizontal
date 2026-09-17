@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz dos Noivos</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Tela de Descanso / Apresentação -->
+    <div id="screen-intro" class="screen active">
+      <div class="intro-photo-container">
+        <img id="img-top" alt="Foto Noivos Topo" class="photo-landscape" style="display: none;">
+      </div>
+      
+      <div class="intro-content">
+        <h1>Quiz dos Noivos</h1>
+        <button id="btn-start" class="btn-start-game">INICIAR QUIZ 🚀</button>
+      </div>
+
+      <div class="intro-photo-container">
+        <img id="img-bottom" alt="Foto Noivos Base" class="photo-landscape" style="display: none;">
+      </div>
+    </div>
+
+    <!-- Tela do Jogo / Pergunta -->
+    <div id="screen-game" class="screen">
+      <div id="timer">20</div>
+      <h2 id="question-text">Carregando pergunta...</h2>
+      <div class="options-grid">
+        <button class="btn-option" id="btn-0">1. Opção A</button>
+        <button class="btn-option" id="btn-1">2. Opção B</button>
+        <button class="btn-option" id="btn-2">3. Opção C</button>
+        <button class="btn-option" id="btn-3">4. Opção D</button>
+      </div>
+    </div>
+
+    <!-- Tela de Resultado / Feedback -->
+    <div id="screen-result" class="screen">
+      <h1 id="result-message">RESPOSTA CORRETA!</h1>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

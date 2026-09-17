@@ -1,0 +1,196 @@
+/* Resets e Estilos Globais */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  background-color: #1a1a2e;
+  color: #ffffff;
+  overflow-x: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- CONTROLE DE TELAS (CORREÇÃO PRINCIPAL) --- */
+/* Esconde todas as telas por padrão */
+.screen {
+  display: none !important;
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 15px;
+}
+
+/* Exibe APENAS a tela que possui a classe active */
+.screen.active {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* --- TELA 1: INTRODUÇÃO / CARROSSEL --- */
+#screen-intro {
+  text-align: center;
+}
+
+.intro-photo-container {
+  width: 100%;
+  max-width: 450px;
+  height: 32vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.photo-landscape {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  pointer-events: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.intro-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.intro-content h1 {
+  font-size: 2.2rem;
+  color: #ff4757;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.btn-start-game {
+  background-color: #2ecc71;
+  color: #ffffff;
+  font-size: 1.6rem;
+  font-weight: bold;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 50px;
+  box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+  cursor: pointer;
+  transition: transform 0.1s, background-color 0.2s;
+}
+
+.btn-start-game:active {
+  transform: scale(0.95);
+  background-color: #27ae60;
+}
+
+/* --- TELA 2: JOGO / PERGUNTAS --- */
+#screen-game {
+  justify-content: center;
+  gap: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Estilos e Animações do Timer */
+#timer {
+  font-size: 3.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.timer-verde { color: #2ecc71; }
+.timer-amarelo { color: #f1c40f; }
+.timer-laranja { color: #e67e22; }
+.timer-vermelho { color: #e74c3c; }
+
+.timer-piscar {
+  color: #e74c3c;
+  animation: piscar 0.5s infinite alternate;
+}
+
+@keyframes piscar {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0.3; transform: scale(1.15); }
+}
+
+#question-text {
+  font-size: 1.4rem;
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 15px;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Grid de Opções de Resposta */
+.options-grid {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-option {
+  background-color: #16213e;
+  color: #ffffff;
+  border: 2px solid #0f3460;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 1.1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.btn-option:active {
+  transform: scale(0.98);
+}
+
+/* Feedback Visual de Resposta */
+.btn-option.correta {
+  background-color: #2ecc71 !important;
+  border-color: #27ae60 !important;
+  color: #ffffff !important;
+}
+
+.btn-option.incorreta {
+  background-color: #e74c3c !important;
+  border-color: #c0392b !important;
+  color: #ffffff !important;
+}
+
+/* --- TELA 3: RESULTADO / FEEDBACK --- */
+#screen-result {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#result-message {
+  font-size: 2.2rem;
+  font-weight: bold;
+  padding: 20px;
+  text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+

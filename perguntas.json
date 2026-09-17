@@ -1,0 +1,483 @@
+[
+  {
+    "id": 1,
+    "categoria": "biblia",
+    "pergunta": "Qual foi o primeiro milagre realizado por Jesus segundo o evangelho de João?",
+    "opcoes": [
+      "Multiplicação dos pães",
+      "Cura do cego de nascença",
+      "Transformação de água em vinho em Caná",
+      "Caminhar sobre as águas"
+    ],
+    "correta": 2
+  },
+  {
+    "id": 2,
+    "categoria": "casal",
+    "pergunta": "Quem é mais provável de esquecer onde deixou as chaves de casa?",
+    "opcoes": [
+      "O Noivo",
+      "A Noiva",
+      "Os dois empatados",
+      "Nenhum dos dois"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 3,
+    "categoria": "biblia",
+    "pergunta": "Qual personagem bíblico construiu a arca para se salvar do Dilúvio?",
+    "opcoes": [
+      "Abraão",
+      "Moisés",
+      "Noé",
+      "Salomão"
+    ],
+    "correta": 2
+  },
+  {
+    "id": 4,
+    "categoria": "biblia",
+    "pergunta": "Quantos mandamentos foram gravados nas tábuas da lei entregues a Moisés?",
+    "opcoes": [
+      "5",
+      "7",
+      "10",
+      "12"
+    ],
+    "correta": 2
+  },
+  {
+    "id": 5,
+    "categoria": "biblia",
+    "pergunta": "Em qual cidade Jesus nasceu?",
+    "opcoes": [
+      "Nazaré",
+      "Belém",
+      "Jerusalém",
+      "Jericó"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 6,
+    "categoria": "biblia",
+    "pergunta": "Quem foi engolido por um grande peixe após tentar fugir da ordem de Deus?",
+    "opcoes": [
+      "Jonas",
+      "Elias",
+      "Daniel",
+      "Samuel"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 7,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome do mar que se abriu para o povo de Israel passar?",
+    "opcoes": [
+      "Mar Morto",
+      "Mar da Galileia",
+      "Mar Vermelho",
+      "Mar Mediterrâneo"
+    ],
+    "correta": 2
+  },
+  {
+    "id": 8,
+    "categoria": "biblia",
+    "pergunta": "Qual é o primeiro livro do Antigo Testamento?",
+    "opcoes": [
+      "Éxodo",
+      "Gênesis",
+      "Levítico",
+      "Salmos"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 9,
+    "categoria": "biblia",
+    "pergunta": "Quem derrotou o gigante Golias apenas com uma funda e uma pedra?",
+    "opcoes": [
+      "Saul",
+      "Sansão",
+      "Davi",
+      "Jônatas"
+    ],
+    "correta": 2
+  },
+  {
+    "id": 10,
+    "categoria": "biblia",
+    "pergunta": "Quantos discípulos principais (apóstolos) Jesus escolheu?",
+    "opcoes": [
+      "10",
+      "12",
+      "7",
+      "70"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 11,
+    "categoria": "biblia",
+    "pergunta": "Quem foi a esposa de Abraão e mãe de Isaque?",
+    "opcoes": [
+      "Sara",
+      "Marta",
+      "Raquel",
+      "Rute"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 12,
+    "categoria": "biblia",
+    "pergunta": "Qual homem bíblico era conhecido por sua incrível força que residia em seu cabelo?",
+    "opcoes": [
+      "Gideão",
+      "Sansão",
+      "Absalão",
+      "Jefté"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 13,
+    "categoria": "biblia",
+    "pergunta": "Em qual rio Jesus foi batizado por João Batista?",
+    "opcoes": [
+      "Rio Nilo",
+      "Rio Eufrates",
+      "Rio Jordão",
+      "Rio Tigre"
+    ],
+    "correta": 2
+  },
+  {
+    "id": 14,
+    "categoria": "biblia",
+    "pergunta": "Quem foi lançado na cova dos leões por continuar orando a Deus?",
+    "opcoes": [
+      "Daniel",
+      "José",
+      "Jeremias",
+      "Isaías"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 15,
+    "categoria": "biblia",
+    "pergunta": "Qual era a profissão de José, o pai terrestre de Jesus?",
+    "opcoes": [
+      "Pescador",
+      "Padeiro",
+      "Carpinteiro",
+      "Agricultor"
+    ],
+    "correta": 2
+  },
+  {
+    "id": 16,
+    "categoria": "biblia",
+    "pergunta": "Qual o último livro da Bíblia Sagrada?",
+    "opcoes": [
+      "Malaquias",
+      "Atos dos Apóstolos",
+      "Apocalipse",
+      "Hebreus"
+    ],
+    "correta": 2
+  },
+  {
+    "id": 17,
+    "categoria": "biblia",
+    "pergunta": "Quem traiu Jesus por 30 moedas de prata?",
+    "opcoes": [
+      "Pedro",
+      "Judas Iscariotes",
+      "Tomé",
+      "Tiago"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 18,
+    "categoria": "biblia",
+    "pergunta": "Qual rei pediu a Deus sabedoria para governar o povo em vez de riqueza?",
+    "opcoes": [
+      "Davi",
+      "Salomão",
+      "Ezequias",
+      "Josias"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 19,
+    "categoria": "biblia",
+    "pergunta": "Quem foi vendido como escravo por seus irmãos e depois se tornou governador do Egito?",
+    "opcoes": [
+      "Benjamim",
+      "José",
+      "Moisés",
+      "Arão"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 20,
+    "categoria": "biblia",
+    "pergunta": "Qual profeta subiu ao céu em um redemoinho com um carro de fogo?",
+    "opcoes": [
+      "Eliseu",
+      "Elias",
+      "Samuel",
+      "Malaquias"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 21,
+    "categoria": "biblia",
+    "pergunta": "Quantos dias e noites choveu durante o Dilúvio?",
+    "opcoes": [
+      "7 dias e 7 noites",
+      "12 dias e 12 noites",
+      "40 dias e 40 noites",
+      "100 dias e 100 noites"
+    ],
+    "correta": 2
+  },
+  {
+    "id": 22,
+    "categoria": "biblia",
+    "pergunta": "Quem negou a Jesus três vezes antes que o galo cantasse?",
+    "opcoes": [
+      "João",
+      "Pedro",
+      "André",
+      "Filipe"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 23,
+    "categoria": "biblia",
+    "pergunta": "Qual instrumento musical Davi tocava para acalmar o rei Saul?",
+    "opcoes": [
+      "Flauta",
+      "Harpa",
+      "Tamborim",
+      "Trombeta"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 24,
+    "categoria": "biblia",
+    "pergunta": "Qual apóstolo era conhecido por sua dúvida e só acreditou na ressurreição ao ver as marcas?",
+    "opcoes": [
+      "Tomé",
+      "Bartolomeu",
+      "Mateus",
+      "Simão"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 25,
+    "categoria": "biblia",
+    "pergunta": "Qual moabita demonstrou lealdade à sua sogra Noemi dizendo 'o teu povo será o meu povo'?",
+    "opcoes": [
+      "Orfa",
+      "Rute",
+      "Ester",
+      "Vasti"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 26,
+    "categoria": "biblia",
+    "pergunta": "Qual homem viveu mais tempo segundo os registros bíblicos (969 anos)?",
+    "opcoes": [
+      "Matusalém",
+      "Adão",
+      "Enoque",
+      "Lameque"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 27,
+    "categoria": "biblia",
+    "pergunta": "Em qual monte Moisés recebeu as Tábuas da Lei?",
+    "opcoes": [
+      "Monte das Oliveiras",
+      "Monte Sinai",
+      "Monte Carmelo",
+      "Monte Nebo"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 28,
+    "categoria": "biblia",
+    "pergunta": "Qual rainha arriscou a própria vida para salvar o povo judeu do decreto de Hamã?",
+    "opcoes": [
+      "Jezabel",
+      "Ester",
+      "Abaliah",
+      "Bate-Seba"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 29,
+    "categoria": "biblia",
+    "pergunta": "Quem foi ressuscitado por Jesus após estar morto há quatro dias?",
+    "opcoes": [
+      "Lázaro",
+      "Jairo",
+      "Estêvão",
+      "Cornélio"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 30,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome do jardim onde Adão e Eva moravam originalmente?",
+    "opcoes": [
+      "Jardim do Getsêmani",
+      "Jardim do Éden",
+      "Jardim de Susã",
+      "Jardim das Oliveiras"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 31,
+    "categoria": "casal",
+    "pergunta": "Quem é mais provável de demorar mais tempo para se arrumar antes de sair?",
+    "opcoes": [
+      "O Noivo",
+      "A Noiva",
+      "Demoram exatamente o mesmo tempo",
+      "Nenhum dos dois se arruma"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 32,
+    "categoria": "casal",
+    "pergunta": "Quem costuma dormir primeiro quando assistem a um filme à noite?",
+    "opcoes": [
+      "O Noivo",
+      "A Noiva",
+      "Os dois dormem ao mesmo tempo",
+      "Nenhum dos dois dorme"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 33,
+    "categoria": "casal",
+    "pergunta": "Quem é mais provável de chorar durante a cerimônia do casamento?",
+    "opcoes": [
+      "O Noivo",
+      "A Noiva",
+      "Os dois vão chorar bastante",
+      "Ninguém vai chorar"
+    ],
+    "correta": 2
+  },
+  {
+    "id": 34,
+    "categoria": "casal",
+    "pergunta": "Quem é o mais comilão do casal?",
+    "opcoes": [
+      "O Noivo",
+      "A Noiva",
+      "Comem exatamente a mesma quantidade",
+      "Depende do prato"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 35,
+    "categoria": "casal",
+    "pergunta": "Quem é o mais dramático quando fica gripado ou doente?",
+    "opcoes": [
+      "O Noivo",
+      "A Noiva",
+      "Os dois são super dramáticos",
+      "Nenhum dos dois reclama"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 36,
+    "categoria": "casal",
+    "pergunta": "Quem deu o primeiro passo no início do namoro?",
+    "opcoes": [
+      "O Noivo",
+      "A Noiva",
+      "Foi mútuo ao mesmo tempo",
+      "Um amigo em comum"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 37,
+    "categoria": "casal",
+    "pergunta": "Quem tem o controle remoto da TV na maioria das vezes?",
+    "opcoes": [
+      "O Noivo",
+      "A Noiva",
+      "Fica dividindo o tempo todo",
+      "Ninguém assiste TV"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 38,
+    "categoria": "casal",
+    "pergunta": "Quem é mais organizado com as tarefas da casa?",
+    "opcoes": [
+      "O Noivo",
+      "A Noiva",
+      "Os dois são muito organizados",
+      "Os dois são desorganizados"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 39,
+    "categoria": "casal",
+    "pergunta": "Quem manda mais mensagens de texto ao longo do dia?",
+    "opcoes": [
+      "O Noivo",
+      "A Noiva",
+      "Mandam a mesma quantidade",
+      "Quase não se falam por texto"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 40,
+    "categoria": "casal",
+    "pergunta": "Quem costuma pedir desculpas primeiro após uma pequena discussão?",
+    "opcoes": [
+      "O Noivo",
+      "A Noiva",
+      "Os dois pedem juntos",
+      "Demoram dias para conversar"
+    ],
+    "correta": 0
+  }
+]
+  
