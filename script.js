@@ -6,7 +6,6 @@ let timerInterval = null;
 let photoInterval = null;
 let jogoAtivo = false;
 
-// Banco de Imagens
 const galeriaFotos = [
   'assets/img/foto1.jpg',
   'assets/img/foto2.jpg',
@@ -14,16 +13,10 @@ const galeriaFotos = [
   'assets/img/foto4.jpg'
 ];
 
-// Banco de Áudios
-const sonsAcerto = [
-  'assets/audio/acerto1.mp3'
-];
+const sonsAcerto = ['assets/audio/acerto1.mp3'];
+const sonsErro = ['assets/audio/erro1.mp3'];
 
-const sonsErro = [
-  'assets/audio/erro1.mp3'
-];
-
-// Seletores das telas e elementos
+// Seleção de elementos DOM
 const screenIntro = document.getElementById('screen-intro');
 const screenGame = document.getElementById('screen-game');
 const screenResult = document.getElementById('screen-result');
@@ -43,72 +36,54 @@ const webcamElement = document.getElementById('webcam');
 
 const optionButtons = [btn0, btn1, btn2, btn3];
 
-// Inicializar Câmera em Modo Horizontal com fallback de resolução
+// INICIALIZAR CÂMERA (Sem restrição rígida de tamanho)
 async function iniciarCamera() {
-  const videoElement = document.getElementById('webcam');
-  
-  if (!videoElement) {
-    console.error("Elemento <video id='webcam'> não foi encontrado no HTML!");
+  if (!webcamElement) {
+    console.error("Elemento de vídeo não encontrado no DOM!");
     return;
   }
 
   try {
     const stream = await navigator.mediaDevices.getUserMedia({
-      video: {
-        facingMode: "user"
-      },
+      video: true,
       audio: false
     });
 
-    videoElement.srcObject = stream;
-    videoElement.muted = true;
-    videoElement.playsInline = true;
+    webcamElement.srcObject = stream;
+    webcamElement.muted = true;
+    webcamElement.playsInline = true;
 
-    // Tenta dar o play explícito
-    await videoElement.play();
-    console.log("Câmera rodando com sucesso!");
+    await webcamElement.play();
+    console.log("Câmera conectada com sucesso!");
   } catch (erro) {
-    console.error("Erro ou permissão negada para a câmera:", erro);
+    console.error("Falha ao acessar a câmera:", erro);
+    alert("Não foi possível acessar a câmera. Verifique as permissões no navegador.");
   }
 }
 
-// Chame a função assim que o DOM estiver pronto
-document.addEventListener('DOMContentLoaded', () => {
-  iniciarCamera();
-  carregarPerguntas();
-  iniciarCarrosselFotos();
-});
-
-// Carregar perguntas do arquivo JSON com tratamento e fallback
+// Carregar JSON de perguntas
 async function carregarPerguntas() {
   try {
     let resposta = await fetch('perguntas.json');
     if (!resposta.ok) {
       resposta = await fetch('Perguntas.json');
     }
-    
-    if (!resposta.ok) {
-      throw new Error(`Erro HTTP! status: ${resposta.status}`);
-    }
+    if (!resposta.ok) throw new Error("Não foi possível encontrar o arquivo de perguntas.");
 
     perguntas = await resposta.json();
-    console.log(`Sucesso! ${perguntas.length} perguntas carregadas.`);
+    console.log(`${perguntas.length} perguntas carregadas.`);
   } catch (erro) {
-    console.error('Erro ao carregar perguntas.json:', erro);
-    alert('Atenção: Não foi possível carregar o arquivo perguntas.json.');
+    console.error('Erro:', erro);
   }
 }
 
-// Reproduzir áudio de forma segura
 function tocarSom(tipo) {
   let lista = tipo === 'acerto' ? sonsAcerto : sonsErro;
   if (lista.length === 0) return;
-  const somSorteado = lista[Math.floor(Math.random() * lista.length)];
-  const audio = new Audio(somSorteado);
-  audio.play().catch(e => console.log("Áudio aguardando interação do usuário"));
+  const audio = new Audio(lista[Math.floor(Math.random() * lista.length)]);
+  audio.play().catch(() => {});
 }
 
-// Carregar imagem de forma segura
 function definirImagem(elementoImg, src) {
   if (!src) {
     elementoImg.style.display = 'none';
@@ -125,10 +100,8 @@ function definirImagem(elementoImg, src) {
   };
 }
 
-// Alternar fotos na tela de descanso
 function alternarFotosApresentacao() {
   if (galeriaFotos.length === 0) return;
-
   if (galeriaFotos.length === 1) {
     definirImagem(imgTop, galeriaFotos[0]);
     imgBottom.style.display = 'none';
@@ -150,11 +123,6 @@ function iniciarCarrosselFotos() {
   photoInterval = setInterval(alternarFotosApresentacao, 5000);
 }
 
-function pararCarrosselFotos() {
-  clearInterval(photoInterval);
-}
-
-// Embaralhar vetor (Fisher-Yates)
 function embaralhar(array) {
   const lista = [...array];
   for (let i = lista.length - 1; i > 0; i--) {
@@ -168,20 +136,19 @@ function limparClassesBotoes() {
   optionButtons.forEach(btn => btn.classList.remove('correta', 'incorreta'));
 }
 
-// Iniciar rodada do jogo
 function iniciarJogo() {
   if (perguntas.length === 0) {
-    alert("As perguntas ainda estão sendo carregadas ou o arquivo perguntas.json não foi encontrado!");
+    alert("Aguarde o carregamento das perguntas ou verifique perguntas.json");
     return;
   }
-  
-  pararCarrosselFotos();
+
+  clearInterval(photoInterval);
   perguntasSorteadas = embaralhar(perguntas);
   perguntaAtualIndex = 0;
   jogoAtivo = true;
-  
+
   exibirPergunta();
-  
+
   screenIntro.classList.remove('active');
   screenResult.classList.remove('active');
   screenGame.classList.add('active');
@@ -200,24 +167,15 @@ function exibirPergunta() {
   iniciarTimer();
 }
 
-// Estilo dinâmico do timer
 function atualizarEstiloTimer(tempo) {
   timerElement.className = '';
-
-  if (tempo >= 15) {
-    timerElement.classList.add('timer-verde');
-  } else if (tempo >= 10) {
-    timerElement.classList.add('timer-amarelo');
-  } else if (tempo >= 6) {
-    timerElement.classList.add('timer-laranja');
-  } else if (tempo >= 4) {
-    timerElement.classList.add('timer-vermelho');
-  } else {
-    timerElement.classList.add('timer-piscar');
-  }
+  if (tempo >= 15) timerElement.classList.add('timer-verde');
+  else if (tempo >= 10) timerElement.classList.add('timer-amarelo');
+  else if (tempo >= 6) timerElement.classList.add('timer-laranja');
+  else if (tempo >= 4) timerElement.classList.add('timer-vermelho');
+  else timerElement.classList.add('timer-piscar');
 }
 
-// Controle da contagem regressiva de 20s
 function iniciarTimer() {
   clearInterval(timerInterval);
   tempoRestante = 20;
@@ -236,11 +194,10 @@ function iniciarTimer() {
   }, 1000);
 }
 
-// Tempo esgotado
 function tempoEsgotado() {
   jogoAtivo = false;
   tocarSom('erro');
-  
+
   screenGame.classList.remove('active');
   screenResult.classList.add('active');
   resultMessage.innerText = "TEMPO ESGOTADO! ⏱️";
@@ -250,10 +207,9 @@ function tempoEsgotado() {
     screenResult.classList.remove('active');
     screenIntro.classList.add('active');
     iniciarCarrosselFotos();
-  }, 5000);
+  }, 4000);
 }
 
-// Resposta do jogador
 function verificarResposta(opcaoSelecionada) {
   if (!jogoAtivo) return;
   clearInterval(timerInterval);
@@ -283,7 +239,7 @@ function verificarResposta(opcaoSelecionada) {
     }
 
     agendarProximaPergunta();
-  }, 2000);
+  }, 1800);
 }
 
 function agendarProximaPergunta() {
@@ -300,15 +256,13 @@ function agendarProximaPergunta() {
       screenIntro.classList.add('active');
       iniciarCarrosselFotos();
     }
-  }, 2500);
+  }, 2000);
 }
 
-// Ouvintes de Teclado
+// Atalhos de teclado
 document.addEventListener('keydown', (event) => {
   if (screenIntro.classList.contains('active')) {
-    if (['Enter', ' '].includes(event.key)) {
-      iniciarJogo();
-    }
+    if (['Enter', ' '].includes(event.key)) iniciarJogo();
     return;
   }
 
@@ -319,14 +273,16 @@ document.addEventListener('keydown', (event) => {
   }
 });
 
-// Eventos de Clique
-btnStart.addEventListener('click', () => iniciarJogo());
+// Eventos de clique
+btnStart.addEventListener('click', iniciarJogo);
 btn0.addEventListener('click', () => verificarResposta(0));
 btn1.addEventListener('click', () => verificarResposta(1));
 btn2.addEventListener('click', () => verificarResposta(2));
 btn3.addEventListener('click', () => verificarResposta(3));
 
-// Inicialização
-iniciarCamera();
-carregarPerguntas();
-iniciarCarrosselFotos();
+// Execução inicial
+document.addEventListener('DOMContentLoaded', () => {
+  iniciarCamera();
+  carregarPerguntas();
+  iniciarCarrosselFotos();
+});
