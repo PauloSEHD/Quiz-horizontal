@@ -7,49 +7,50 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Elemento do vídeo da câmera em background -->
+
+  <!-- Câmera de Fundo -->
   <video id="webcam" autoplay playsinline muted></video>
   <div id="camera-overlay"></div>
 
   <div id="app">
-    <!-- Tela de Descanso / Apresentação (Horizontal) -->
+    <!-- TELA 1: INTRODUÇÃO -->
     <div id="screen-intro" class="screen active">
       <div class="intro-photo-container">
-        <img id="img-top" alt="Foto Noivos Esquerda" class="photo-landscape" style="display: none;">
+        <img id="img-top" class="photo-landscape" src="" alt="Foto 1">
       </div>
-      
+
       <div class="intro-content">
         <h1>Quiz dos Noivos</h1>
         <button id="btn-start" class="btn-start-game">INICIAR QUIZ 🚀</button>
       </div>
 
       <div class="intro-photo-container">
-        <img id="img-bottom" alt="Foto Noivos Direita" class="photo-landscape" style="display: none;">
+        <img id="img-bottom" class="photo-landscape" src="" alt="Foto 2">
       </div>
     </div>
 
-    <!-- Tela do Jogo / Pergunta (Grid 2x2 em Tela Cheia) -->
+    <!-- TELA 2: JOGO -->
     <div id="screen-game" class="screen">
       <div class="game-header">
-        <div id="timer">20</div>
+        <div id="timer" class="timer-verde">20</div>
       </div>
-      
+
       <div class="question-container">
         <h2 id="question-text">Carregando pergunta...</h2>
       </div>
 
       <div class="options-grid">
-        <button class="btn-option" id="btn-0">1. Opção A</button>
-        <button class="btn-option" id="btn-1">2. Opção B</button>
-        <button class="btn-option" id="btn-2">3. Opção C</button>
-        <button class="btn-option" id="btn-3">4. Opção D</button>
+        <button id="btn-0" class="btn-option">1. Opção 1</button>
+        <button id="btn-1" class="btn-option">2. Opção 2</button>
+        <button id="btn-2" class="btn-option">3. Opção 3</button>
+        <button id="btn-3" class="btn-option">4. Opção 4</button>
       </div>
     </div>
 
-    <!-- Tela de Resultado / Feedback -->
+    <!-- TELA 3: RESULTADO -->
     <div id="screen-result" class="screen">
       <div class="result-card">
-        <h1 id="result-message">RESPOSTA CORRETA!</h1>
+        <h2 id="result-message">RESPOSTA CORRETA! 🎉</h2>
       </div>
     </div>
   </div>
