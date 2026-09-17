@@ -8,7 +8,7 @@
 </head>
 <body>
 
-  <!-- Câmera de Fundo -->
+  <!-- Background Câmera -->
   <video id="webcam" autoplay playsinline muted></video>
   <div id="camera-overlay"></div>
 
@@ -29,22 +29,29 @@
       </div>
     </div>
 
-    <!-- TELA 2: JOGO -->
+    <!-- TELA 2: JOGO (LAYOUT SIDEBAR ESTILO TV) -->
     <div id="screen-game" class="screen">
-      <div class="game-header">
-        <div id="timer" class="timer-verde">20</div>
+      <div class="quiz-sidebar">
+        
+        <div class="timer-badge">
+          <span id="timer" class="timer-verde">20</span>
+        </div>
+
+        <div class="question-container">
+          <h2 id="question-text">Carregando pergunta...</h2>
+        </div>
+
+        <div class="options-stack">
+          <button id="btn-0" class="btn-option"><span class="opt-num">1</span> <span class="opt-text">Opção 1</span></button>
+          <button id="btn-1" class="btn-option"><span class="opt-num">2</span> <span class="opt-text">Opção 2</span></button>
+          <button id="btn-2" class="btn-option"><span class="opt-num">3</span> <span class="opt-text">Opção 3</span></button>
+          <button id="btn-3" class="btn-option"><span class="opt-num">4</span> <span class="opt-text">Opção 4</span></button>
+        </div>
+
       </div>
 
-      <div class="question-container">
-        <h2 id="question-text">Carregando pergunta...</h2>
-      </div>
-
-      <div class="options-grid">
-        <button id="btn-0" class="btn-option">1. Opção 1</button>
-        <button id="btn-1" class="btn-option">2. Opção 2</button>
-        <button id="btn-2" class="btn-option">3. Opção 3</button>
-        <button id="btn-3" class="btn-option">4. Opção 4</button>
-      </div>
+      <!-- Espaço livre à direita para enquadrar a pessoa na câmera -->
+      <div class="camera-viewport-zone"></div>
     </div>
 
     <!-- TELA 3: RESULTADO -->
