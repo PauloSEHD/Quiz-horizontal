@@ -1,4 +1,3 @@
-/* Resets e Estilos Globais */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -8,15 +7,14 @@
   -webkit-user-select: none;
 }
 
-/* Fundo transparente para permitir a exibição do vídeo */
-body, #app, .screen {
-  background-color: transparent !important;
-  overflow: hidden;
+html, body {
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
+  background: #000000 !important; /* Fundo preto garantido se a câmera falhar */
 }
 
-/* Background de Câmera (Fixo ao fundo de tudo) */
+/* Câmera em Tela Cheia ao Fundo */
 #webcam {
   position: fixed;
   top: 0;
@@ -24,24 +22,24 @@ body, #app, .screen {
   width: 100vw;
   height: 100vh;
   object-fit: cover;
-  z-index: -2;
-  transform: scaleX(-1); /* Espelha a câmera para ficar natural */
+  z-index: 1;
+  transform: scaleX(-1);
 }
 
-/* Camada semi-transparente para dar contraste e leitura aos textos */
+/* Escurecimento suave para dar leitura nos botões */
 #camera-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(10, 15, 25, 0.55) !important;
-  z-index: -1;
+  background: rgba(15, 23, 42, 0.45) !important;
+  z-index: 2;
 }
 
 #app {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -50,19 +48,18 @@ body, #app, .screen {
   padding: 20px;
 }
 
-/* --- CONTROLE DE TELAS --- */
+/* TELAS */
 .screen {
   display: none !important;
   width: 100%;
   height: 100%;
-  box-sizing: border-box;
 }
 
 .screen.active {
   display: flex !important;
 }
 
-/* --- TELA 1: INTRODUÇÃO (LAYOUT HORIZONTAL) --- */
+/* TELA INTRO */
 #screen-intro {
   flex-direction: row;
   justify-content: space-around;
@@ -72,7 +69,7 @@ body, #app, .screen {
 
 .intro-photo-container {
   flex: 1;
-  max-width: 30vw;
+  max-width: 28vw;
   height: 60vh;
   display: flex;
   justify-content: center;
@@ -89,7 +86,6 @@ body, #app, .screen {
   height: 100%;
   object-fit: cover;
   border-radius: 18px;
-  pointer-events: none;
 }
 
 .intro-content {
@@ -103,7 +99,6 @@ body, #app, .screen {
   border-radius: 20px;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 .intro-content h1 {
@@ -111,7 +106,6 @@ body, #app, .screen {
   color: #ff4757;
   margin-bottom: 25px;
   text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
-  text-align: center;
 }
 
 .btn-start-game {
@@ -124,19 +118,9 @@ body, #app, .screen {
   border-radius: 50px;
   box-shadow: 0 6px 20px rgba(46, 204, 113, 0.5);
   cursor: pointer;
-  transition: transform 0.1s, background-color 0.2s;
 }
 
-.btn-start-game:hover {
-  transform: scale(1.05);
-  background-color: #27ae60;
-}
-
-.btn-start-game:active {
-  transform: scale(0.95);
-}
-
-/* --- TELA 2: JOGO (LAYOUT HORIZONTAL / GRID 2x2) --- */
+/* TELA JOGO */
 #screen-game {
   flex-direction: column;
   justify-content: space-between;
@@ -153,15 +137,14 @@ body, #app, .screen {
   width: 100%;
 }
 
-/* Timer */
 #timer {
   font-size: 3.5rem;
   font-weight: 800;
   text-shadow: 0 0 12px rgba(0,0,0,0.8);
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
   padding: 5px 30px;
   border-radius: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .timer-verde { color: #2ecc71; }
@@ -179,25 +162,21 @@ body, #app, .screen {
   to { opacity: 0.3; transform: scale(1.15); }
 }
 
-/* Pergunta */
 .question-container {
   width: 100%;
   background: rgba(15, 23, 42, 0.8) !important;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 16px;
   padding: 20px 30px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
 }
 
 #question-text {
   font-size: 1.8rem;
   text-align: center;
-  line-height: 1.4;
   color: #ffffff;
 }
 
-/* Grid de Opções 2x2 */
 .options-grid {
   width: 100%;
   display: grid;
@@ -209,30 +188,14 @@ body, #app, .screen {
   background: rgba(22, 33, 62, 0.8) !important;
   backdrop-filter: blur(8px);
   color: #ffffff;
-  border: 2px solid rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 14px;
   padding: 22px 20px;
   font-size: 1.3rem;
   font-weight: 600;
-  text-align: left;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  display: flex;
-  align-items: center;
 }
 
-.btn-option:hover {
-  border-color: #ff4757;
-  background: rgba(30, 45, 80, 0.95) !important;
-  transform: translateY(-2px);
-}
-
-.btn-option:active {
-  transform: scale(0.98);
-}
-
-/* Feedback Visual de Resposta */
 .btn-option.correta {
   background-color: #2ecc71 !important;
   border-color: #27ae60 !important;
@@ -245,7 +208,7 @@ body, #app, .screen {
   color: #ffffff !important;
 }
 
-/* --- TELA 3: RESULTADO / FEEDBACK --- */
+/* TELA RESULTADO */
 #screen-result {
   justify-content: center;
   align-items: center;
@@ -257,12 +220,10 @@ body, #app, .screen {
   padding: 40px 60px;
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
   text-align: center;
 }
 
 #result-message {
   font-size: 3rem;
   font-weight: bold;
-  text-shadow: 0 4px 15px rgba(0,0,0,0.6);
 }
