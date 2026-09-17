@@ -2,7 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   user-select: none;
   -webkit-user-select: none;
 }
@@ -11,7 +11,7 @@ html, body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: #000000 !important; /* Fundo preto garantido se a câmera falhar */
+  background: #000000 !important;
 }
 
 /* Câmera em Tela Cheia ao Fundo */
@@ -26,14 +26,14 @@ html, body {
   transform: scaleX(-1);
 }
 
-/* Escurecimento suave para dar leitura nos botões */
+/* Gradiente lateral: escurece só a esquerda para dar leitura aos botões */
 #camera-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(15, 23, 42, 0.45) !important;
+  background: linear-gradient(90deg, rgba(10, 15, 30, 0.85) 0%, rgba(10, 15, 30, 0.6) 40%, rgba(0, 0, 0, 0.1) 100%) !important;
   z-index: 2;
 }
 
@@ -42,13 +42,9 @@ html, body {
   z-index: 3;
   width: 100vw;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   padding: 20px;
 }
 
-/* TELAS */
 .screen {
   display: none !important;
   width: 100%;
@@ -94,11 +90,11 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(22, 33, 62, 0.75) !important;
+  background: rgba(22, 33, 62, 0.85) !important;
   padding: 40px 20px;
   border-radius: 20px;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .intro-content h1 {
@@ -120,80 +116,128 @@ html, body {
   cursor: pointer;
 }
 
-/* TELA JOGO */
+/* TELA JOGO (SIDEBAR A ESQUERDA) */
 #screen-game {
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 10px 0;
-}
-
-.game-header {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  height: 100%;
   width: 100%;
 }
 
-#timer {
-  font-size: 3.5rem;
-  font-weight: 800;
-  text-shadow: 0 0 12px rgba(0,0,0,0.8);
-  background: rgba(0, 0, 0, 0.6);
-  padding: 5px 30px;
-  border-radius: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+.quiz-sidebar {
+  width: 38vw;
+  min-width: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  gap: 12px;
 }
 
-.timer-verde { color: #2ecc71; }
-.timer-amarelo { color: #f1c40f; }
-.timer-laranja { color: #e67e22; }
-.timer-vermelho { color: #e74c3c; }
+.camera-viewport-zone {
+  flex: 1;
+  /* Área limpa reservada para a imagem da pessoa */
+}
+
+/* Timer */
+.timer-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#timer {
+  font-size: 2.8rem;
+  font-weight: 800;
+  text-shadow: 0 0 12px rgba(0,0,0,0.8);
+  background: rgba(15, 23, 42, 0.9);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.timer-verde { color: #2ecc71; border-color: #2ecc71 !important; }
+.timer-amarelo { color: #f1c40f; border-color: #f1c40f !important; }
+.timer-laranja { color: #e67e22; border-color: #e67e22 !important; }
+.timer-vermelho { color: #e74c3c; border-color: #e74c3c !important; }
 
 .timer-piscar {
   color: #e74c3c;
+  border-color: #e74c3c !important;
   animation: piscar 0.5s infinite alternate;
 }
 
 @keyframes piscar {
   from { opacity: 1; transform: scale(1); }
-  to { opacity: 0.3; transform: scale(1.15); }
+  to { opacity: 0.3; transform: scale(1.1); }
 }
 
+/* Caixa de Pergunta */
 .question-container {
-  width: 100%;
-  background: rgba(15, 23, 42, 0.8) !important;
-  backdrop-filter: blur(10px);
+  background: rgba(15, 23, 42, 0.85) !important;
+  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 16px;
-  padding: 20px 30px;
+  border-left: 5px solid #ff4757;
+  border-radius: 14px;
+  padding: 18px 22px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
 }
 
 #question-text {
-  font-size: 1.8rem;
-  text-align: center;
+  font-size: 1.35rem;
+  line-height: 1.35;
   color: #ffffff;
+  font-weight: 600;
 }
 
-.options-grid {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+/* Opções Empilhadas (Lista Vertical) */
+.options-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .btn-option {
-  background: rgba(22, 33, 62, 0.8) !important;
+  background: rgba(22, 33, 62, 0.85) !important;
   backdrop-filter: blur(8px);
   color: #ffffff;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 14px;
-  padding: 22px 20px;
-  font-size: 1.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 1.15rem;
   font-weight: 600;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.opt-num {
+  background: #ff4757;
+  color: #ffffff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.opt-text {
+  flex: 1;
 }
 
 .btn-option.correta {
@@ -202,10 +246,18 @@ html, body {
   color: #ffffff !important;
 }
 
+.btn-option.correta .opt-num {
+  background: #27ae60;
+}
+
 .btn-option.incorreta {
   background-color: #e74c3c !important;
   border-color: #c0392b !important;
   color: #ffffff !important;
+}
+
+.btn-option.incorreta .opt-num {
+  background: #c0392b;
 }
 
 /* TELA RESULTADO */
@@ -215,15 +267,16 @@ html, body {
 }
 
 .result-card {
-  background: rgba(15, 23, 42, 0.85) !important;
+  background: rgba(15, 23, 42, 0.9) !important;
   backdrop-filter: blur(12px);
   padding: 40px 60px;
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
 }
 
 #result-message {
-  font-size: 3rem;
+  font-size: 2.8rem;
   font-weight: bold;
 }
