@@ -39,15 +39,32 @@ const btn1 = document.getElementById('btn-1');
 const btn2 = document.getElementById('btn-2');
 const btn3 = document.getElementById('btn-3');
 const resultMessage = document.getElementById('result-message');
+const webcamElement = document.getElementById('webcam');
 
 const optionButtons = [btn0, btn1, btn2, btn3];
 
-// Carregar perguntas do arquivo JSON com tratamento e fallback de nome
+// Inicializar Câmera em Modo Horizontal (Widescreen)
+async function iniciarCamera() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: {
+        width: { ideal: 1920 },
+        height: { ideal: 1080 },
+        facingMode: "user"
+      },
+      audio: false
+    });
+    webcamElement.srcObject = stream;
+  } catch (erro) {
+    console.error("Erro ao acessar a câmera:", erro);
+  }
+}
+
+// Carregar perguntas do arquivo JSON com tratamento e fallback
 async function carregarPerguntas() {
   try {
     let resposta = await fetch('perguntas.json');
     if (!resposta.ok) {
-      // Tenta com P maiúsculo caso o arquivo no GitHub esteja como Perguntas.json
       resposta = await fetch('Perguntas.json');
     }
     
@@ -59,7 +76,7 @@ async function carregarPerguntas() {
     console.log(`Sucesso! ${perguntas.length} perguntas carregadas.`);
   } catch (erro) {
     console.error('Erro ao carregar perguntas.json:', erro);
-    alert('Atenção: Não foi possível carregar o arquivo perguntas.json. Verifique o arquivo no GitHub.');
+    alert('Atenção: Não foi possível carregar o arquivo perguntas.json.');
   }
 }
 
@@ -291,6 +308,6 @@ btn2.addEventListener('click', () => verificarResposta(2));
 btn3.addEventListener('click', () => verificarResposta(3));
 
 // Inicialização
+iniciarCamera();
 carregarPerguntas();
 iniciarCarrosselFotos();
-  
