@@ -7,11 +7,15 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Elemento do vídeo da câmera em background -->
+  <video id="webcam" autoplay playsinline muted></video>
+  <div id="camera-overlay"></div>
+
   <div id="app">
-    <!-- Tela de Descanso / Apresentação -->
+    <!-- Tela de Descanso / Apresentação (Horizontal) -->
     <div id="screen-intro" class="screen active">
       <div class="intro-photo-container">
-        <img id="img-top" alt="Foto Noivos Topo" class="photo-landscape" style="display: none;">
+        <img id="img-top" alt="Foto Noivos Esquerda" class="photo-landscape" style="display: none;">
       </div>
       
       <div class="intro-content">
@@ -20,14 +24,20 @@
       </div>
 
       <div class="intro-photo-container">
-        <img id="img-bottom" alt="Foto Noivos Base" class="photo-landscape" style="display: none;">
+        <img id="img-bottom" alt="Foto Noivos Direita" class="photo-landscape" style="display: none;">
       </div>
     </div>
 
-    <!-- Tela do Jogo / Pergunta -->
+    <!-- Tela do Jogo / Pergunta (Grid 2x2 em Tela Cheia) -->
     <div id="screen-game" class="screen">
-      <div id="timer">20</div>
-      <h2 id="question-text">Carregando pergunta...</h2>
+      <div class="game-header">
+        <div id="timer">20</div>
+      </div>
+      
+      <div class="question-container">
+        <h2 id="question-text">Carregando pergunta...</h2>
+      </div>
+
       <div class="options-grid">
         <button class="btn-option" id="btn-0">1. Opção A</button>
         <button class="btn-option" id="btn-1">2. Opção B</button>
@@ -38,7 +48,9 @@
 
     <!-- Tela de Resultado / Feedback -->
     <div id="screen-result" class="screen">
-      <h1 id="result-message">RESPOSTA CORRETA!</h1>
+      <div class="result-card">
+        <h1 id="result-message">RESPOSTA CORRETA!</h1>
+      </div>
     </div>
   </div>
 
