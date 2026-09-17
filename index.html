@@ -8,43 +8,62 @@
 </head>
 <body>
 
-  <!-- Background Câmera -->
+  <!-- Câmera Escondida no Fundo (Sem exibição na tela de descanso) -->
   <video id="webcam" autoplay playsinline muted></video>
-  <div id="camera-overlay"></div>
+  <div id="camera-overlay" class="hidden"></div>
+  <canvas id="photo-canvas" style="display: none;"></canvas>
 
   <div id="app">
-    <!-- TELA 1: INTRODUÇÃO / DESCANSO -->
+    <!-- TELA 1: DESCANSO / PIX / PUBLICIDADE -->
     <div id="screen-intro" class="screen active">
       <div class="intro-photo-container">
-        <img id="img-top" class="photo-landscape" src="" alt="Foto 1">
+        <img id="img-top" class="photo-landscape" src="" alt="Foto Casal 1">
       </div>
 
       <div class="intro-content">
-        <!-- Espaço para Logo -->
-        <div class="logo-placeholder">
-          <span class="logo-text">💍 LOGO DOS NOIVOS 💍</span>
+        <div class="logo-box">
+          <span class="logo-text">Quiz</span>
         </div>
 
-        <h1 class="game-title">Quiz dos Noivos</h1>
+        <h1 class="game-title">Ajude os Noivos & Jogue! 💍</h1>
 
-        <button id="btn-start" class="btn-start-game">Já fiz minha contribuição e quero jogar! 🎁</button>
+        <!-- Espaço PIX -->
+        <div class="pix-container">
+          <p class="pix-title">Escaneie o QR Code para colaborar:</p>
+          <div class="qrcode-placeholder">
+            <!-- Substituir depois pela imagem do QR Code do PIX -->
+            <span class="qr-dummy">📲 [ QR CODE PIX ]</span>
+          </div>
+          <p class="pix-key">Chave PIX: <span>noivos@email.com</span></p>
+        </div>
+
+        <button id="btn-start" class="btn-start-game">Já fiz minha contribuição! 🎁</button>
 
         <p class="lgpd-notice">
-          Ao clicar para jogar, você concorda em gravar sua participação para a lembrança digital dos noivos. 🎥✨
+          Ao jogar, você autoriza a gravação do seu vídeo e foto para a recordação digital dos noivos. 🎥✨
         </p>
       </div>
 
       <div class="intro-photo-container">
-        <img id="img-bottom" class="photo-landscape" src="" alt="Foto 2">
+        <img id="img-bottom" class="photo-landscape" src="" alt="Foto Casal 2">
       </div>
     </div>
 
-    <!-- TELA 2: JOGO (HUD LATERAL) -->
+    <!-- TELA 2: CONTAGEM REGRESSIVA (3s) -->
+    <div id="screen-countdown" class="screen">
+      <div class="countdown-overlay">
+        <h2>Prepare-se... 📸</h2>
+        <span id="countdown-number">3</span>
+      </div>
+    </div>
+
+    <!-- TELA 3: JOGO -->
     <div id="screen-game" class="screen">
       <div class="quiz-sidebar">
         
-        <div class="timer-badge">
-          <span id="timer" class="timer-verde">20</span>
+        <!-- Topo: Logo "Quiz" -->
+        <div class="logo-box-game">
+          <span class="logo-text">Quiz</span>
         </div>
 
         <div class="question-container">
@@ -58,17 +77,38 @@
           <button id="btn-3" class="btn-option"><span class="opt-num">4</span> <span class="opt-text">Opção 4</span></button>
         </div>
 
-        <!-- Feedback exibido no canto inferior esquerdo -->
-        <div id="feedback-banner" class="feedback-banner hidden">
-          <span id="feedback-emoji">🎉</span>
-          <span id="feedback-text">RESPOSTA CORRETA!</span>
+        <!-- Zona Inferior: Timer (Substituído pelo Feedback) -->
+        <div class="bottom-status-zone">
+          <div id="timer-badge" class="timer-badge">
+            <span id="timer" class="timer-verde">20</span>
+          </div>
+
+          <div id="feedback-banner" class="feedback-banner hidden">
+            <span id="feedback-emoji">🎉</span>
+            <span id="feedback-text">RESPOSTA CORRETA!</span>
+          </div>
         </div>
 
       </div>
 
-      <!-- Zona livre da câmera -->
+      <!-- Zona Limpa da Câmera -->
       <div class="camera-viewport-zone"></div>
     </div>
+
+    <!-- TELA 4: AGRADECIMENTO & FOTO DA REAÇÃO -->
+    <div id="screen-thanks" class="screen">
+      <div class="thanks-card">
+        <h2>Muito Obrigado por Participar! ❤️</h2>
+        <p>Sua reação foi registrada com sucesso:</p>
+        
+        <div class="captured-photo-frame">
+          <img id="captured-photo" src="" alt="Sua Reação">
+        </div>
+
+        <p class="thanks-footer">Os noivos amaram sua presença!</p>
+      </div>
+    </div>
+
   </div>
 
   <script src="script.js"></script>
