@@ -1,5 +1,5 @@
 // ======================================================
-// CONFIGURAÇÕES E ESTADO DO QUIZ (VERSÃO LEVE PARA TABLET)
+// CONFIGURAÇÕES E ESTADO DO QUIZ (MODO ULTRA LEVE)
 // ======================================================
 let perguntas = [];
 let perguntaAtual = null;
@@ -27,25 +27,22 @@ document.addEventListener('DOMContentLoaded', () => {
     iniciarCameraBackground();
 });
 
-// Inicializa o Canvas Compositor Otimizado (HD Leve)
 function inicializarCompositor() {
     renderCanvas = document.createElement('canvas');
     renderCanvas.width = 1280;
     renderCanvas.height = 720;
-    renderCtx = renderCanvas.getContext('2d', { alpha: false }); // Desativa alpha para maior desempenho de GPU
+    renderCtx = renderCanvas.getContext('2d', { alpha: false, willReadFrequently: false });
 }
 
-// Carrega as perguntas do perguntas.json
 async function carregarPerguntas() {
     try {
         const response = await fetch('perguntas.json');
         perguntas = await response.json();
     } catch (error) {
-        console.error('Erro ao carregar o arquivo perguntas.json:', error);
+        console.error('Erro ao carregar perguntas.json:', error);
     }
 }
 
-// Inicia a câmera com resolução ideal para o tablet
 async function iniciarCameraBackground() {
     try {
         if (!cameraStream) {
@@ -60,7 +57,7 @@ async function iniciarCameraBackground() {
             }
         }
     } catch (err) {
-        console.warn("Aviso: Câmera não detectada ou permissão negada.", err);
+        console.warn("Aviso na Câmera:", err);
     }
 }
 
@@ -169,16 +166,26 @@ function atualizarHTMLJogo() {
 }
 
 // ======================================================
-// RENDERIZAÇÃO EM TEMPO REAL NO CANVAS (SEM LAG)
+// RENDERIZAÇÃO NO CANVAS (20 FPS - BAIXO CONSUMO)
 // ======================================================
-function desenharTelaJogo() {
+let ultimoFrameTempo = 0;
+const fpsDesejado = 20;
+const intervaloFrame = 1000 / fpsDesejado;
+
+function desenharTelaJogo(tempoAtual) {
     if (!renderCtx) return;
+
+    animFrameId = requestAnimationFrame(desenharTelaJogo);
+
+    const delta = tempoAtual - ultimoFrameTempo;
+    if (delta < intervaloFrame) return; // Controla taxa de quadros para aliviar CPU
+    ultimoFrameTempo = tempoAtual - (delta % intervaloFrame);
 
     // 1. Fundo do Game Show
     renderCtx.fillStyle = '#0f172a';
     renderCtx.fillRect(0, 0, renderCanvas.width, renderCanvas.height);
 
-    // 2. Feed da Câmera (Metade Direita)
+    // 2. Feed da Câmera Espelhada (Lado Direito)
     const videoElement = document.getElementById('webcam');
     if (videoElement && videoElement.readyState >= 2) {
         renderCtx.save();
@@ -204,7 +211,7 @@ function desenharTelaJogo() {
         quebrarTexto(renderCtx, perguntaAtual.pergunta, 60, 75, 520, 26);
     }
 
-    // 4. Botões de Alternativas
+    // 4. Botões das Alternativas
     if (perguntaAtual && perguntaAtual.opcoes) {
         const startY = 210;
         const btnHeight = 85;
@@ -245,8 +252,6 @@ function desenharTelaJogo() {
     renderCtx.fillStyle = '#ffffff';
     renderCtx.font = 'bold 18px sans-serif';
     renderCtx.fillText('QUIZ DOS NOIVOS', 440, 680);
-
-    animFrameId = requestAnimationFrame(desenharTelaJogo);
 }
 
 function quebrarTexto(ctx, text, x, y, maxWidth, lineHeight) {
@@ -268,7 +273,7 @@ function quebrarTexto(ctx, text, x, y, maxWidth, lineHeight) {
 }
 
 // ======================================================
-// RESPOSTAS E FEEDBACK LEVES
+// RESPOSTAS E CAPTURA DA FOTO DE CENÁRIO
 // ======================================================
 function responder(index) {
     if (!jogoAtivo) return;
@@ -290,10 +295,10 @@ function processarResposta(index) {
         }
     }
 
-    // 2s de pausa para registrar a reação no vídeo antes do banner
+    // 2s de pausa para registrar a reação no vídeo
     setTimeout(() => {
         exibirFeedback(acertou);
-        capturarFotoLeve(); // Foto capturada somente aqui para aliviar processamento no clique
+        capturarFotoComCenario(); // Tira a foto pegando o Canvas inteiro com o cenário do jogo!
     }, 2000);
 
     // 10s depois finaliza a rodada e salva o vídeo
@@ -315,36 +320,24 @@ function exibirFeedback(acertou) {
     }
 }
 
-// Captura de foto assíncrona ultra leve (via Blob direto)
-function capturarFotoLeve() {
-    const videoEl = document.getElementById('webcam');
-    const canvasFoto = document.getElementById('photo-canvas');
+// Captura a foto diretamente do Canvas do Cenário (Perguntas + Respostas + Reação)
+function capturarFotoComCenario() {
     const imgDestino = document.getElementById('captured-photo');
-
-    if (videoEl && canvasFoto && imgDestino) {
-        canvasFoto.width = 640;
-        canvasFoto.height = 480;
-        const ctx = canvasFoto.getContext('2d');
-        ctx.drawImage(videoEl, 0, 0, 640, 480);
-        
-        canvasFoto.toBlob((blob) => {
+    if (renderCanvas && imgDestino) {
+        renderCanvas.toBlob((blob) => {
             if (blob) {
                 const url = URL.createObjectURL(blob);
                 imgDestino.src = url;
             }
-        }, 'image/jpeg', 0.8);
+        }, 'image/jpeg', 0.85);
     }
 }
 
 // ======================================================
-// ENCERRAMENTO E SALVAMENTO AUTOMÁTICO
+// ENCERRAMENTO E LIMPEZA DE MEMÓRIA (O SEGREDO DO TABLET)
 // ======================================================
 function obterMimeTypeSuportado() {
-    const tipos = [
-        'video/webm;codecs=vp8',
-        'video/webm',
-        'video/mp4'
-    ];
+    const tipos = ['video/webm;codecs=vp8', 'video/webm', 'video/mp4'];
     for (let tipo of tipos) {
         if (window.MediaRecorder && MediaRecorder.isTypeSupported(tipo)) {
             return tipo;
@@ -354,9 +347,9 @@ function obterMimeTypeSuportado() {
 }
 
 function iniciarGravaçãoCanvas() {
-    desenharTelaJogo();
+    animFrameId = requestAnimationFrame(desenharTelaJogo);
 
-    const canvasStream = renderCanvas.captureStream(25); // 25 FPS para aliviar a GPU do tablet
+    const canvasStream = renderCanvas.captureStream(20); // 20 FPS para rodar macio no tablet
     if (cameraStream && cameraStream.getAudioTracks().length > 0) {
         canvasStream.addTrack(cameraStream.getAudioTracks()[0]);
     }
@@ -366,7 +359,7 @@ function iniciarGravaçãoCanvas() {
 
     try {
         if (mimeTypeSuportado) {
-            mediaRecorder = new MediaRecorder(canvasStream, { mimeType: mimeTypeSuportado, videoBitsPerSecond: 2500000 });
+            mediaRecorder = new MediaRecorder(canvasStream, { mimeType: mimeTypeSuportado, videoBitsPerSecond: 2000000 });
         } else {
             mediaRecorder = new MediaRecorder(canvasStream);
         }
@@ -394,7 +387,7 @@ function finalizarEIrParaObrigado() {
 
 function salvarVideoFinal() {
     if (!recordedChunks.length) {
-        mostrarTela('screen-intro');
+        limparEMultarParaInicio();
         return;
     }
 
@@ -413,8 +406,17 @@ function salvarVideoFinal() {
     setTimeout(() => {
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);
-        setTimeout(() => {
-            mostrarTela('screen-intro');
-        }, 4000);
+        limparEMultarParaInicio();
     }, 500);
+}
+
+// Limpeza completa de variáveis da RAM para a próxima partida
+function limparEMultarParaInicio() {
+    recordedChunks = [];
+    respostaSelecionada = null;
+    perguntaAtual = null;
+
+    setTimeout(() => {
+        mostrarTela('screen-intro');
+    }, 4000);
 }
