@@ -1,5 +1,5 @@
 // ======================================================
-// CONFIGURAÇÕES E ESTADO DO QUIZ
+// CONFIGURAÇÕES E ESTADO DO QUIZ (VERSÃO LEVE PARA TABLET)
 // ======================================================
 let perguntas = [];
 let perguntaAtual = null;
@@ -27,12 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
     iniciarCameraBackground();
 });
 
-// Inicializa o Canvas Compositor (Full HD 16:9)
+// Inicializa o Canvas Compositor Otimizado (HD Leve)
 function inicializarCompositor() {
     renderCanvas = document.createElement('canvas');
     renderCanvas.width = 1280;
     renderCanvas.height = 720;
-    renderCtx = renderCanvas.getContext('2d');
+    renderCtx = renderCanvas.getContext('2d', { alpha: false }); // Desativa alpha para maior desempenho de GPU
 }
 
 // Carrega as perguntas do perguntas.json
@@ -45,7 +45,7 @@ async function carregarPerguntas() {
     }
 }
 
-// Inicia a câmera em segundo plano para estar pronta
+// Inicia a câmera com resolução ideal para o tablet
 async function iniciarCameraBackground() {
     try {
         if (!cameraStream) {
@@ -64,14 +64,12 @@ async function iniciarCameraBackground() {
     }
 }
 
-// Vincula o botão inicial e os botões de resposta
 function vincularEventos() {
     const btnStart = document.getElementById('btn-start');
     if (btnStart) {
         btnStart.addEventListener('click', iniciarFluxoJogo);
     }
 
-    // Vincula os 4 botões de opções do HTML
     for (let i = 0; i < 4; i++) {
         const btnOpt = document.getElementById(`btn-${i}`);
         if (btnOpt) {
@@ -80,7 +78,6 @@ function vincularEventos() {
     }
 }
 
-// Alterna entre as telas com a classe .active do seu CSS
 function mostrarTela(idTela) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     const telaDestino = document.getElementById(idTela);
@@ -98,12 +95,10 @@ async function iniciarFluxoJogo() {
         return;
     }
 
-    // Ativa câmera e overlay de fundo se necessário
     await iniciarCameraBackground();
     const webcamEl = document.getElementById('webcam');
     if (webcamEl) webcamEl.classList.add('active');
 
-    // 1. Vai para a TELA 2: CONTAGEM REGRESSIVA
     mostrarTela('screen-countdown');
     let contador = 3;
     const countEl = document.getElementById('countdown-number');
@@ -121,21 +116,17 @@ async function iniciarFluxoJogo() {
 }
 
 function iniciarPartidaEGravação() {
-    // Sorteia 1 pergunta do JSON
     const sorteadas = [...perguntas].sort(() => Math.random() - 0.5);
     perguntaAtual = sorteadas[0];
     respostaSelecionada = null;
     jogoAtivo = true;
     tempoRestante = 20;
 
-    // Atualiza a TELA 3: JOGO no HTML
     atualizarHTMLJogo();
     mostrarTela('screen-game');
 
-    // Inicia a gravação do Canvas em tempo real
     iniciarGravaçãoCanvas();
 
-    // Inicia o Timer de 20s
     const timerEl = document.getElementById('timer');
     if (timerEl) {
         timerEl.innerText = tempoRestante;
@@ -153,7 +144,7 @@ function iniciarPartidaEGravação() {
                 else if (tempoRestante <= 15) timerEl.className = 'timer-amarelo';
             }
         } else if (tempoRestante === 0 && jogoAtivo) {
-            processarResposta(-1); // Tempo Esgotado
+            processarResposta(-1);
         }
     }, 1000);
 }
@@ -162,7 +153,6 @@ function atualizarHTMLJogo() {
     const qText = document.getElementById('question-text');
     if (qText) qText.innerText = perguntaAtual.pergunta;
 
-    // Restaura classes e textos das 4 opções
     for (let i = 0; i < 4; i++) {
         const btn = document.getElementById(`btn-${i}`);
         if (btn) {
@@ -174,13 +164,12 @@ function atualizarHTMLJogo() {
         }
     }
 
-    // Reseta o feedback banner
     const fbBanner = document.getElementById('feedback-banner');
     if (fbBanner) fbBanner.classList.add('hidden');
 }
 
 // ======================================================
-// RENDERIZAÇÃO EM TEMPO REAL NO CANVAS (O VÍDEO COMPLETO)
+// RENDERIZAÇÃO EM TEMPO REAL NO CANVAS (SEM LAG)
 // ======================================================
 function desenharTelaJogo() {
     if (!renderCtx) return;
@@ -192,7 +181,6 @@ function desenharTelaJogo() {
     // 2. Feed da Câmera (Metade Direita)
     const videoElement = document.getElementById('webcam');
     if (videoElement && videoElement.readyState >= 2) {
-        // Espelha a câmera no canvas para ficar natural
         renderCtx.save();
         renderCtx.translate(1280, 0);
         renderCtx.scale(-1, 1);
@@ -200,7 +188,7 @@ function desenharTelaJogo() {
         renderCtx.restore();
     }
 
-    // 3. Painel da Pergunta (Lado Esquerdo)
+    // 3. Painel da Pergunta
     renderCtx.fillStyle = '#1e293b';
     if (renderCtx.roundRect) {
         renderCtx.beginPath();
@@ -216,7 +204,7 @@ function desenharTelaJogo() {
         quebrarTexto(renderCtx, perguntaAtual.pergunta, 60, 75, 520, 26);
     }
 
-    // 4. Botões de Alternativas (1, 2, 3, 4)
+    // 4. Botões de Alternativas
     if (perguntaAtual && perguntaAtual.opcoes) {
         const startY = 210;
         const btnHeight = 85;
@@ -228,9 +216,9 @@ function desenharTelaJogo() {
             let btnColor = '#1e293b';
             if (respostaSelecionada !== null) {
                 if (index === perguntaAtual.correta) {
-                    btnColor = '#2ecc71'; // Verde
+                    btnColor = '#2ecc71';
                 } else if (index === respostaSelecionada) {
-                    btnColor = '#e74c3c'; // Vermelho
+                    btnColor = '#e74c3c';
                 }
             }
 
@@ -243,14 +231,13 @@ function desenharTelaJogo() {
                 renderCtx.fillRect(40, y, 560, btnHeight);
             }
 
-            // Texto da Alternativa
             renderCtx.fillStyle = '#ffffff';
             renderCtx.font = 'bold 18px sans-serif';
             renderCtx.fillText(`${index + 1}. ${opcao}`, 60, y + 48);
         });
     }
 
-    // 5. Rodapé / Status
+    // 5. Rodapé
     renderCtx.fillStyle = '#ff4757';
     renderCtx.font = 'bold 16px sans-serif';
     renderCtx.fillText(`TEMPO: ${tempoRestante}s`, 40, 680);
@@ -281,7 +268,7 @@ function quebrarTexto(ctx, text, x, y, maxWidth, lineHeight) {
 }
 
 // ======================================================
-// RESPOSTAS E FEEDBACK
+// RESPOSTAS E FEEDBACK LEVES
 // ======================================================
 function responder(index) {
     if (!jogoAtivo) return;
@@ -295,7 +282,6 @@ function processarResposta(index) {
 
     const acertou = (index === perguntaAtual.correta);
 
-    // Destaca no HTML
     for (let i = 0; i < 4; i++) {
         const btn = document.getElementById(`btn-${i}`);
         if (btn) {
@@ -304,12 +290,10 @@ function processarResposta(index) {
         }
     }
 
-    // Captura foto instantânea para a tela final de agradecimento
-    capturarFotoReacao();
-
-    // 2s de pausa para gravar a reação da pessoa antes do banner
+    // 2s de pausa para registrar a reação no vídeo antes do banner
     setTimeout(() => {
         exibirFeedback(acertou);
+        capturarFotoLeve(); // Foto capturada somente aqui para aliviar processamento no clique
     }, 2000);
 
     // 10s depois finaliza a rodada e salva o vídeo
@@ -331,28 +315,34 @@ function exibirFeedback(acertou) {
     }
 }
 
-function capturarFotoReacao() {
+// Captura de foto assíncrona ultra leve (via Blob direto)
+function capturarFotoLeve() {
     const videoEl = document.getElementById('webcam');
     const canvasFoto = document.getElementById('photo-canvas');
     const imgDestino = document.getElementById('captured-photo');
 
     if (videoEl && canvasFoto && imgDestino) {
-        canvasFoto.width = videoEl.videoWidth || 640;
-        canvasFoto.height = videoEl.videoHeight || 480;
+        canvasFoto.width = 640;
+        canvasFoto.height = 480;
         const ctx = canvasFoto.getContext('2d');
-        ctx.drawImage(videoEl, 0, 0, canvasFoto.width, canvasFoto.height);
-        imgDestino.src = canvasFoto.toDataURL('image/png');
+        ctx.drawImage(videoEl, 0, 0, 640, 480);
+        
+        canvasFoto.toBlob((blob) => {
+            if (blob) {
+                const url = URL.createObjectURL(blob);
+                imgDestino.src = url;
+            }
+        }, 'image/jpeg', 0.8);
     }
 }
 
 // ======================================================
-// ENCERRAMENTO E SALVAMENTO AUTOMÁTICO (BLINDADO)
+// ENCERRAMENTO E SALVAMENTO AUTOMÁTICO
 // ======================================================
 function obterMimeTypeSuportado() {
     const tipos = [
-        'video/webm;codecs=vp8,opus',
+        'video/webm;codecs=vp8',
         'video/webm',
-        'video/mp4;codecs=avc1',
         'video/mp4'
     ];
     for (let tipo of tipos) {
@@ -366,7 +356,7 @@ function obterMimeTypeSuportado() {
 function iniciarGravaçãoCanvas() {
     desenharTelaJogo();
 
-    const canvasStream = renderCanvas.captureStream(30);
+    const canvasStream = renderCanvas.captureStream(25); // 25 FPS para aliviar a GPU do tablet
     if (cameraStream && cameraStream.getAudioTracks().length > 0) {
         canvasStream.addTrack(cameraStream.getAudioTracks()[0]);
     }
@@ -376,12 +366,11 @@ function iniciarGravaçãoCanvas() {
 
     try {
         if (mimeTypeSuportado) {
-            mediaRecorder = new MediaRecorder(canvasStream, { mimeType: mimeTypeSuportado });
+            mediaRecorder = new MediaRecorder(canvasStream, { mimeType: mimeTypeSuportado, videoBitsPerSecond: 2500000 });
         } else {
             mediaRecorder = new MediaRecorder(canvasStream);
         }
     } catch (e) {
-        console.warn("MediaRecorder fallback acionado:", e);
         mediaRecorder = new MediaRecorder(canvasStream);
     }
 
@@ -390,7 +379,7 @@ function iniciarGravaçãoCanvas() {
     };
 
     mediaRecorder.onstop = salvarVideoFinal;
-    mediaRecorder.start(1000); // Fatiamento de 1s para alívio de memória
+    mediaRecorder.start(1000);
 }
 
 function finalizarEIrParaObrigado() {
@@ -405,7 +394,6 @@ function finalizarEIrParaObrigado() {
 
 function salvarVideoFinal() {
     if (!recordedChunks.length) {
-        console.warn("Nenhum fragmento de vídeo gravado.");
         mostrarTela('screen-intro');
         return;
     }
@@ -425,9 +413,8 @@ function salvarVideoFinal() {
     setTimeout(() => {
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);
-        // Retorna para a tela de descanso
         setTimeout(() => {
             mostrarTela('screen-intro');
-        }, 5000);
+        }, 4000);
     }, 500);
 }
