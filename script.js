@@ -346,8 +346,23 @@ function capturarFotoReacao() {
 }
 
 // ======================================================
-// ENCERRAMENTO E SALVAMENTO AUTOMÁTICO
+// ENCERRAMENTO E SALVAMENTO AUTOMÁTICO (BLINDADO)
 // ======================================================
+function obterMimeTypeSuportado() {
+    const tipos = [
+        'video/webm;codecs=vp8,opus',
+        'video/webm',
+        'video/mp4;codecs=avc1',
+        'video/mp4'
+    ];
+    for (let tipo of tipos) {
+        if (window.MediaRecorder && MediaRecorder.isTypeSupported(tipo)) {
+            return tipo;
+        }
+    }
+    return '';
+}
+
 function iniciarGravaçãoCanvas() {
     desenharTelaJogo();
 
@@ -357,18 +372,25 @@ function iniciarGravaçãoCanvas() {
     }
 
     recordedChunks = [];
+    const mimeTypeSuportado = obterMimeTypeSuportado();
+
     try {
-        mediaRecorder = new MediaRecorder(canvasStream, { mimeType: 'video/webm;codecs=vp9' });
+        if (mimeTypeSuportado) {
+            mediaRecorder = new MediaRecorder(canvasStream, { mimeType: mimeTypeSuportado });
+        } else {
+            mediaRecorder = new MediaRecorder(canvasStream);
+        }
     } catch (e) {
+        console.warn("MediaRecorder fallback acionado:", e);
         mediaRecorder = new MediaRecorder(canvasStream);
     }
 
     mediaRecorder.ondataavailable = (e) => {
-        if (e.data.size > 0) recordedChunks.push(e.data);
+        if (e.data && e.data.size > 0) recordedChunks.push(e.data);
     };
 
     mediaRecorder.onstop = salvarVideoFinal;
-    mediaRecorder.start();
+    mediaRecorder.start(1000); // Fatiamento de 1s para alívio de memória
 }
 
 function finalizarEIrParaObrigado() {
@@ -382,21 +404,30 @@ function finalizarEIrParaObrigado() {
 }
 
 function salvarVideoFinal() {
-    const blob = new Blob(recordedChunks, { type: 'video/webm' });
+    if (!recordedChunks.length) {
+        console.warn("Nenhum fragmento de vídeo gravado.");
+        mostrarTela('screen-intro');
+        return;
+    }
+
+    const mimeTypeUsado = (mediaRecorder && mediaRecorder.mimeType) ? mediaRecorder.mimeType : 'video/webm';
+    const extensao = mimeTypeUsado.includes('mp4') ? 'mp4' : 'webm';
+
+    const blob = new Blob(recordedChunks, { type: mimeTypeUsado });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.style.display = 'none';
     a.href = url;
-    a.download = `quiz_noivos_${Date.now()}.webm`;
+    a.download = `quiz_noivos_${Date.now()}.${extensao}`;
     document.body.appendChild(a);
     a.click();
 
     setTimeout(() => {
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);
-        // Reinicia para a tela de descanso após o download
+        // Retorna para a tela de descanso
         setTimeout(() => {
             mostrarTela('screen-intro');
         }, 5000);
-    }, 200);
+    }, 500);
 }
