@@ -13,18 +13,6 @@
   },
   {
     "id": 2,
-    "categoria": "casal",
-    "pergunta": "Quem é mais provável de esquecer onde deixou as chaves de casa?",
-    "opcoes": [
-      "O Noivo",
-      "A Noiva",
-      "Os dois empatados",
-      "Nenhum dos dois"
-    ],
-    "correta": 0
-  },
-  {
-    "id": 3,
     "categoria": "biblia",
     "pergunta": "Qual personagem bíblico construiu a arca para se salvar do Dilúvio?",
     "opcoes": [
@@ -36,7 +24,7 @@
     "correta": 2
   },
   {
-    "id": 4,
+    "id": 3,
     "categoria": "biblia",
     "pergunta": "Quantos mandamentos foram gravados nas tábuas da lei entregues a Moisés?",
     "opcoes": [
@@ -48,7 +36,7 @@
     "correta": 2
   },
   {
-    "id": 5,
+    "id": 4,
     "categoria": "biblia",
     "pergunta": "Em qual cidade Jesus nasceu?",
     "opcoes": [
@@ -60,7 +48,7 @@
     "correta": 1
   },
   {
-    "id": 6,
+    "id": 5,
     "categoria": "biblia",
     "pergunta": "Quem foi engolido por um grande peixe após tentar fugir da ordem de Deus?",
     "opcoes": [
@@ -72,7 +60,7 @@
     "correta": 0
   },
   {
-    "id": 7,
+    "id": 6,
     "categoria": "biblia",
     "pergunta": "Qual o nome do mar que se abriu para o povo de Israel passar?",
     "opcoes": [
@@ -84,11 +72,11 @@
     "correta": 2
   },
   {
-    "id": 8,
+    "id": 7,
     "categoria": "biblia",
     "pergunta": "Qual é o primeiro livro do Antigo Testamento?",
     "opcoes": [
-      "Éxodo",
+      "Êxodo",
       "Gênesis",
       "Levítico",
       "Salmos"
@@ -96,7 +84,7 @@
     "correta": 1
   },
   {
-    "id": 9,
+    "id": 8,
     "categoria": "biblia",
     "pergunta": "Quem derrotou o gigante Golias apenas com uma funda e uma pedra?",
     "opcoes": [
@@ -108,7 +96,7 @@
     "correta": 2
   },
   {
-    "id": 10,
+    "id": 9,
     "categoria": "biblia",
     "pergunta": "Quantos discípulos principais (apóstolos) Jesus escolheu?",
     "opcoes": [
@@ -120,7 +108,7 @@
     "correta": 1
   },
   {
-    "id": 11,
+    "id": 10,
     "categoria": "biblia",
     "pergunta": "Quem foi a esposa de Abraão e mãe de Isaque?",
     "opcoes": [
@@ -132,7 +120,7 @@
     "correta": 0
   },
   {
-    "id": 12,
+    "id": 11,
     "categoria": "biblia",
     "pergunta": "Qual homem bíblico era conhecido por sua incrível força que residia em seu cabelo?",
     "opcoes": [
@@ -144,7 +132,7 @@
     "correta": 1
   },
   {
-    "id": 13,
+    "id": 12,
     "categoria": "biblia",
     "pergunta": "Em qual rio Jesus foi batizado por João Batista?",
     "opcoes": [
@@ -156,7 +144,7 @@
     "correta": 2
   },
   {
-    "id": 14,
+    "id": 13,
     "categoria": "biblia",
     "pergunta": "Quem foi lançado na cova dos leões por continuar orando a Deus?",
     "opcoes": [
@@ -168,7 +156,7 @@
     "correta": 0
   },
   {
-    "id": 15,
+    "id": 14,
     "categoria": "biblia",
     "pergunta": "Qual era a profissão de José, o pai terrestre de Jesus?",
     "opcoes": [
@@ -180,7 +168,7 @@
     "correta": 2
   },
   {
-    "id": 16,
+    "id": 15,
     "categoria": "biblia",
     "pergunta": "Qual o último livro da Bíblia Sagrada?",
     "opcoes": [
@@ -192,7 +180,7 @@
     "correta": 2
   },
   {
-    "id": 17,
+    "id": 16,
     "categoria": "biblia",
     "pergunta": "Quem traiu Jesus por 30 moedas de prata?",
     "opcoes": [
@@ -204,7 +192,7 @@
     "correta": 1
   },
   {
-    "id": 18,
+    "id": 17,
     "categoria": "biblia",
     "pergunta": "Qual rei pediu a Deus sabedoria para governar o povo em vez de riqueza?",
     "opcoes": [
@@ -216,7 +204,7 @@
     "correta": 1
   },
   {
-    "id": 19,
+    "id": 18,
     "categoria": "biblia",
     "pergunta": "Quem foi vendido como escravo por seus irmãos e depois se tornou governador do Egito?",
     "opcoes": [
@@ -228,7 +216,7 @@
     "correta": 1
   },
   {
-    "id": 20,
+    "id": 19,
     "categoria": "biblia",
     "pergunta": "Qual profeta subiu ao céu em um redemoinho com um carro de fogo?",
     "opcoes": [
@@ -240,7 +228,7 @@
     "correta": 1
   },
   {
-    "id": 21,
+    "id": 20,
     "categoria": "biblia",
     "pergunta": "Quantos dias e noites choveu durante o Dilúvio?",
     "opcoes": [
@@ -252,7 +240,7 @@
     "correta": 2
   },
   {
-    "id": 22,
+    "id": 21,
     "categoria": "biblia",
     "pergunta": "Quem negou a Jesus três vezes antes que o galo cantasse?",
     "opcoes": [
@@ -264,7 +252,7 @@
     "correta": 1
   },
   {
-    "id": 23,
+    "id": 22,
     "categoria": "biblia",
     "pergunta": "Qual instrumento musical Davi tocava para acalmar o rei Saul?",
     "opcoes": [
@@ -276,7 +264,7 @@
     "correta": 1
   },
   {
-    "id": 24,
+    "id": 23,
     "categoria": "biblia",
     "pergunta": "Qual apóstolo era conhecido por sua dúvida e só acreditou na ressurreição ao ver as marcas?",
     "opcoes": [
@@ -288,7 +276,7 @@
     "correta": 0
   },
   {
-    "id": 25,
+    "id": 24,
     "categoria": "biblia",
     "pergunta": "Qual moabita demonstrou lealdade à sua sogra Noemi dizendo 'o teu povo será o meu povo'?",
     "opcoes": [
@@ -300,7 +288,7 @@
     "correta": 1
   },
   {
-    "id": 26,
+    "id": 25,
     "categoria": "biblia",
     "pergunta": "Qual homem viveu mais tempo segundo os registros bíblicos (969 anos)?",
     "opcoes": [
@@ -312,7 +300,7 @@
     "correta": 0
   },
   {
-    "id": 27,
+    "id": 26,
     "categoria": "biblia",
     "pergunta": "Em qual monte Moisés recebeu as Tábuas da Lei?",
     "opcoes": [
@@ -324,19 +312,19 @@
     "correta": 1
   },
   {
-    "id": 28,
+    "id": 27,
     "categoria": "biblia",
     "pergunta": "Qual rainha arriscou a própria vida para salvar o povo judeu do decreto de Hamã?",
     "opcoes": [
       "Jezabel",
       "Ester",
-      "Abaliah",
+      "Atalia",
       "Bate-Seba"
     ],
     "correta": 1
   },
   {
-    "id": 29,
+    "id": 28,
     "categoria": "biblia",
     "pergunta": "Quem foi ressuscitado por Jesus após estar morto há quatro dias?",
     "opcoes": [
@@ -348,7 +336,7 @@
     "correta": 0
   },
   {
-    "id": 30,
+    "id": 29,
     "categoria": "biblia",
     "pergunta": "Qual o nome do jardim onde Adão e Eva moravam originalmente?",
     "opcoes": [
@@ -360,7 +348,1471 @@
     "correta": 1
   },
   {
+    "id": 30,
+    "categoria": "biblia",
+    "pergunta": "Quem sucedeu a Moisés como líder do povo de Israel rumo à Terra Prometida?",
+    "opcoes": [
+      "Calebe",
+      "Josué",
+      "Gideão",
+      "Arão"
+    ],
+    "correta": 1
+  },
+  {
     "id": 31,
+    "categoria": "biblia",
+    "pergunta": "Qual era a profissão de Mateus antes de seguir a Jesus?",
+    "opcoes": [
+      "Pescador",
+      "Cobrador de impostos",
+      "Médico",
+      "Sacerdote"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 32,
+    "categoria": "biblia",
+    "pergunta": "Qual era a profissão de Lucas, o autor de um dos evangelhos?",
+    "opcoes": [
+      "Pescador",
+      "Médico",
+      "Cobrador de impostos",
+      "Carpinteiro"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 33,
+    "categoria": "biblia",
+    "pergunta": "Qual apóstolo foi perseguidor dos cristãos antes de sua conversão na estrada para Damasco?",
+    "opcoes": [
+      "Pedro",
+      "Paulo",
+      "Barnabé",
+      "Estêvão"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 34,
+    "categoria": "biblia",
+    "pergunta": "Qual cidade teve suas muralhas derrubadas após o povo marchar ao seu redor por sete dias?",
+    "opcoes": [
+      "Jericó",
+      "Babilônia",
+      "Nínive",
+      "Jerusalém"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 35,
+    "categoria": "biblia",
+    "pergunta": "Quem foi o primeiro rei de Israel?",
+    "opcoes": [
+      "Davi",
+      "Saul",
+      "Salomão",
+      "Ezequias"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 36,
+    "categoria": "biblia",
+    "pergunta": "Qual profeta foi engolido por um peixe e pregou para a cidade de Nínive?",
+    "opcoes": [
+      "Jonas",
+      "Naum",
+      "Amós",
+      "Habacuque"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 37,
+    "categoria": "biblia",
+    "pergunta": "Qual mulher escondeu os espias israelitas em Jericó?",
+    "opcoes": [
+      "Raabe",
+      "Débora",
+      "Dalila",
+      "Miriã"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 38,
+    "categoria": "biblia",
+    "pergunta": "Qual juíza e profetisa liderou Israel na vitória contra Sísera?",
+    "opcoes": [
+      "Miriã",
+      "Débora",
+      "Ana",
+      "Hulda"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 39,
+    "categoria": "biblia",
+    "pergunta": "Quem interpretou os sonhos do Faraó sobre as vacas gordas e magras?",
+    "opcoes": [
+      "Daniel",
+      "José",
+      "Moisés",
+      "Mardoqueu"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 40,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome do filho da promessa nascido de Abraão e Sara em sua velhice?",
+    "opcoes": [
+      "Ismael",
+      "Isaque",
+      "Jacó",
+      "Esaú"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 41,
+    "categoria": "biblia",
+    "pergunta": "Qual irmão vendeu seu direito de primogenitura por um prato de lentilhas?",
+    "opcoes": [
+      "Jacó",
+      "Esaú",
+      "José",
+      "Ruben"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 42,
+    "categoria": "biblia",
+    "pergunta": "Quem teve o nome mudado para Israel após lutar com um anjo de Deus?",
+    "opcoes": [
+      "Abraão",
+      "Jacó",
+      "Moisés",
+      "Gideão"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 43,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome do irmão de Moisés que serviu como seu porta-voz e primeiro sumo sacerdote?",
+    "opcoes": [
+      "Arão",
+      "Josué",
+      "Hur",
+      "Calebe"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 44,
+    "categoria": "biblia",
+    "pergunta": "Qual a irmã de Moisés e Arão que liderou os louvores após a travessia do Mar Vermelho?",
+    "opcoes": [
+      "Miriã",
+      "Zípora",
+      "Joquebede",
+      "Lia"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 45,
+    "categoria": "biblia",
+    "pergunta": "Quem foi a mãe de Samuel, que orou fervorosamente no templo pedindo um filho?",
+    "opcoes": [
+      "Penina",
+      "Ana",
+      "Isabel",
+      "Raquel"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 46,
+    "categoria": "biblia",
+    "pergunta": "Quem foi o sumo sacerdote que criou o jovem Samuel no tabernáculo?",
+    "opcoes": [
+      "Eli",
+      "Arão",
+      "Zadoque",
+      "Caifás"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 47,
+    "categoria": "biblia",
+    "pergunta": "Qual o melhor amigo de Davi, filho do rei Saul?",
+    "opcoes": [
+      "Jônatas",
+      "Abner",
+      "Joabe",
+      "Absalão"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 48,
+    "categoria": "biblia",
+    "pergunta": "Qual profeta confrontou o rei Davi por seu pecado com Bate-Seba?",
+    "opcoes": [
+      "Natã",
+      "Samuel",
+      "Elias",
+      "Eliseu"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 49,
+    "categoria": "biblia",
+    "pergunta": "Qual profeta desafiou os 450 profetas de Baal no Monte Carmelo?",
+    "opcoes": [
+      "Elias",
+      "Eliseu",
+      "Isaías",
+      "Jeremias"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 50,
+    "categoria": "biblia",
+    "pergunta": "Quem sucedeu ao profeta Elias e recebeu uma porção dobrada de seu espírito?",
+    "opcoes": [
+      "Eliseu",
+      "Samuel",
+      "Isaías",
+      "Gazi"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 51,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome do homem rico de Jericó, de baixa estatura, que subiu numa árvore para ver Jesus?",
+    "opcoes": [
+      "Zaqueu",
+      "Nicodemos",
+      "Simeão",
+      "Bartimeu"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 52,
+    "categoria": "biblia",
+    "pergunta": "Qual fariseu foi conversar com Jesus à noite para entender o renascimento espiritual?",
+    "opcoes": [
+      "Nicodemos",
+      "Zaqueu",
+      "Gamaliel",
+      "Caifás"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 53,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome do cego de Jericó que clamou por Jesus dizendo 'Filho de Davi, tem misericórdia de mim'?",
+    "opcoes": [
+      "Bartimeu",
+      "Lázaro",
+      "Estêvão",
+      "Simão"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 54,
+    "categoria": "biblia",
+    "pergunta": "Em qual cidade Jesus ressuscitou o filho único de uma viúva?",
+    "opcoes": [
+      "Naim",
+      "Nazaré",
+      "Cafarnaum",
+      "Betânia"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 55,
+    "categoria": "biblia",
+    "pergunta": "Qual era a terra natal de Maria, Marta e Lázaro?",
+    "opcoes": [
+      "Betânia",
+      "Belém",
+      "Jerusalém",
+      "Tirza"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 56,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome da mulher que ungiu os pés de Jesus com perfume caro e os enxugou com os cabelos?",
+    "opcoes": [
+      "Maria de Betânia",
+      "Salomé",
+      "Joana",
+      "Madalena"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 57,
+    "categoria": "biblia",
+    "pergunta": "Quem foi o primeiro mártir cristão, apedrejado por sua fé registrada em Atos dos Apóstolos?",
+    "opcoes": [
+      "Estêvão",
+      "Tiago",
+      "Filipe",
+      "Barnabé"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 58,
+    "categoria": "biblia",
+    "pergunta": "Qual centurião romano foi o primeiro gentio convertido registrado no livro de Atos?",
+    "opcoes": [
+      "Cornélio",
+      "Lívio",
+      "Júlio",
+      "Festo"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 59,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome da vendedora de púrpura que se converteu em Filipos?",
+    "opcoes": [
+      "Lídia",
+      "Priscila",
+      "Febe",
+      "Eunice"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 60,
+    "categoria": "biblia",
+    "pergunta": "Quem acompanhou Paulo em sua primeira viagem missionária e foi chamado de 'filho da consolação'?",
+    "opcoes": [
+      "Barnabé",
+      "Silas",
+      "Timóteo",
+      "Tito"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 61,
+    "categoria": "biblia",
+    "pergunta": "Qual jovem conselheiro foi encarregado por Paulo de cuidar da igreja em Éfeso?",
+    "opcoes": [
+      "Timóteo",
+      "Tito",
+      "Onésimo",
+      "Apolo"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 62,
+    "categoria": "biblia",
+    "pergunta": "Quem era o escravo fugitivo por quem Paulo escreveu a carta a Filemom?",
+    "opcoes": [
+      "Onésimo",
+      "Epafrodito",
+      "Tíquico",
+      "Sóstenes"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 63,
+    "categoria": "biblia",
+    "pergunta": "Em qual ilha o apóstolo João recebeu as visões do livro de Apocalipse?",
+    "opcoes": [
+      "Patmos",
+      "Malta",
+      "Creta",
+      "Chipre"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 64,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome do rio onde o profeta Ezequiel teve suas primeiras visões no cativeiro?",
+    "opcoes": [
+      "Quebar",
+      "Jordão",
+      "Nilo",
+      "Eufrates"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 65,
+    "categoria": "biblia",
+    "pergunta": "Quem foi o rei da Babilônia que destruiu Jerusalém e levou o povo de Judá cativo?",
+    "opcoes": [
+      "Nabucodonosor",
+      "Ciro",
+      "Dario",
+      "Xerxes"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 66,
+    "categoria": "biblia",
+    "pergunta": "Quem foi o rei persa que assinou o decreto permitindo os judeus retornarem e reconstruírem o templo?",
+    "opcoes": [
+      "Ciro",
+      "Dario",
+      "Artaxerxes",
+      "Nabucodonosor"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 67,
+    "categoria": "biblia",
+    "pergunta": "Qual copeiro do rei reconstruiu os muros de Jerusalém em apenas 52 dias?",
+    "opcoes": [
+      "Neemias",
+      "Esdras",
+      "Zorobabel",
+      "Mardoqueu"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 68,
+    "categoria": "biblia",
+    "pergunta": "Qual escriba e sacerdote liderou o ensino da Lei de Deus após o retorno do cativeiro?",
+    "opcoes": [
+      "Esdras",
+      "Neemias",
+      "Malaquias",
+      "Ageu"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 69,
+    "categoria": "biblia",
+    "pergunta": "Qual homem perdeu seus bens, filhos e saúde, mas permaneceu fiel a Deus?",
+    "opcoes": [
+      "Jó",
+      "Abraão",
+      "Jeremias",
+      "Ezequiel"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 70,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome dos três amigos de Jó que vieram consolá-lo?",
+    "opcoes": [
+      "Elifaz, Bildade e Zofar",
+      "Sadraque, Mesaque e Abednego",
+      "Sem, Cão e Jafé",
+      "Gerson, Coate e Merari"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 71,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome hebraico dos três jovens lançados na fornalha de fogo ardente na Babilônia?",
+    "opcoes": [
+      "Ananias, Misael e Azarias",
+      "Sadraque, Mesaque e Abednego",
+      "Daniel, Joel e Amós",
+      "Pedro, Tiago e João"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 72,
+    "categoria": "biblia",
+    "pergunta": "Quantas vezes a fornalha de fogo foi aquecida antes de lançarem os três jovens fiéis?",
+    "opcoes": [
+      "7 vezes mais",
+      "3 vezes mais",
+      "10 vezes mais",
+      "5 vezes mais"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 73,
+    "categoria": "biblia",
+    "pergunta": "Quem foi a primeira pessoa a ver Jesus ressuscitado no jardim?",
+    "opcoes": [
+      "Maria Madalena",
+      "Maria, mãe de Tiago",
+      "Salomé",
+      "Pedro"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 74,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome do local onde Jesus foi crucificado?",
+    "opcoes": [
+      "Gólgota",
+      "Betsaida",
+      "Getsemani",
+      "Siloé"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 75,
+    "categoria": "biblia",
+    "pergunta": "Qual homem de Arimatéia cedeu seu próprio túmulo novo para o sepultamento de Jesus?",
+    "opcoes": [
+      "José",
+      "Nicodemos",
+      "Simão",
+      "Lázaro"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 76,
+    "categoria": "biblia",
+    "pergunta": "Qual homem de Cirene foi forçado pelos soldados a carregar a cruz de Jesus?",
+    "opcoes": [
+      "Simão",
+      "José",
+      "Cléopas",
+      "Barabás"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 77,
+    "categoria": "biblia",
+    "pergunta": "Qual prisioneiro foi libertado pelo povo no lugar de Jesus por exigência da multidão?",
+    "opcoes": [
+      "Barrabás",
+      "Gestas",
+      "Dimas",
+      "Malandro"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 78,
+    "categoria": "biblia",
+    "pergunta": "Qual governador romano lavou as mãos e condenou Jesus à crucificação?",
+    "opcoes": [
+      "Pôncio Pilatos",
+      "Herodes Antipas",
+      "Félix",
+      "Festo"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 79,
+    "categoria": "biblia",
+    "pergunta": "Qual rei de Judá teve sua vida prolongada por mais 15 anos após orar a Deus?",
+    "opcoes": [
+      "Ezequias",
+      "Josias",
+      "Manassés",
+      "Uzias"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 80,
+    "categoria": "biblia",
+    "pergunta": "Qual rei de Judá começou a reinar com apenas 8 anos e promoveu uma grande reforma espiritual?",
+    "opcoes": [
+      "Josias",
+      "Joás",
+      "Ezequias",
+      "Acaz"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 81,
+    "categoria": "biblia",
+    "pergunta": "Qual profeta é conhecido como 'o profeta chorão' devido às suas lamentações por Jerusalém?",
+    "opcoes": [
+      "Jeremias",
+      "Isaías",
+      "Ezequiel",
+      "Daniel"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 82,
+    "categoria": "biblia",
+    "pergunta": "Qual profeta escreveu sobre a visão do vale de ossos secos que ganhavam vida?",
+    "opcoes": [
+      "Ezequiel",
+      "Jeremias",
+      "Daniel",
+      "Oséias"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 83,
+    "categoria": "biblia",
+    "pergunta": "Qual profeta recebeu a ordem de Deus para se casar com Gomer, uma mulher infiel, como ilustração espiritual?",
+    "opcoes": [
+      "Oséias",
+      "Joel",
+      "Amós",
+      "Malaquias"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 84,
+    "categoria": "biblia",
+    "pergunta": "Em qual cidade os discípulos foram chamados de 'cristãos' pela primeira vez?",
+    "opcoes": [
+      "Antioquia",
+      "Jerusalém",
+      "Roma",
+      "Éfeso"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 85,
+    "categoria": "biblia",
+    "pergunta": "Qual casal de tendreiros ajudou Paulo no ministério e instruiu Apolo na fé?",
+    "opcoes": [
+      "Áquila e Priscila",
+      "Ananias e Safira",
+      "Zacarias e Isabel",
+      "Elimeleque e Noemi"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 86,
+    "categoria": "biblia",
+    "pergunta": "Qual casal mentiu ao Espírito Santo sobre o valor da venda de uma propriedade e caiu morto?",
+    "opcoes": [
+      "Ananias e Safira",
+      "Áquila e Priscila",
+      "Acabe e Jezabel",
+      "Acor e sua esposa"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 87,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome do pai de João Batista, que ficou mudo até o nascimento do filho?",
+    "opcoes": [
+      "Zacarias",
+      "Simeão",
+      "Eli",
+      "Caifás"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 88,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome da mãe de João Batista e parente de Maria?",
+    "opcoes": [
+      "Isabel",
+      "Ana",
+      "Marta",
+      "Salomé"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 89,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome do devoto idoso no templo que segurou o bebê Jesus e profetizou sobre Ele?",
+    "opcoes": [
+      "Simeão",
+      "Zacarias",
+      "Gamaliel",
+      "Nicodemos"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 90,
+    "categoria": "biblia",
+    "pergunta": "Qual idosa profetisa servia no templo com jejuns e orações e deu graças ao ver o menino Jesus?",
+    "opcoes": [
+      "Ana",
+      "Isabel",
+      "Hulda",
+      "Miriã"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 91,
+    "categoria": "biblia",
+    "pergunta": "Quantas pragas Deus enviou sobre o Egito para libertar o povo de Israel?",
+    "opcoes": [
+      "10",
+      "7",
+      "12",
+      "40"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 92,
+    "categoria": "biblia",
+    "pergunta": "Qual foi a primeira praga do Egito?",
+    "opcoes": [
+      "Água transformada em sangue",
+      "Rãs",
+      "Gafanhotos",
+      "Morte dos primogênitos"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 93,
+    "categoria": "biblia",
+    "pergunta": "Qual foi a décima e última praga enviada ao Egito?",
+    "opcoes": [
+      "Morte dos primogênitos",
+      "Trevas por três dias",
+      "Granizo e fogo",
+      "Úlceras"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 94,
+    "categoria": "biblia",
+    "pergunta": "Qual alimento divino caiu do céu para alimentar os israelitas no deserto?",
+    "opcoes": [
+      "Maná",
+      "Trigo purificado",
+      "Pão ázimo",
+      "Fruta celestial"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 95,
+    "categoria": "biblia",
+    "pergunta": "Qual ave Deus enviou em abundância para fornecer carne aos israelitas no deserto?",
+    "opcoes": [
+      "Codornizes",
+      "Pombas",
+      "Pardais",
+      "Águias"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 96,
+    "categoria": "biblia",
+    "pergunta": "Qual monte é associado ao Sacrifício de Isaque por Abraão?",
+    "opcoes": [
+      "Monte Moriá",
+      "Monte Sinai",
+      "Monte Carmelo",
+      "Monte Horebe"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 97,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome da cidade onde ocorreu a confusão das línguas da humanidade?",
+    "opcoes": [
+      "Babel",
+      "Ur",
+      "Sodoma",
+      "Nínive"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 98,
+    "categoria": "biblia",
+    "pergunta": "Quais duas cidades foram destruídas por fogo e enxofre por causa da sua grande iniquidade?",
+    "opcoes": [
+      "Sodoma e Gomorra",
+      "Tiro e Sidom",
+      "Babilônia e Nínive",
+      "Jericó e Ai"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 99,
+    "categoria": "biblia",
+    "pergunta": "Qual mulher olhou para trás ao fugir de Sodoma e se transformou em uma estátua de sal?",
+    "opcoes": [
+      "A mulher de Ló",
+      "A mulher de Noé",
+      "A mulher de Jó",
+      "A mulher de Abraão"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 100,
+    "categoria": "biblia",
+    "pergunta": "Qual sobrinho de Abraão escolheu morar nas planícies do Jordão perto de Sodoma?",
+    "opcoes": [
+      "Ló",
+      "Labão",
+      "Naor",
+      "Hã"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 101,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome da primeira esposa de Jacó, dada por engano por seu sogro Labão?",
+    "opcoes": [
+      "Lia",
+      "Raquel",
+      "Bila",
+      "Zilpa"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 102,
+    "categoria": "biblia",
+    "pergunta": "Qual esposa amada de Jacó era mãe de José e Benjamim?",
+    "opcoes": [
+      "Raquel",
+      "Lia",
+      "Sara",
+      "Rebeca"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 103,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome do sogro de Jacó que o fez trabalhar 14 anos por suas duas filhas?",
+    "opcoes": [
+      "Labão",
+      "Betuel",
+      "Jetro",
+      "Abimeleque"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 104,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome do sogro de Moisés, sacerdote de Midiã?",
+    "opcoes": [
+      "Jetro",
+      "Labão",
+      "Balaão",
+      "Mequisedeque"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 105,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome do misterioso rei de Salém e sacerdote do Deus Altíssimo a quem Abraão deu o dízimo?",
+    "opcoes": [
+      "Melquisedeque",
+      "Abimeleque",
+      "Adonizedeque",
+      "Aod"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 106,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome da primeira mulher criada por Deus?",
+    "opcoes": [
+      "Eva",
+      "Sara",
+      "Lia",
+      "Hagar"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 107,
+    "categoria": "biblia",
+    "pergunta": "Quem foi o primeiro filho de Adão e Eva?",
+    "opcoes": [
+      "Caim",
+      "Abel",
+      "Sete",
+      "Enoque"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 108,
+    "categoria": "biblia",
+    "pergunta": "Quem foi o pastor de ovelhas morto por seu irmão Caim devido ao ciúme?",
+    "opcoes": [
+      "Abel",
+      "Sete",
+      "Lameque",
+      "Jabal"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 109,
+    "categoria": "biblia",
+    "pergunta": "Qual homem 'andou com Deus e já não foi mais visto, porque Deus o tomou para si'?",
+    "opcoes": [
+      "Enoque",
+      "Elias",
+      "Matusalém",
+      "Noé"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 110,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome dos três filhos de Noé que entraram na arca?",
+    "opcoes": [
+      "Sem, Cão e Jafé",
+      "Caim, Abel e Sete",
+      "Abraão, Naor e Harã",
+      "Ruben, Simeão e Levi"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 111,
+    "categoria": "biblia",
+    "pergunta": "Qual animal enviou Noé primeiro para verificar se as águas do Dilúvio haviam baixado?",
+    "opcoes": [
+      "Um corvo",
+      "Uma pomba",
+      "Uma águia",
+      "Um tucano"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 112,
+    "categoria": "biblia",
+    "pergunta": "Qual ave retornou à arca trazendo uma folha de oliveira no bico?",
+    "opcoes": [
+      "Uma pomba",
+      "Um corvo",
+      "Uma andorinha",
+      "Um gavião"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 113,
+    "categoria": "biblia",
+    "pergunta": "Qual sinal Deus colocou nas nuvens como aliança de que nunca mais destruiria a terra por dilúvio?",
+    "opcoes": [
+      "Arco-íris",
+      "Coluna de fogo",
+      "Estrela brilhante",
+      "Nuvem em formato de cruz"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 114,
+    "categoria": "biblia",
+    "pergunta": "Qual cidade famosa teve Abraão como ponto de partida original antes de atender ao chamado de Deus?",
+    "opcoes": [
+      "Ur dos Caldeus",
+      "Harã",
+      "Damasco",
+      "Babilônia"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 115,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome do filho de Abraão nascido com a serva Hagar?",
+    "opcoes": [
+      "Ismael",
+      "Isaque",
+      "Esaú",
+      "Ló"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 116,
+    "categoria": "biblia",
+    "pergunta": "Qual servo foi enviado por Abraão para buscar uma esposa para Isaque em sua terra natal?",
+    "opcoes": [
+      "Eliézer",
+      "Gazi",
+      "Mardoqueu",
+      "Balaão"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 117,
+    "categoria": "biblia",
+    "pergunta": "Qual jovem mulher ofereceu água ao servo de Abraão e aos seus camelos no poço?",
+    "opcoes": [
+      "Rebeca",
+      "Raquel",
+      "Lia",
+      "Zípora"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 118,
+    "categoria": "biblia",
+    "pergunta": "Qual o filho caçula de Jacó e o único nascido em Canaã?",
+    "opcoes": [
+      "Benjamim",
+      "José",
+      "Dan",
+      "Naftali"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 119,
+    "categoria": "biblia",
+    "pergunta": "Qual o presente especial que Jacó deu a seu filho José, despertando o ciúme dos irmãos?",
+    "opcoes": [
+      "Túnica colorida de várias cores",
+      "Anel de ouro",
+      "Cajado esculpido",
+      "Cinto de couro"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 120,
+    "categoria": "biblia",
+    "pergunta": "Em qual país José foi vendido e aprisionado injustamente antes de se tornar governador?",
+    "opcoes": [
+      "Egito",
+      "Assíria",
+      "Pérsia",
+      "Grécia"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 121,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome da esposa de Moisés?",
+    "opcoes": [
+      "Zípora",
+      "Miriã",
+      "Raabe",
+      "Rute"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 122,
+    "categoria": "biblia",
+    "pergunta": "O que Moisés viu no deserto do Sinai que queimava mas não se consumia?",
+    "opcoes": [
+      "Uma sarça ardente",
+      "Uma rocha reluzente",
+      "Uma árvore de ouro",
+      "Um altar de fogo"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 123,
+    "categoria": "biblia",
+    "pergunta": "Qual objeto na mão de Moisés se transformou em uma serpente quando lançado ao chão?",
+    "opcoes": [
+      "Seu cajado",
+      "Sua espada",
+      "Seu manto",
+      "Sua túnica"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 124,
+    "categoria": "biblia",
+    "pergunta": "Qual alimento de sabor parecido com bolo de mel caía diariamente do céu no deserto?",
+    "opcoes": [
+      "Maná",
+      "Trigo purificado",
+      "Figo seco",
+      "Pão da proposição"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 125,
+    "categoria": "biblia",
+    "pergunta": "O que saiu da rocha em Horebe quando Moisés a feriu para saciar a sede do povo?",
+    "opcoes": [
+      "Água",
+      "Azeite",
+      "Mel",
+      "Vinho"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 126,
+    "categoria": "biblia",
+    "pergunta": "Quantos espias Moisés enviou para explorar a terra de Canaã?",
+    "opcoes": [
+      "12",
+      "2",
+      "7",
+      "70"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 127,
+    "categoria": "biblia",
+    "pergunta": "Quais foram os dois únicos espias que trouxeram um relatório de fé sobre a Terra Prometida?",
+    "opcoes": [
+      "Josué e Calebe",
+      "Moisés e Arão",
+      "Gideão e Baraque",
+      "Eleazar e Itamar"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 128,
+    "categoria": "biblia",
+    "pergunta": "Quantos anos o povo de Israel peregrinou no deserto antes de entrar em Canaã?",
+    "opcoes": [
+      "40 anos",
+      "7 anos",
+      "12 anos",
+      "70 anos"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 129,
+    "categoria": "biblia",
+    "pergunta": "Quem liderou os israelitas na vitória contra os midianitas com apenas 300 homens?",
+    "opcoes": [
+      "Gideão",
+      "Sansão",
+      "Jefté",
+      "Abimeleque"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 130,
+    "categoria": "biblia",
+    "pergunta": "Qual filisteia foi subornada para descobrir a fonte da força de Sansão e o traiu?",
+    "opcoes": [
+      "Dalila",
+      "Orfa",
+      "Jezabel",
+      "Atalia"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 131,
+    "categoria": "biblia",
+    "pergunta": "Qual parente remidor casou-se com Rute na cidade de Belém?",
+    "opcoes": [
+      "Boaz",
+      "Elimeleque",
+      "Malom",
+      "Quiliom"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 132,
+    "categoria": "biblia",
+    "pergunta": "Quem foi o bisavô do rei Davi, nascido do casamento entre Boaz e Rute?",
+    "opcoes": [
+      "Obede",
+      "Jessé",
+      "Salmão",
+      "Aminadabe"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 133,
+    "categoria": "biblia",
+    "pergunta": "Quem foi o pai do rei Davi?",
+    "opcoes": [
+      "Jessé",
+      "Obede",
+      "Boaz",
+      "Saul"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 134,
+    "categoria": "biblia",
+    "pergunta": "Qual a cidade natal do rei Davi?",
+    "opcoes": [
+      "Belém",
+      "Jerusalém",
+      "Hebrom",
+      "Gibeá"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 135,
+    "categoria": "biblia",
+    "pergunta": "Qual profeta ungiu Davi como rei de Israel quando ele ainda era um jovem pastor?",
+    "opcoes": [
+      "Samuel",
+      "Natã",
+      "Gad",
+      "Elias"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 136,
+    "categoria": "biblia",
+    "pergunta": "Qual o nome do filho de Davi que tentou usurpar o trono do pai e morreu preso pelos cabelos numa árvore?",
+    "opcoes": [
+      "Absalão",
+      "Amon",
+      "Adonias",
+      "Salomão"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 137,
+    "categoria": "biblia",
+    "pergunta": "Quem construiu o primeiro Templo permanente em Jerusalém?",
+    "opcoes": [
+      "Salomão",
+      "Davi",
+      "Zorobabel",
+      "Herodes"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 138,
+    "categoria": "biblia",
+    "pergunta": "Qual rainha veio de terras distantes para testar a sabedoria de Salomão com charadas?",
+    "opcoes": [
+      "Rainha de Sabá",
+      "Rainha Ester",
+      "Rainha Vasti",
+      "Rainha Jezabel"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 139,
+    "categoria": "biblia",
+    "pergunta": "Qual malvada rainha de Israel promoveu o culto a Baal e perseguiu o profeta Elias?",
+    "opcoes": [
+      "Jezabel",
+      "Atalia",
+      "Herodias",
+      "Vasti"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 140,
+    "categoria": "biblia",
+    "pergunta": "Qual capitão do exército sírio foi curado da lepra após mergulhar sete vezes no rio Jordão?",
+    "opcoes": [
+      "Naamã",
+      "Ben-Hadade",
+      "Hazael",
+      "Sísera"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 141,
+    "categoria": "biblia",
+    "pergunta": "Qual profeta teve uma visão do trono de Deus e teve seus lábios purificados por uma brasa viva?",
+    "opcoes": [
+      "Isaías",
+      "Jeremias",
+      "Ezequiel",
+      "Daniel"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 142,
+    "categoria": "biblia",
+    "pergunta": "Qual profeta anunciou que o Messias nasceria em Belém Efrata?",
+    "opcoes": [
+      "Miqueias",
+      "Isaías",
+      "Oséias",
+      "Malaquias"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 143,
+    "categoria": "biblia",
+    "pergunta": "Qual evangelho começa com a genealogia de Jesus mostrando sua descendência de Abraão e Davi?",
+    "opcoes": [
+      "Mateus",
+      "Marcos",
+      "Lucas",
+      "João"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 144,
+    "categoria": "biblia",
+    "pergunta": "Qual o evangelho mais curto da Bíblia?",
+    "opcoes": [
+      "Marcos",
+      "Mateus",
+      "Lucas",
+      "João"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 145,
+    "categoria": "biblia",
+    "pergunta": "Qual livro bíblico narra o início da Igreja Primitiva e o derramamento do Espírito Santo no Pentecostes?",
+    "opcoes": [
+      "Atos dos Apóstolos",
+      "Romanos",
+      "Hebreus",
+      "Galatas"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 146,
+    "categoria": "biblia",
+    "pergunta": "Qual o capitulo da Bíblia conhecido popularmente como o 'capítulo do amor' (1 Coríntios)?",
+    "opcoes": [
+      "Capítulo 13",
+      "Capítulo 11",
+      "Capítulo 15",
+      "Capítulo 3"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 147,
+    "categoria": "biblia",
+    "pergunta": "Qual o capítulo da carta aos Hebreus conhecido como a 'galeria dos heróis da fé'?",
+    "opcoes": [
+      "Capítulo 11",
+      "Capítulo 12",
+      "Capítulo 10",
+      "Capítulo 1"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 148,
+    "categoria": "biblia",
+    "pergunta": "Qual é o maior livro de toda a Bíblia em número de capítulos?",
+    "opcoes": [
+      "Salmos",
+      "Isaías",
+      "Gênesis",
+      "Jeremias"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 149,
+    "categoria": "biblia",
+    "pergunta": "Qual é o menor Salmo da Bíblia, contendo apenas dois versículos?",
+    "opcoes": [
+      "Salmo 117",
+      "Salmo 23",
+      "Salmo 100",
+      "Salmo 150"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 150,
+    "categoria": "biblia",
+    "pergunta": "Qual é o Salmo que começa com as palavras 'O Senhor é o meu pastor; nada me faltará'?",
+    "opcoes": [
+      "Salmo 23",
+      "Salmo 91",
+      "Salmo 121",
+      "Salmo 46"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 151,
+    "categoria": "casal",
+    "pergunta": "Quem é mais provável de esquecer onde deixou as chaves de casa?",
+    "opcoes": [
+      "O Noivo",
+      "A Noiva",
+      "Os dois empatados",
+      "Nenhum dos dois"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 152,
     "categoria": "casal",
     "pergunta": "Quem é mais provável de demorar mais tempo para se arrumar antes de sair?",
     "opcoes": [
@@ -372,7 +1824,7 @@
     "correta": 1
   },
   {
-    "id": 32,
+    "id": 153,
     "categoria": "casal",
     "pergunta": "Quem costuma dormir primeiro quando assistem a um filme à noite?",
     "opcoes": [
@@ -384,7 +1836,7 @@
     "correta": 0
   },
   {
-    "id": 33,
+    "id": 154,
     "categoria": "casal",
     "pergunta": "Quem é mais provável de chorar durante a cerimônia do casamento?",
     "opcoes": [
@@ -396,7 +1848,7 @@
     "correta": 2
   },
   {
-    "id": 34,
+    "id": 155,
     "categoria": "casal",
     "pergunta": "Quem é o mais comilão do casal?",
     "opcoes": [
@@ -408,7 +1860,7 @@
     "correta": 0
   },
   {
-    "id": 35,
+    "id": 156,
     "categoria": "casal",
     "pergunta": "Quem é o mais dramático quando fica gripado ou doente?",
     "opcoes": [
@@ -420,7 +1872,7 @@
     "correta": 0
   },
   {
-    "id": 36,
+    "id": 157,
     "categoria": "casal",
     "pergunta": "Quem deu o primeiro passo no início do namoro?",
     "opcoes": [
@@ -432,7 +1884,7 @@
     "correta": 0
   },
   {
-    "id": 37,
+    "id": 158,
     "categoria": "casal",
     "pergunta": "Quem tem o controle remoto da TV na maioria das vezes?",
     "opcoes": [
@@ -444,7 +1896,7 @@
     "correta": 0
   },
   {
-    "id": 38,
+    "id": 159,
     "categoria": "casal",
     "pergunta": "Quem é mais organizado com as tarefas da casa?",
     "opcoes": [
@@ -456,19 +1908,7 @@
     "correta": 1
   },
   {
-    "id": 39,
-    "categoria": "casal",
-    "pergunta": "Quem manda mais mensagens de texto ao longo do dia?",
-    "opcoes": [
-      "O Noivo",
-      "A Noiva",
-      "Mandam a mesma quantidade",
-      "Quase não se falam por texto"
-    ],
-    "correta": 1
-  },
-  {
-    "id": 40,
+    "id": 160,
     "categoria": "casal",
     "pergunta": "Quem costuma pedir desculpas primeiro após uma pequena discussão?",
     "opcoes": [
@@ -480,4 +1920,3 @@
     "correta": 0
   }
 ]
-  
