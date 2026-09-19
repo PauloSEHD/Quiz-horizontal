@@ -8,19 +8,27 @@
 </head>
 <body>
 
-  <!-- Câmera Escondida / Em Segundo Plano -->
+  <!-- Câmera Escondida em Segundo Plano -->
   <video id="webcam" autoplay playsinline muted></video>
   <div id="camera-overlay" class="hidden"></div>
   <canvas id="photo-canvas" style="display: none;"></canvas>
 
   <div id="app">
+
+    <!-- TELA 0: SLIDE SHOW DE FOTOS DO CASAL (MODO DESCANSO / OCIOSO) -->
+    <div id="screen-slideshow" class="screen active">
+      <div id="slideshow-container">
+        <!-- As imagens serão inseridas dinamicamente pelo JavaScript -->
+      </div>
+      <div class="slideshow-touch-prompt">
+        <span>Toque na tela para brincar! 🎁</span>
+      </div>
+    </div>
     
-    <!-- TELA 1: DESCANSO / CAPA ESTÁTICA COM PIX -->
-    <div id="screen-intro" class="screen active">
+    <!-- TELA 1: CAPA COM PIX E INÍCIO DO JOGO -->
+    <div id="screen-intro" class="screen">
       <div class="intro-banner-container">
         <img src="fundo-intro.jpg" alt="Baú da Fé - Quiz dos Noivos" class="bg-banner-img">
-        
-        <!-- Botão posicionado exatamente sobre a folhagem verde inferior -->
         <button id="btn-start" class="btn-start-overlay">
           Já abençoei os noivos e quero brincar! 🎁
         </button>
@@ -38,7 +46,6 @@
     <!-- TELA 3: JOGO -->
     <div id="screen-game" class="screen">
       <div class="quiz-sidebar">
-        
         <div class="logo-box-game">
           <span class="logo-text">Quiz</span>
         </div>
@@ -54,7 +61,6 @@
           <button id="btn-3" class="btn-option"><span class="opt-num">4</span> <span class="opt-text">Opção 4</span></button>
         </div>
 
-        <!-- Zona Inferior: Timer e Feedback -->
         <div class="bottom-status-zone">
           <div id="timer-badge" class="timer-badge">
             <span id="timer" class="timer-verde">20</span>
@@ -65,14 +71,12 @@
             <span id="feedback-text">RESPOSTA CORRETA!</span>
           </div>
         </div>
-
       </div>
 
-      <!-- Zona Limpa da Câmera -->
       <div class="camera-viewport-zone"></div>
     </div>
 
-    <!-- TELA 4: AGRADECIMENTO & FOTO COM MOLDURA DO QUIZ -->
+    <!-- TELA 4: AGRADECIMENTO & FOTO -->
     <div id="screen-thanks" class="screen">
       <div class="thanks-card">
         <h2>Muito Obrigado por Participar! ❤️</h2>
