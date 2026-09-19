@@ -1,5 +1,5 @@
 // ======================================================
-// CONFIGURAÇÕES E ESTADO DO QUIZ (MODO FOTOS SEQUENCIAIS)
+// CONFIGURAÇÕES E ESTADO DO QUIZ (MODO CARD + RAJADA)
 // ======================================================
 let perguntas = [];
 let perguntaAtual = null;
@@ -7,19 +7,31 @@ let jogoAtivo = false;
 let respostaSelecionada = null;
 
 let cameraStream = null;
-let fotosCapturadas = []; // Guarda as fotos da rodada
+let fotosBrutas = []; // Guarda a rajada de fotos em memória
 
 let tempoRestante = 20;
 let timerInterval = null;
+
+// Canvas invisível em memória para criar a moldura da foto final
+let cardCanvas = null;
+let cardCtx = null;
 
 // ======================================================
 // INICIALIZAÇÃO
 // ======================================================
 document.addEventListener('DOMContentLoaded', () => {
+    inicializarCardCanvas();
     carregarPerguntas();
     vincularEventos();
     iniciarCameraBackground();
 });
+
+function inicializarCardCanvas() {
+    cardCanvas = document.createElement('canvas');
+    cardCanvas.width = 1280;
+    cardCanvas.height = 720;
+    cardCtx = cardCanvas.getContext('2d');
+}
 
 async function carregarPerguntas() {
     try {
@@ -79,7 +91,7 @@ async function iniciarFluxoJogo() {
         return;
     }
 
-    fotosCapturadas = []; // Limpa fotos da rodada anterior
+    fotosBrutas = [];
     await iniciarCameraBackground();
     const webcamEl = document.getElementById('webcam');
     if (webcamEl) webcamEl.classList.add('active');
@@ -110,10 +122,8 @@ function iniciarPartida() {
     atualizarHTMLJogo();
     mostrarTela('screen-game');
 
-    // FOTO 1: Início da pergunta (Pega a concentração)
-    setTimeout(() => {
-        capturarFotoMomento('inicio');
-    }, 500);
+    // FOTO 1: Início da pergunta
+    capturarFrameRajada('inicio_1');
 
     const timerEl = document.getElementById('timer');
     if (timerEl) {
@@ -157,7 +167,7 @@ function atualizarHTMLJogo() {
 }
 
 // ======================================================
-// RESPOSTAS E SEQUÊNCIA DE FOTOS
+// PROCESSAMENTO DE RESPOSTA E RAJADA DE FOTOS
 // ======================================================
 function responder(index) {
     if (!jogoAtivo) return;
@@ -171,10 +181,11 @@ function processarResposta(index) {
 
     const acertou = (index === perguntaAtual.correta);
 
-    // FOTO 2: Instantânea no momento exato do clique
-    capturarFotoMomento('clique');
+    // RAJADA NO MOMENTO DO CLIQUE (2 Fotos com intervalo de 0.5s)
+    capturarFrameRajada('clique_1');
+    setTimeout(() => capturarFrameRajada('clique_2'), 500);
 
-    // Destaca no HTML
+    // Destaca as opções no HTML
     for (let i = 0; i < 4; i++) {
         const btn = document.getElementById(`btn-${i}`);
         if (btn) {
@@ -183,15 +194,16 @@ function processarResposta(index) {
         }
     }
 
-    // 1.5s depois exibe o banner e tira a FOTO 3 (Pega a reação do resultado)
+    // RAJADA DA REAÇÃO DO RESULTADO (2 Fotos no resultado)
     setTimeout(() => {
         exibirFeedback(acertou);
-        capturarFotoMomento('reacao_final');
+        capturarFrameRajada('reacao_1');
+        setTimeout(() => capturarFrameRajada('reacao_2'), 600);
     }, 1500);
 
-    // 6s depois avança para a tela final de agradecimento e faz o download das fotos
+    // Conclui e gera os Cards após 6 segundos
     setTimeout(() => {
-        finalizarERecomendar();
+        finalizarEGerarCards();
     }, 6000);
 }
 
@@ -202,70 +214,185 @@ function exibirFeedback(acertou) {
 
     if (fbBanner) {
         fbBanner.className = `feedback-banner ${acertou ? 'sucesso' : 'erro'}`;
-        if (fbEmoji) fbEmoji.innerText = acertou ? '🎉' : '❌';
+        if (fbEmoji) fbEmoji.innerText = acertou ? '🎉' : '🙈';
         if (fbText) fbText.innerText = acertou ? 'RESPOSTA CORRETA!' : 'RESPOSTA INCORRETA!';
         fbBanner.classList.remove('hidden');
     }
 }
 
-// Captura ultrarrápida usando canvas em memória
-function capturarFotoMomento(tagMomento) {
+// Guarda o elemento Canvas estático em memória (ultra leve)
+function capturarFrameRajada(tagMomento) {
     const videoEl = document.getElementById('webcam');
-    const canvasFoto = document.getElementById('photo-canvas');
+    if (videoEl && videoEl.readyState >= 2) {
+        const memCanvas = document.createElement('canvas');
+        memCanvas.width = 640;
+        memCanvas.height = 720;
+        const ctx = memCanvas.getContext('2d');
 
-    if (videoEl && canvasFoto) {
-        canvasFoto.width = 800;
-        canvasFoto.height = 600;
-        const ctx = canvasFoto.getContext('2d');
-
-        // Espelha para salvar igual ao visual da tela
+        // Desenha espelhado
         ctx.save();
-        ctx.translate(800, 0);
+        ctx.translate(640, 0);
         ctx.scale(-1, 1);
-        ctx.drawImage(videoEl, 0, 0, 800, 600);
+        ctx.drawImage(videoEl, 0, 0, 640, 720);
         ctx.restore();
 
-        canvasFoto.toBlob((blob) => {
-            if (blob) {
-                const dataUrl = URL.createObjectURL(blob);
-                fotosCapturadas.push({ tag: tagMomento, blob: blob, url: dataUrl });
-
-                // Se for a foto da reação final, atualiza a imagem da tela de agradecimento
-                if (tagMomento === 'reacao_final') {
-                    const imgDestino = document.getElementById('captured-photo');
-                    if (imgDestino) imgDestino.src = dataUrl;
-                }
-            }
-        }, 'image/jpeg', 0.85);
+        fotosBrutas.push({ tag: tagMomento, canvasFrame: memCanvas });
     }
 }
 
 // ======================================================
-// ENCERRAMENTO E SALVAMENTO DAS FOTOS
+// GERAÇÃO DOS CARDS DE FOTO COM MOLDURA DO QUIZ
 // ======================================================
-function finalizarERecomendar() {
+function finalizarEGerarCards() {
     mostrarTela('screen-thanks');
-    salvarTodasAsFotos();
-}
 
-// Baixa automaticamente a sequência de fotos salvas
-function salvarTodasAsFotos() {
-    const timestamp = Date.now();
+    if (!fotosBrutas.length) return;
 
-    fotosCapturadas.forEach((fotoObj, idx) => {
-        setTimeout(() => {
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = fotoObj.url;
-            a.download = `quiz_noivos_foto_${idx + 1}_${fotoObj.tag}_${timestamp}.jpg`;
-            document.body.appendChild(a);
-            a.click();
-            setTimeout(() => document.body.removeChild(a), 200);
-        }, idx * 400); // Espaça o download em 400ms entre uma foto e outra
+    // Pega a última foto (Reação) para exibir na tela de agradecimento
+    const ultimaFoto = fotosBrutas[fotosBrutas.length - 1];
+    gerarCardComMoldura(ultimaFoto.canvasFrame, (dataUrl) => {
+        const imgDestino = document.getElementById('captured-photo');
+        if (imgDestino) imgDestino.src = dataUrl;
     });
 
-    // Retorna para a tela de descanso após 6 segundos
+    // Baixa a sequência inteira de cards
+    salvarTodosOsCards();
+}
+
+function gerarCardComMoldura(frameCanvas, callback) {
+    // 1. Fundo do Card
+    cardCtx.fillStyle = '#0f172a';
+    cardCtx.fillRect(0, 0, cardCanvas.width, cardCanvas.height);
+
+    // 2. Foto do Participante (Lado Direito)
+    cardCtx.drawImage(frameCanvas, 640, 0, 640, 720);
+
+    // 3. Painel da Pergunta (Lado Esquerdo)
+    cardCtx.fillStyle = '#1e293b';
+    if (cardCtx.roundRect) {
+        cardCtx.beginPath();
+        cardCtx.roundRect(40, 30, 560, 130, 12);
+        cardCtx.fill();
+    } else {
+        cardCtx.fillRect(40, 30, 560, 130);
+    }
+
+    cardCtx.fillStyle = '#ffffff';
+    cardCtx.font = 'bold 18px sans-serif';
+    quebrarTexto(cardCtx, perguntaAtual.pergunta, 55, 60, 530, 24);
+
+    // 4. Alternativas (A, B, C, D)
+    const startY = 175;
+    const btnHeight = 70;
+    const gap = 10;
+
+    perguntaAtual.opcoes.forEach((opcao, index) => {
+        const y = startY + index * (btnHeight + gap);
+
+        let btnColor = '#1e293b';
+        if (respostaSelecionada !== null) {
+            if (index === perguntaAtual.correta) {
+                btnColor = '#2ecc71'; // Verde
+            } else if (index === respostaSelecionada) {
+                btnColor = '#e74c3c'; // Vermelho
+            }
+        }
+
+        cardCtx.fillStyle = btnColor;
+        if (cardCtx.roundRect) {
+            cardCtx.beginPath();
+            cardCtx.roundRect(40, y, 560, btnHeight, 8);
+            cardCtx.fill();
+        } else {
+            cardCtx.fillRect(40, y, 560, btnHeight);
+        }
+
+        cardCtx.fillStyle = '#ffffff';
+        cardCtx.font = 'bold 16px sans-serif';
+        cardCtx.fillText(`${index + 1}. ${opcao}`, 55, y + 40);
+    });
+
+    // 5. Caixa de Explicação Personalizada (Rodapé Esquerdo)
+    const explicacaoY = 500;
+    const acertou = (respostaSelecionada === perguntaAtual.correta);
+    const emoji = acertou ? '🎉' : '🙈';
+    
+    // Texto de explicação do JSON ou Padrão
+    let textoExplicacao = perguntaAtual.explicacao;
+    if (!textoExplicacao) {
+        textoExplicacao = acertou ? 
+            'Parabéns! Você demonstrou ter um ótimo conhecimento!' : 
+            `A resposta correta era: ${perguntaAtual.opcoes[perguntaAtual.correta]}.`;
+    }
+
+    cardCtx.fillStyle = acertou ? 'rgba(46, 204, 113, 0.2)' : 'rgba(231, 76, 60, 0.2)';
+    cardCtx.strokeStyle = acertou ? '#2ecc71' : '#e74c3c';
+    cardCtx.lineWidth = 2;
+
+    if (cardCtx.roundRect) {
+        cardCtx.beginPath();
+        cardCtx.roundRect(40, explicacaoY, 560, 180, 12);
+        cardCtx.fill();
+        cardCtx.stroke();
+    } else {
+        cardCtx.fillRect(40, explicacaoY, 560, 180);
+    }
+
+    // Título e texto da explicação
+    cardCtx.fillStyle = '#ffffff';
+    cardCtx.font = 'bold 16px sans-serif';
+    cardCtx.fillText(`${emoji} ${acertou ? 'ACERTOU!' : 'EXPLICAÇÃO:'}`, 55, explicacaoY + 30);
+
+    cardCtx.font = '15px sans-serif';
+    cardCtx.fillStyle = '#cbd5e1';
+    quebrarTexto(cardCtx, textoExplicacao, 55, explicacaoY + 60, 530, 22);
+
+    // Exporta imagem final em Blob leve
+    cardCanvas.toBlob((blob) => {
+        if (blob) {
+            const url = URL.createObjectURL(blob);
+            callback(url);
+        }
+    }, 'image/jpeg', 0.9);
+}
+
+function salvarTodosOsCards() {
+    const timestamp = Date.now();
+
+    fotosBrutas.forEach((item, idx) => {
+        setTimeout(() => {
+            gerarCardComMoldura(item.canvasFrame, (url) => {
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = `quiz_noivos_card_${idx + 1}_${item.tag}_${timestamp}.jpg`;
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(() => document.body.removeChild(a), 200);
+            });
+        }, idx * 500);
+    });
+
+    // Retorna à tela inicial
     setTimeout(() => {
         mostrarTela('screen-intro');
-    }, 6000);
+    }, 7000);
+}
+
+function quebrarTexto(ctx, text, x, y, maxWidth, lineHeight) {
+    if (!text) return;
+    const words = text.split(' ');
+    let line = '';
+    for (let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + ' ';
+        const metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth && n > 0) {
+            ctx.fillText(line, x, y);
+            line = words[n] + ' ';
+            y += lineHeight;
+        } else {
+            line = testLine;
+        }
+    }
+    ctx.fillText(line, x, y);
 }
