@@ -3,395 +3,268 @@
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  user-select: none;
-  -webkit-user-select: none;
 }
 
-html, body {
-  width: 100vw;
-  height: 100vh;
+body, html {
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  background: #0f172a !important;
+  background-color: #000;
 }
 
-/* Câmera Escondida */
+/* Container Principal em Tela Cheia */
+#quiz-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background-color: #000;
+}
+
+/* Câmera ocupando 100% da tela de fundo */
 #webcam {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  transform: scaleX(-1); /* Espelhamento estilo selfie */
   z-index: 1;
-  transform: scaleX(-1);
-  display: none;
 }
 
-#webcam.active {
-  display: block;
-}
-
-#camera-overlay {
-  position: fixed;
+/* Sombreamento lateral para dar contraste no texto */
+.gradient-overlay {
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: linear-gradient(90deg, rgba(15, 23, 42, 0.92) 0%, rgba(15, 23, 42, 0.65) 45%, rgba(0, 0, 0, 0.1) 100%) !important;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 75%, transparent 100%);
   z-index: 2;
+  pointer-events: none;
 }
 
-#camera-overlay.hidden {
-  display: none;
-}
-
-#app {
+/* Painel de Conteúdo na Esquerda */
+.sidebar-panel {
   position: relative;
   z-index: 3;
-  width: 100vw;
-  height: 100vh;
-}
-
-.screen {
-  display: none !important;
-  width: 100%;
+  width: 48%; /* Aumentado para dar mais espaço no tablet */
   height: 100%;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.screen.active {
-  display: flex !important;
-}
-
-/* ======================================================
-   TELA 0: SLIDE SHOW DE FOTOS (TRANSIÇÃO E FADE)
-   ====================================================== */
-#screen-slideshow {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  background: #000;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-#slideshow-container {
-  position: absolute;
-  top: 0;
-  left: 0;
+/* Logo */
+.logo-container {
   width: 100%;
-  height: 100%;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
 }
 
-.slide-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 1.5s ease-in-out;
+.app-logo {
+  max-height: 65px;
+  max-width: 85%;
+  object-fit: contain;
+  filter: drop-shadow(0px 2px 8px rgba(0,0,0,0.6));
 }
 
-.slide-img.active {
-  opacity: 1;
+/* Pergunta */
+.question-card {
+  background: rgba(22, 27, 34, 0.92);
+  border: 1px solid rgba(212, 175, 55, 0.4); /* Toque de brilho dourado */
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
 }
 
-.slideshow-touch-prompt {
-  position: absolute;
-  bottom: 8%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(15, 23, 42, 0.85);
-  border: 2px solid #d4af37;
-  padding: 16px 36px;
-  border-radius: 40px;
+.question-card h2 {
   color: #ffffff;
-  font-size: 1.3rem;
+  font-size: 1.65rem; /* Fonte maior para tablet */
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+/* Container de Opções */
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px; /* Espaço entre botões */
+  flex-grow: 1;
+}
+
+/* Opções (A, B, C, D) */
+.option-btn {
+  display: flex;
+  align-items: center;
+  background: rgba(30, 38, 48, 0.9);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  padding: 16px 20px; /* Caixas maiores */
+  color: #f0f0f0;
+  font-size: 1.35rem; /* Letras maiores */
+  font-weight: 500;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(6px);
+}
+
+.badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #d4af37; /* Dourado */
+  color: #111;
   font-weight: bold;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
-  animation: pulse 2s infinite;
-  z-index: 10;
-}
-
-@keyframes pulse {
-  0% { transform: translateX(-50%) scale(1); }
-  50% { transform: translateX(-50%) scale(1.05); }
-  100% { transform: translateX(-50%) scale(1); }
-}
-
-/* ======================================================
-   TELA 1: CAPA ESTÁTICA COM PIX
-   ====================================================== */
-#screen-intro {
-  padding: 0 !important;
-  margin: 0 !important;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+  font-size: 1.25rem;
   display: flex;
-  justify-content: center;
   align-items: center;
-  background: #0f172a;
+  justify-content: center;
+  margin-right: 18px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
 }
 
-.intro-banner-container {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
+.option-text {
+  flex-grow: 1;
+}
+
+/* Estados da Opção */
+.option-btn.correct {
+  background: rgba(40, 167, 69, 0.95) !important;
+  border-color: #28a745 !important;
+  color: #fff !important;
+}
+
+.option-btn.correct .badge {
+  background: #fff;
+  color: #28a745;
+}
+
+.option-btn.wrong {
+  background: rgba(220, 53, 69, 0.85) !important;
+  border-color: #dc3545 !important;
+  opacity: 0.7;
+}
+
+/* Rodapé: Cronômetro / Explicação */
+.bottom-panel {
+  min-height: 90px;
   display: flex;
-  justify-content: center;
   align-items: center;
+  margin-top: 10px;
 }
 
-.bg-banner-img {
+/* Cronômetro Maior */
+.timer-box {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  background: #dc3545;
+  border: 3px solid #ff6b6b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px rgba(220, 53, 69, 0.6);
+}
+
+#timer-count {
+  color: #fff;
+  font-size: 2.2rem;
+  font-weight: 800;
+}
+
+/* Card de Explicação */
+.explanation-card {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  background: rgba(35, 15, 20, 0.92);
+  border: 1.5px solid #dc3545;
+  border-radius: 14px;
+  padding: 16px 20px;
+  color: #fff;
+  animation: fadeIn 0.4s ease-in-out;
 }
 
-.btn-start-overlay {
-  position: absolute;
-  bottom: 11%;
-  left: 31%;
-  transform: translateX(-50%);
-  width: 360px;
-  height: 65px;
-  background: linear-gradient(135deg, #d4af37, #aa7c11);
-  color: #ffffff;
+.explanation-header {
+  color: #ff6b6b;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#explanation-text {
   font-size: 1.15rem;
-  font-weight: bold;
-  border: 2px solid #fff5cc;
-  border-radius: 35px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
-  cursor: pointer;
-  transition: transform 0.15s ease, background 0.15s ease;
+  line-height: 1.4;
+  color: #eee;
+}
+
+/* Modal e Resultado Final */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
   z-index: 10;
-}
-
-.btn-start-overlay:active {
-  transform: translateX(-50%) scale(0.96);
-  background: linear-gradient(135deg, #aa7c11, #8a620d);
-}
-
-/* ======================================================
-   TELA 2: CONTAGEM REGRESSIVA
-   ====================================================== */
-#screen-countdown {
-  justify-content: center;
+  display: flex;
   align-items: center;
-}
-
-.countdown-overlay {
-  background: rgba(15, 23, 42, 0.85);
+  justify-content: center;
   backdrop-filter: blur(10px);
-  padding: 40px 60px;
-  border-radius: 24px;
+}
+
+.modal-content {
+  background: #181d24;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: 20px;
+  padding: 24px;
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  max-width: 650px;
+  width: 90%;
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
 }
 
-.countdown-overlay h2 {
-  color: #ffffff;
-  font-size: 2rem;
-  margin-bottom: 10px;
+.modal-content h2 {
+  font-size: 1.8rem;
+  margin-bottom: 6px;
 }
 
-#countdown-number {
-  font-size: 5rem;
-  font-weight: 900;
-  color: #2ecc71;
+.modal-content p {
+  color: #aaa;
+  margin-bottom: 16px;
+}
+
+.preview-frame {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid #d4af37;
+}
+
+#final-canvas {
+  width: 100%;
+  height: auto;
   display: block;
 }
 
-/* ======================================================
-   TELA 3: JOGO
-   ====================================================== */
-#screen-game {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: stretch;
-  height: 100%;
-  padding: 24px;
-}
-
-.quiz-sidebar {
-  width: 38vw;
-  min-width: 360px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 14px;
-  height: 100%;
-}
-
-.camera-viewport-zone { flex: 1; }
-
-.logo-box-game {
-  align-self: flex-start;
-  background: linear-gradient(135deg, #d4af37, #aa7c11);
-  padding: 6px 24px;
-  border-radius: 30px;
-}
-
-.logo-text {
-  color: #ffffff;
-  font-weight: 800;
+.wedding-footer-text {
+  color: #28a745 !important;
   font-size: 1.2rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  font-weight: 700;
+  margin-top: 14px !important;
 }
 
-.question-container {
-  background: rgba(15, 23, 42, 0.88) !important;
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-left: 5px solid #d4af37;
-  border-radius: 14px;
-  padding: 16px 20px;
-  min-height: 85px;
-  display: flex;
-  align-items: center;
+.hidden {
+  display: none !important;
 }
 
-#question-text {
-  font-size: 1.15rem;
-  line-height: 1.35;
-  color: #ffffff;
-  font-weight: 600;
-}
-
-.options-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.btn-option {
-  background: rgba(30, 41, 59, 0.85) !important;
-  backdrop-filter: blur(8px);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
-  padding: 12px 16px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-align: left;
-}
-
-.opt-num {
-  background: #d4af37;
-  color: #ffffff;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 0.9rem;
-  flex-shrink: 0;
-}
-
-.opt-text { flex: 1; }
-
-.btn-option.correta { background-color: #2ecc71 !important; border-color: #27ae60 !important; }
-.btn-option.incorreta { background-color: #e74c3c !important; border-color: #c0392b !important; }
-
-/* TIMER & FEEDBACK */
-.bottom-status-zone {
-  margin-top: auto;
-  height: 70px;
-  display: flex;
-  align-items: center;
-}
-
-.timer-badge { display: flex; align-items: center; }
-
-#timer {
-  font-size: 2rem;
-  font-weight: 800;
-  background: rgba(15, 23, 42, 0.9);
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-}
-
-.timer-verde { color: #2ecc71; border-color: #2ecc71 !important; }
-.timer-amarelo { color: #f1c40f; border-color: #f1c40f !important; }
-.timer-laranja { color: #e67e22; border-color: #e67e22 !important; }
-.timer-vermelho { color: #e74c3c; border-color: #e74c3c !important; }
-
-.feedback-banner {
-  width: 100%;
-  background: rgba(15, 23, 42, 0.95);
-  border-radius: 14px;
-  padding: 14px 20px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.feedback-banner.hidden { display: none; }
-#feedback-emoji { font-size: 1.8rem; }
-#feedback-text { font-size: 1.1rem; font-weight: 700; color: #ffffff; }
-
-.feedback-banner.sucesso { border-color: #2ecc71; }
-.feedback-banner.erro { border-color: #e74c3c; }
-
-/* ======================================================
-   TELA 4: AGRADECIMENTO
-   ====================================================== */
-#screen-thanks {
-  justify-content: center;
-  align-items: center;
-  padding: 24px;
-}
-
-.thanks-card {
-  background: rgba(30, 41, 59, 0.95);
-  border-radius: 24px;
-  padding: 24px 36px;
-  text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-  max-width: 800px;
-}
-
-.thanks-card h2 { color: #ffffff; font-size: 1.8rem; }
-.thanks-card p { color: #cbd5e1; font-size: 1rem; }
-
-.captured-photo-frame {
-  width: 520px;
-  height: 290px;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 3px solid #d4af37;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-}
-
-#captured-photo {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  background: #0f172a;
-}
-
-.thanks-footer {
-  color: #2ecc71 !important;
-  font-weight: bold;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
