@@ -11,10 +11,10 @@ html, body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: #0f172a !important; /* Fundo escuro e neutro */
+  background: #0f172a !important;
 }
 
-/* Câmera em Tela Cheia (Escondida por padrão) */
+/* Câmera em Tela Cheia (Em segundo plano na intro) */
 #webcam {
   position: fixed;
   top: 0;
@@ -50,7 +50,6 @@ html, body {
   z-index: 3;
   width: 100vw;
   height: 100vh;
-  padding: 24px;
 }
 
 .screen {
@@ -63,138 +62,64 @@ html, body {
   display: flex !important;
 }
 
-/* TELA 1: DESCANSO / PIX */
+/* ======================================================
+   TELA 1: CAPA ESTÁTICA FULLSCREEN (LAYOUT KIOSK)
+   ====================================================== */
 #screen-intro {
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  gap: 20px;
-}
-
-.intro-photo-container {
-  flex: 1;
-  max-width: 26vw;
-  height: 70vh;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  background: #0f172a;
 }
 
-.photo-landscape {
+.intro-banner-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg-banner-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.intro-content {
-  flex: 1.2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: rgba(30, 41, 59, 0.95);
-  padding: 28px;
-  border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  text-align: center;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-}
-
-.logo-box, .logo-box-game {
-  background: linear-gradient(135deg, #ff4757, #ff6b81);
-  padding: 6px 24px;
-  border-radius: 30px;
-  margin-bottom: 12px;
-  display: inline-block;
-  box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
-}
-
-.logo-text {
+/* Botão Dourado Elegante sobre a coluna esquerda */
+.btn-start-overlay {
+  position: absolute;
+  bottom: 11%;
+  left: 31%;
+  transform: translateX(-50%);
+  width: 360px;
+  height: 65px;
+  background: linear-gradient(135deg, #d4af37, #aa7c11);
   color: #ffffff;
-  font-weight: 800;
-  font-size: 1.4rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.game-title {
-  font-size: 1.8rem;
-  color: #ffffff;
-  margin-bottom: 16px;
-}
-
-/* Espaço PIX */
-.pix-container {
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px dashed rgba(255, 255, 255, 0.25);
-  border-radius: 16px;
-  padding: 16px;
-  margin-bottom: 20px;
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.pix-title {
-  color: #cbd5e1;
-  font-size: 0.9rem;
-}
-
-.qrcode-placeholder {
-  width: 130px;
-  height: 130px;
-  background: #ffffff;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #0f172a;
+  font-size: 1.15rem;
   font-weight: bold;
-  font-size: 0.8rem;
-}
-
-.pix-key {
-  color: #94a3b8;
-  font-size: 0.85rem;
-}
-
-.pix-key span {
-  color: #38bdf8;
-  font-weight: bold;
-}
-
-.btn-start-game {
-  background: linear-gradient(135deg, #2ecc71, #27ae60);
-  color: #ffffff;
-  font-size: 1.2rem;
-  font-weight: bold;
-  padding: 16px 28px;
-  border: none;
-  border-radius: 50px;
-  box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+  border: 2px solid #fff5cc;
+  border-radius: 35px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: transform 0.15s ease, background 0.15s ease;
+  z-index: 10;
 }
 
-.btn-start-game:active {
-  transform: scale(0.98);
+.btn-start-overlay:active {
+  transform: translateX(-50%) scale(0.96);
+  background: linear-gradient(135deg, #aa7c11, #8a620d);
 }
 
-.lgpd-notice {
-  margin-top: 16px;
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.5);
-  max-width: 90%;
-  line-height: 1.3;
-}
-
-/* TELA 2: CONTAGEM REGRESSIVA */
+/* ======================================================
+   TELA 2: CONTAGEM REGRESSIVA
+   ====================================================== */
 #screen-countdown {
   justify-content: center;
   align-items: center;
@@ -222,13 +147,16 @@ html, body {
   display: block;
 }
 
-/* TELA 3: JOGO */
+/* ======================================================
+   TELA 3: JOGO
+   ====================================================== */
 #screen-game {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: stretch;
   height: 100%;
+  padding: 24px;
 }
 
 .quiz-sidebar {
@@ -247,13 +175,24 @@ html, body {
 
 .logo-box-game {
   align-self: flex-start;
+  background: linear-gradient(135deg, #d4af37, #aa7c11);
+  padding: 6px 24px;
+  border-radius: 30px;
+}
+
+.logo-text {
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 .question-container {
   background: rgba(15, 23, 42, 0.88) !important;
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-left: 5px solid #ff4757;
+  border-left: 5px solid #d4af37;
   border-radius: 14px;
   padding: 16px 20px;
   min-height: 85px;
@@ -291,7 +230,7 @@ html, body {
 }
 
 .opt-num {
-  background: #ff4757;
+  background: #d4af37;
   color: #ffffff;
   width: 28px;
   height: 28px;
@@ -358,42 +297,46 @@ html, body {
 .feedback-banner.sucesso { border-color: #2ecc71; }
 .feedback-banner.erro { border-color: #e74c3c; }
 
-/* TELA 4: AGRADECIMENTO & FOTO */
+/* ======================================================
+   TELA 4: AGRADECIMENTO & FOTO
+   ====================================================== */
 #screen-thanks {
   justify-content: center;
   align-items: center;
+  padding: 24px;
 }
 
 .thanks-card {
   background: rgba(30, 41, 59, 0.95);
   border-radius: 24px;
-  padding: 30px 40px;
+  padding: 24px 36px;
   text-align: center;
   border: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  max-width: 800px;
 }
 
 .thanks-card h2 { color: #ffffff; font-size: 1.8rem; }
 .thanks-card p { color: #cbd5e1; font-size: 1rem; }
 
 .captured-photo-frame {
-  width: 280px;
-  height: 210px;
+  width: 520px;
+  height: 290px;
   border-radius: 16px;
   overflow: hidden;
-  border: 3px solid #ff4757;
+  border: 3px solid #d4af37;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 #captured-photo {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transform: scaleX(-1);
+  object-fit: contain;
+  background: #0f172a;
 }
 
 .thanks-footer {
