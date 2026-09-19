@@ -1,18 +1,30 @@
 // ======================================================
-// CONFIGURAÇÕES E ESTADO DO QUIZ (MODO CARD + RAJADA)
+// CONFIGURAÇÕES E ESTADO DO QUIZ
 // ======================================================
+// ADICIONE AQUI OS CAMINHOS DAS FOTOS DO CASAL:
+const listaFotosCasal = [
+    'fotos/foto1.jpg',
+    'fotos/foto2.jpg',
+    'fotos/foto3.jpg'
+];
+
 let perguntas = [];
 let perguntaAtual = null;
 let jogoAtivo = false;
 let respostaSelecionada = null;
 
 let cameraStream = null;
-let fotosBrutas = []; // Guarda a rajada de fotos em memória
+let fotosBrutas = [];
 
 let tempoRestante = 20;
 let timerInterval = null;
 
-// Canvas invisível em memória para criar a moldura da foto final
+let slideIndex = 0;
+let slideInterval = null;
+
+let inactivityTimer = null;
+const TEMPO_INATIVIDADE_MS = 2 * 60 * 1000; // 2 minutos
+
 let cardCanvas = null;
 let cardCtx = null;
 
@@ -22,8 +34,10 @@ let cardCtx = null;
 document.addEventListener('DOMContentLoaded', () => {
     inicializarCardCanvas();
     carregarPerguntas();
+    iniciarSlideShow();
     vincularEventos();
     iniciarCameraBackground();
+    registrarMonitorDeInatividade();
 });
 
 function inicializarCardCanvas() {
@@ -60,7 +74,74 @@ async function iniciarCameraBackground() {
     }
 }
 
+// ======================================================
+// SLIDE SHOW & MODO INATIVIDADE
+// ======================================================
+function iniciarSlideShow() {
+    const container = document.getElementById('slideshow-container');
+    if (!container) return;
+    container.innerHTML = '';
+
+    if (listaFotosCasal.length === 0) return;
+
+    listaFotosCasal.forEach((src, idx) => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.classList.add('slide-img');
+        if (idx === 0) img.classList.add('active');
+        container.appendChild(img);
+    });
+
+    slideIndex = 0;
+    clearInterval(slideInterval);
+    slideInterval = setInterval(proximoSlide, 4000); // Troca a cada 4 segundos
+}
+
+function proximoSlide() {
+    const slides = document.querySelectorAll('.slide-img');
+    if (!slides.length) return;
+
+    slides[slideIndex].classList.remove('active');
+    slideIndex = (slideIndex + 1) % slides.length;
+    slides[slideIndex].classList.add('active');
+}
+
+function registrarMonitorDeInatividade() {
+    const resetarTimer = () => {
+        clearTimeout(inactivityTimer);
+        // Só monitora inatividade se NÃO estiver na Tela de Slideshow
+        const telaSlideshow = document.getElementById('screen-slideshow');
+        if (telaSlideshow && !telaSlideshow.classList.contains('active')) {
+            inactivityTimer = setTimeout(() => {
+                voltarParaSlideShow();
+            }, TEMPO_INATIVIDADE_MS);
+        }
+    };
+
+    window.addEventListener('click', resetarTimer);
+    window.addEventListener('touchstart', resetarTimer);
+}
+
+function voltarParaSlideShow() {
+    jogoAtivo = false;
+    clearInterval(timerInterval);
+    iniciarSlideShow();
+    mostrarTela('screen-slideshow');
+}
+
+// ======================================================
+// EVENTOS E TELA CHEIA
+// ======================================================
 function vincularEventos() {
+    // Toque no Slide Show abre a Capa do Jogo e Ativa Tela Cheia
+    const screenSlideshow = document.getElementById('screen-slideshow');
+    if (screenSlideshow) {
+        screenSlideshow.addEventListener('click', () => {
+            ativarTelaCheia();
+            mostrarTela('screen-intro');
+        });
+    }
+
     const btnStart = document.getElementById('btn-start');
     if (btnStart) {
         btnStart.addEventListener('click', iniciarFluxoJogo);
@@ -74,6 +155,17 @@ function vincularEventos() {
     }
 }
 
+function ativarTelaCheia() {
+    const doc = document.documentElement;
+    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        if (doc.requestFullscreen) {
+            doc.requestFullscreen().catch(() => {});
+        } else if (doc.webkitRequestFullscreen) {
+            doc.webkitRequestFullscreen().catch(() => {});
+        }
+    }
+}
+
 function mostrarTela(idTela) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     const telaDestino = document.getElementById(idTela);
@@ -83,13 +175,15 @@ function mostrarTela(idTela) {
 }
 
 // ======================================================
-// FLUXO DE JOGO E FOTOS
+// FLUXO DO JOGO
 // ======================================================
 async function iniciarFluxoJogo() {
     if (!perguntas.length) {
         alert("Carregando perguntas... Tente novamente em instantes.");
         return;
     }
+
+    ativarTelaCheia();
 
     fotosBrutas = [];
     await iniciarCameraBackground();
@@ -122,7 +216,6 @@ function iniciarPartida() {
     atualizarHTMLJogo();
     mostrarTela('screen-game');
 
-    // FOTO 1: Início da pergunta
     capturarFrameRajada('inicio_1');
 
     const timerEl = document.getElementById('timer');
@@ -166,9 +259,6 @@ function atualizarHTMLJogo() {
     if (fbBanner) fbBanner.classList.add('hidden');
 }
 
-// ======================================================
-// PROCESSAMENTO DE RESPOSTA E RAJADA DE FOTOS
-// ======================================================
 function responder(index) {
     if (!jogoAtivo) return;
     processarResposta(index);
@@ -181,11 +271,9 @@ function processarResposta(index) {
 
     const acertou = (index === perguntaAtual.correta);
 
-    // RAJADA NO MOMENTO DO CLIQUE (2 Fotos com intervalo de 0.5s)
     capturarFrameRajada('clique_1');
     setTimeout(() => capturarFrameRajada('clique_2'), 500);
 
-    // Destaca as opções no HTML
     for (let i = 0; i < 4; i++) {
         const btn = document.getElementById(`btn-${i}`);
         if (btn) {
@@ -194,14 +282,12 @@ function processarResposta(index) {
         }
     }
 
-    // RAJADA DA REAÇÃO DO RESULTADO (2 Fotos no resultado)
     setTimeout(() => {
         exibirFeedback(acertou);
         capturarFrameRajada('reacao_1');
         setTimeout(() => capturarFrameRajada('reacao_2'), 600);
     }, 1500);
 
-    // Conclui e gera os Cards após 6 segundos
     setTimeout(() => {
         finalizarEGerarCards();
     }, 6000);
@@ -220,7 +306,6 @@ function exibirFeedback(acertou) {
     }
 }
 
-// Guarda o elemento Canvas estático em memória (ultra leve)
 function capturarFrameRajada(tagMomento) {
     const videoEl = document.getElementById('webcam');
     if (videoEl && videoEl.readyState >= 2) {
@@ -229,7 +314,6 @@ function capturarFrameRajada(tagMomento) {
         memCanvas.height = 720;
         const ctx = memCanvas.getContext('2d');
 
-        // Desenha espelhado
         ctx.save();
         ctx.translate(640, 0);
         ctx.scale(-1, 1);
@@ -241,33 +325,28 @@ function capturarFrameRajada(tagMomento) {
 }
 
 // ======================================================
-// GERAÇÃO DOS CARDS DE FOTO COM MOLDURA DO QUIZ
+// CARDS & DOWNLOADS
 // ======================================================
 function finalizarEGerarCards() {
     mostrarTela('screen-thanks');
 
     if (!fotosBrutas.length) return;
 
-    // Pega a última foto (Reação) para exibir na tela de agradecimento
     const ultimaFoto = fotosBrutas[fotosBrutas.length - 1];
     gerarCardComMoldura(ultimaFoto.canvasFrame, (dataUrl) => {
         const imgDestino = document.getElementById('captured-photo');
         if (imgDestino) imgDestino.src = dataUrl;
     });
 
-    // Baixa a sequência inteira de cards
     salvarTodosOsCards();
 }
 
 function gerarCardComMoldura(frameCanvas, callback) {
-    // 1. Fundo do Card
     cardCtx.fillStyle = '#0f172a';
     cardCtx.fillRect(0, 0, cardCanvas.width, cardCanvas.height);
 
-    // 2. Foto do Participante (Lado Direito)
     cardCtx.drawImage(frameCanvas, 640, 0, 640, 720);
 
-    // 3. Painel da Pergunta (Lado Esquerdo)
     cardCtx.fillStyle = '#1e293b';
     if (cardCtx.roundRect) {
         cardCtx.beginPath();
@@ -281,7 +360,6 @@ function gerarCardComMoldura(frameCanvas, callback) {
     cardCtx.font = 'bold 18px sans-serif';
     quebrarTexto(cardCtx, perguntaAtual.pergunta, 55, 60, 530, 24);
 
-    // 4. Alternativas (A, B, C, D)
     const startY = 175;
     const btnHeight = 70;
     const gap = 10;
@@ -292,9 +370,9 @@ function gerarCardComMoldura(frameCanvas, callback) {
         let btnColor = '#1e293b';
         if (respostaSelecionada !== null) {
             if (index === perguntaAtual.correta) {
-                btnColor = '#2ecc71'; // Verde
+                btnColor = '#2ecc71';
             } else if (index === respostaSelecionada) {
-                btnColor = '#e74c3c'; // Vermelho
+                btnColor = '#e74c3c';
             }
         }
 
@@ -312,12 +390,10 @@ function gerarCardComMoldura(frameCanvas, callback) {
         cardCtx.fillText(`${index + 1}. ${opcao}`, 55, y + 40);
     });
 
-    // 5. Caixa de Explicação Personalizada (Rodapé Esquerdo)
     const explicacaoY = 500;
     const acertou = (respostaSelecionada === perguntaAtual.correta);
     const emoji = acertou ? '🎉' : '🙈';
     
-    // Texto de explicação do JSON ou Padrão
     let textoExplicacao = perguntaAtual.explicacao;
     if (!textoExplicacao) {
         textoExplicacao = acertou ? 
@@ -338,7 +414,6 @@ function gerarCardComMoldura(frameCanvas, callback) {
         cardCtx.fillRect(40, explicacaoY, 560, 180);
     }
 
-    // Título e texto da explicação
     cardCtx.fillStyle = '#ffffff';
     cardCtx.font = 'bold 16px sans-serif';
     cardCtx.fillText(`${emoji} ${acertou ? 'ACERTOU!' : 'EXPLICAÇÃO:'}`, 55, explicacaoY + 30);
@@ -347,7 +422,6 @@ function gerarCardComMoldura(frameCanvas, callback) {
     cardCtx.fillStyle = '#cbd5e1';
     quebrarTexto(cardCtx, textoExplicacao, 55, explicacaoY + 60, 530, 22);
 
-    // Exporta imagem final em Blob leve
     cardCanvas.toBlob((blob) => {
         if (blob) {
             const url = URL.createObjectURL(blob);
@@ -373,9 +447,8 @@ function salvarTodosOsCards() {
         }, idx * 500);
     });
 
-    // Retorna à tela inicial
     setTimeout(() => {
-        mostrarTela('screen-intro');
+        voltarParaSlideShow();
     }, 7000);
 }
 
