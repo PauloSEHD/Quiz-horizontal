@@ -1,5 +1,5 @@
 // ======================================================
-// CONFIGURAÇÕES E ESTADO DO QUIZ (MODO ULTRA LEVE)
+// CONFIGURAÇÕES E ESTADO DO QUIZ (MODO 480P ULTRA LEVE)
 // ======================================================
 let perguntas = [];
 let perguntaAtual = null;
@@ -27,11 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
     iniciarCameraBackground();
 });
 
+// Resolução 480p Leve (854x480) para garantir estabilidade no tablet
 function inicializarCompositor() {
     renderCanvas = document.createElement('canvas');
-    renderCanvas.width = 1280;
-    renderCanvas.height = 720;
-    renderCtx = renderCanvas.getContext('2d', { alpha: false, willReadFrequently: false });
+    renderCanvas.width = 854;
+    renderCanvas.height = 480;
+    renderCtx = renderCanvas.getContext('2d', { alpha: false });
 }
 
 async function carregarPerguntas() {
@@ -39,7 +40,7 @@ async function carregarPerguntas() {
         const response = await fetch('perguntas.json');
         perguntas = await response.json();
     } catch (error) {
-        console.error('Erro ao carregar perguntas.json:', error);
+        console.error('Erro ao carregar o arquivo perguntas.json:', error);
     }
 }
 
@@ -47,7 +48,7 @@ async function iniciarCameraBackground() {
     try {
         if (!cameraStream) {
             cameraStream = await navigator.mediaDevices.getUserMedia({
-                video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: "user" },
+                video: { width: { ideal: 854 }, height: { ideal: 480 }, facingMode: "user" },
                 audio: true
             });
             const videoEl = document.getElementById('webcam');
@@ -84,7 +85,7 @@ function mostrarTela(idTela) {
 }
 
 // ======================================================
-// FLUXO DE JOGO & CONTAGEM REGRESSIVA (3s)
+// FLUXO DE JOGO
 // ======================================================
 async function iniciarFluxoJogo() {
     if (!perguntas.length) {
@@ -166,56 +167,40 @@ function atualizarHTMLJogo() {
 }
 
 // ======================================================
-// RENDERIZAÇÃO NO CANVAS (20 FPS - BAIXO CONSUMO)
+// RENDERIZAÇÃO NO CANVAS (854x480 A 20 FPS)
 // ======================================================
-let ultimoFrameTempo = 0;
-const fpsDesejado = 20;
-const intervaloFrame = 1000 / fpsDesejado;
-
-function desenharTelaJogo(tempoAtual) {
+function desenharTelaJogo() {
     if (!renderCtx) return;
 
-    animFrameId = requestAnimationFrame(desenharTelaJogo);
-
-    const delta = tempoAtual - ultimoFrameTempo;
-    if (delta < intervaloFrame) return; // Controla taxa de quadros para aliviar CPU
-    ultimoFrameTempo = tempoAtual - (delta % intervaloFrame);
-
-    // 1. Fundo do Game Show
+    // Fundo
     renderCtx.fillStyle = '#0f172a';
     renderCtx.fillRect(0, 0, renderCanvas.width, renderCanvas.height);
 
-    // 2. Feed da Câmera Espelhada (Lado Direito)
+    // Câmera (Lado Direito)
     const videoElement = document.getElementById('webcam');
     if (videoElement && videoElement.readyState >= 2) {
         renderCtx.save();
-        renderCtx.translate(1280, 0);
+        renderCtx.translate(854, 0);
         renderCtx.scale(-1, 1);
-        renderCtx.drawImage(videoElement, 0, 0, 640, 720);
+        renderCtx.drawImage(videoElement, 0, 0, 427, 480);
         renderCtx.restore();
     }
 
-    // 3. Painel da Pergunta
+    // Painel da Pergunta
     renderCtx.fillStyle = '#1e293b';
-    if (renderCtx.roundRect) {
-        renderCtx.beginPath();
-        renderCtx.roundRect(40, 40, 560, 150, 15);
-        renderCtx.fill();
-    } else {
-        renderCtx.fillRect(40, 40, 560, 150);
-    }
+    renderCtx.fillRect(20, 20, 380, 100);
 
     if (perguntaAtual) {
         renderCtx.fillStyle = '#ffffff';
-        renderCtx.font = 'bold 20px sans-serif';
-        quebrarTexto(renderCtx, perguntaAtual.pergunta, 60, 75, 520, 26);
+        renderCtx.font = 'bold 14px sans-serif';
+        quebrarTexto(renderCtx, perguntaAtual.pergunta, 30, 45, 360, 18);
     }
 
-    // 4. Botões das Alternativas
+    // Opções
     if (perguntaAtual && perguntaAtual.opcoes) {
-        const startY = 210;
-        const btnHeight = 85;
-        const gap = 15;
+        const startY = 135;
+        const btnHeight = 55;
+        const gap = 10;
 
         perguntaAtual.opcoes.forEach((opcao, index) => {
             const y = startY + index * (btnHeight + gap);
@@ -230,28 +215,24 @@ function desenharTelaJogo(tempoAtual) {
             }
 
             renderCtx.fillStyle = btnColor;
-            if (renderCtx.roundRect) {
-                renderCtx.beginPath();
-                renderCtx.roundRect(40, y, 560, btnHeight, 10);
-                renderCtx.fill();
-            } else {
-                renderCtx.fillRect(40, y, 560, btnHeight);
-            }
+            renderCtx.fillRect(20, y, 380, btnHeight);
 
             renderCtx.fillStyle = '#ffffff';
-            renderCtx.font = 'bold 18px sans-serif';
-            renderCtx.fillText(`${index + 1}. ${opcao}`, 60, y + 48);
+            renderCtx.font = 'bold 13px sans-serif';
+            renderCtx.fillText(`${index + 1}. ${opcao}`, 30, y + 32);
         });
     }
 
-    // 5. Rodapé
+    // Rodapé
     renderCtx.fillStyle = '#ff4757';
-    renderCtx.font = 'bold 16px sans-serif';
-    renderCtx.fillText(`TEMPO: ${tempoRestante}s`, 40, 680);
+    renderCtx.font = 'bold 12px sans-serif';
+    renderCtx.fillText(`TEMPO: ${tempoRestante}s`, 20, 455);
 
     renderCtx.fillStyle = '#ffffff';
-    renderCtx.font = 'bold 18px sans-serif';
-    renderCtx.fillText('QUIZ DOS NOIVOS', 440, 680);
+    renderCtx.font = 'bold 13px sans-serif';
+    renderCtx.fillText('QUIZ DOS NOIVOS', 280, 455);
+
+    animFrameId = requestAnimationFrame(desenharTelaJogo);
 }
 
 function quebrarTexto(ctx, text, x, y, maxWidth, lineHeight) {
@@ -273,7 +254,7 @@ function quebrarTexto(ctx, text, x, y, maxWidth, lineHeight) {
 }
 
 // ======================================================
-// RESPOSTAS E CAPTURA DA FOTO DE CENÁRIO
+// PROCESSAMENTO
 // ======================================================
 function responder(index) {
     if (!jogoAtivo) return;
@@ -295,16 +276,16 @@ function processarResposta(index) {
         }
     }
 
-    // 2s de pausa para registrar a reação no vídeo
+    // 2s de pausa para gravar reação antes do feedback
     setTimeout(() => {
         exibirFeedback(acertou);
-        capturarFotoComCenario(); // Tira a foto pegando o Canvas inteiro com o cenário do jogo!
+        capturarFotoLeve();
     }, 2000);
 
-    // 10s depois finaliza a rodada e salva o vídeo
+    // Finaliza e salva o vídeo após 8s
     setTimeout(() => {
         finalizarEIrParaObrigado();
-    }, 10000);
+    }, 8000);
 }
 
 function exibirFeedback(acertou) {
@@ -320,21 +301,28 @@ function exibirFeedback(acertou) {
     }
 }
 
-// Captura a foto diretamente do Canvas do Cenário (Perguntas + Respostas + Reação)
-function capturarFotoComCenario() {
+function capturarFotoLeve() {
+    const videoEl = document.getElementById('webcam');
+    const canvasFoto = document.getElementById('photo-canvas');
     const imgDestino = document.getElementById('captured-photo');
-    if (renderCanvas && imgDestino) {
-        renderCanvas.toBlob((blob) => {
+
+    if (videoEl && canvasFoto && imgDestino) {
+        canvasFoto.width = 480;
+        canvasFoto.height = 360;
+        const ctx = canvasFoto.getContext('2d');
+        ctx.drawImage(videoEl, 0, 0, 480, 360);
+        
+        canvasFoto.toBlob((blob) => {
             if (blob) {
                 const url = URL.createObjectURL(blob);
                 imgDestino.src = url;
             }
-        }, 'image/jpeg', 0.85);
+        }, 'image/jpeg', 0.7);
     }
 }
 
 // ======================================================
-// ENCERRAMENTO E LIMPEZA DE MEMÓRIA (O SEGREDO DO TABLET)
+// ENCERRAMENTO E SALVAMENTO AUTOMÁTICO
 // ======================================================
 function obterMimeTypeSuportado() {
     const tipos = ['video/webm;codecs=vp8', 'video/webm', 'video/mp4'];
@@ -347,9 +335,10 @@ function obterMimeTypeSuportado() {
 }
 
 function iniciarGravaçãoCanvas() {
-    animFrameId = requestAnimationFrame(desenharTelaJogo);
+    desenharTelaJogo();
 
-    const canvasStream = renderCanvas.captureStream(20); // 20 FPS para rodar macio no tablet
+    // Limitado a 20 FPS para não travar o processador do tablet
+    const canvasStream = renderCanvas.captureStream(20);
     if (cameraStream && cameraStream.getAudioTracks().length > 0) {
         canvasStream.addTrack(cameraStream.getAudioTracks()[0]);
     }
@@ -359,7 +348,10 @@ function iniciarGravaçãoCanvas() {
 
     try {
         if (mimeTypeSuportado) {
-            mediaRecorder = new MediaRecorder(canvasStream, { mimeType: mimeTypeSuportado, videoBitsPerSecond: 2000000 });
+            mediaRecorder = new MediaRecorder(canvasStream, { 
+                mimeType: mimeTypeSuportado, 
+                videoBitsPerSecond: 1200000 // Bitrate leve (1.2 Mbps)
+            });
         } else {
             mediaRecorder = new MediaRecorder(canvasStream);
         }
@@ -387,7 +379,7 @@ function finalizarEIrParaObrigado() {
 
 function salvarVideoFinal() {
     if (!recordedChunks.length) {
-        limparEMultarParaInicio();
+        mostrarTela('screen-intro');
         return;
     }
 
@@ -406,17 +398,9 @@ function salvarVideoFinal() {
     setTimeout(() => {
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);
-        limparEMultarParaInicio();
+        recordedChunks = []; // Limpa array da memória
+        setTimeout(() => {
+            mostrarTela('screen-intro');
+        }, 3000);
     }, 500);
-}
-
-// Limpeza completa de variáveis da RAM para a próxima partida
-function limparEMultarParaInicio() {
-    recordedChunks = [];
-    respostaSelecionada = null;
-    perguntaAtual = null;
-
-    setTimeout(() => {
-        mostrarTela('screen-intro');
-    }, 4000);
 }
