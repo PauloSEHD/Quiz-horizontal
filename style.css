@@ -226,10 +226,20 @@ html, body {
   height: 100%; 
 }
 
+.logo-box-game {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 70px;
+  margin-bottom: 5px;
+}
+
 .app-logo { 
-  max-height: 60px; 
-  max-width: 85%; 
+  max-height: 70px; 
+  width: auto; 
   object-fit: contain; 
+  display: block;
 }
 
 .question-container { 
