@@ -1,100 +1,104 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz dos Noivos - Baú da Fé</title>
-  <link rel="stylesheet" href="styles.css?v=100">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Quiz Baú da Fé</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Câmera / Fundo Vivo -->
-  <video id="webcam" autoplay playsinline muted></video>
-  <div id="camera-overlay" class="hidden"></div>
+    <!-- Câmera ao vivo em segundo plano -->
+    <video id="webcam" autoplay playsinline muted></video>
 
-  <div id="app">
-
-    <!-- TELA 0: SLIDE SHOW DE FOTOS DO CASAL -->
+    <!-- TELA 1: Slideshow de Descanso -->
     <div id="screen-slideshow" class="screen active">
-      <div id="slideshow-container"></div>
-      <div class="slideshow-touch-prompt">
-        <span>Toque na tela para brincar! 🎁</span>
-      </div>
+        <div id="slideshow-container" class="slideshow-container"></div>
+        <div class="slideshow-overlay">
+            <p>Toque na tela para brincar! 💡</p>
+        </div>
     </div>
-    
-    <!-- TELA 1: CAPA COM PIX E INÍCIO DO JOGO -->
+
+    <!-- TELA 2: Introdução / Instruções -->
     <div id="screen-intro" class="screen">
-      <div class="intro-banner-container">
-        <img src="fundo-intro.jpg" alt="Baú da Fé - Quiz dos Noivos" class="bg-banner-img">
-        <button id="btn-start" class="btn-start-overlay">
-          Já abençoei os noivos e quero brincar!
-        </button>
-      </div>
-    </div>
+        <div class="intro-card">
+            <img src="imagens/logo.jpg" alt="Baú da Fé" class="intro-logo">
+            <h1 class="intro-title">Abençoe os noivos & Teste seus conhecimentos!</h1>
+            <p class="intro-subtitle">Ao jogar, você autoriza a captura de fotos para recordação do casal.</p>
 
-    <!-- TELA 2: CONTAGEM REGRESSIVA (3s) -->
-    <div id="screen-countdown" class="screen">
-      <div class="countdown-overlay">
-        <h2>Prepare-se... 📸</h2>
-        <span id="countdown-number">3</span>
-      </div>
-    </div>
-
-    <!-- TELA 3: JOGO DO QUIZ -->
-    <div id="screen-game" class="screen">
-      <div class="gradient-overlay"></div>
-
-      <div class="quiz-sidebar">
-        <!-- Logo no Topo do Jogo -->
-        <div class="logo-box-game">
-          <img src="imagens/logo.jpg" alt="Baú da Fé" class="app-logo">
-        </div>
-
-        <div class="question-container">
-          <h2 id="question-text">Carregando pergunta...</h2>
-        </div>
-
-        <div class="options-stack">
-          <button id="btn-0" class="btn-option"><span class="opt-badge">A</span> <span class="opt-text">Opção 1</span></button>
-          <button id="btn-1" class="btn-option"><span class="opt-badge">B</span> <span class="opt-text">Opção 2</span></button>
-          <button id="btn-2" class="btn-option"><span class="opt-badge">C</span> <span class="opt-text">Opção 3</span></button>
-          <button id="btn-3" class="btn-option"><span class="opt-badge">D</span> <span class="opt-text">Opção 4</span></button>
-        </div>
-
-        <div class="bottom-status-zone">
-          <div id="timer-badge" class="timer-badge">
-            <span id="timer" class="timer-verde">20</span>
-          </div>
-
-          <div id="feedback-banner" class="feedback-banner hidden">
-            <div class="feedback-header">
-              <span id="feedback-emoji">🎉</span>
-              <span id="feedback-title">RESPOSTA CORRETA!</span>
+            <div class="qr-section">
+                <div class="qr-box">
+                    <img src="imagens/qr_pix.png" alt="QR Code Pix" onerror="this.src='https://via.placeholder.com/150?text=QR+PIX'">
+                    <p>Chave PIX Noivos</p>
+                </div>
             </div>
-            <p id="feedback-text"></p>
-          </div>
+
+            <button id="btn-start" class="btn-primary">Já abençoei os noivos e quero brincar!</button>
         </div>
-      </div>
     </div>
 
-    <!-- TELA 4: AGRADECIMENTO & MOLDURA FINAL -->
+    <!-- TELA 3: Contagem Regressiva -->
+    <div id="screen-countdown" class="screen">
+        <div class="countdown-box">
+            <h2>Prepare-se... 📸</h2>
+            <div id="countdown-number" class="countdown-number">3</div>
+        </div>
+    </div>
+
+    <!-- TELA 4: Quiz ao vivo -->
+    <div id="screen-game" class="screen">
+        <div class="quiz-overlay-panel">
+            <div class="quiz-header">
+                <img src="imagens/logo.jpg" alt="Baú da Fé" class="quiz-logo">
+            </div>
+
+            <div class="question-card">
+                <p id="question-text" class="question-text">Carregando pergunta...</p>
+            </div>
+
+            <div class="options-container">
+                <div id="btn-0" class="btn-option">
+                    <span class="opt-badge">A</span>
+                    <span class="opt-text">Opção A</span>
+                </div>
+                <div id="btn-1" class="btn-option">
+                    <span class="opt-badge">B</span>
+                    <span class="opt-text">Opção B</span>
+                </div>
+                <div id="btn-2" class="btn-option">
+                    <span class="opt-badge">C</span>
+                    <span class="opt-text">Opção C</span>
+                </div>
+                <div id="btn-3" class="btn-option">
+                    <span class="opt-badge">D</span>
+                    <span class="opt-text">Opção D</span>
+                </div>
+            </div>
+
+            <div id="feedback-banner" class="feedback-banner hidden">
+                <div class="feedback-header">
+                    <span id="feedback-emoji" class="feedback-emoji">🎉</span>
+                    <span id="feedback-title" class="feedback-title">RESPOSTA CORRETA!</span>
+                </div>
+                <p id="feedback-text" class="feedback-text">Explicação aqui...</p>
+            </div>
+        </div>
+
+        <div id="timer-badge" class="timer-badge">
+            <span id="timer" class="timer-number">20</span>
+        </div>
+    </div>
+
+    <!-- TELA 5: Agradecimento e Exibição do Card da Foto -->
     <div id="screen-thanks" class="screen">
-      <div class="thanks-card">
-        <h2>Muito Obrigado por Participar! ❤️</h2>
-        <p>Sua reação e participação foram registradas com sucesso:</p>
-        
-        <div class="captured-photo-frame">
-          <img id="captured-photo" src="" alt="Sua Reação no Quiz">
-          <!-- Logo sobreposto na miniatura final -->
-          <img src="imagens/logo.jpg" alt="Logo Baú da Fé" class="photo-logo-overlay">
+        <div class="thanks-card">
+            <h2>Muito Obrigado por Participar! ❤️</h2>
+            <p>Sua reação e participação foram registradas com sucesso!</p>
+            <img id="captured-photo" class="photo-preview" src="" alt="Sua Foto no Quiz">
+            <p style="font-size: 0.95rem; color: #94a3b8;">Os noivos amaram sua presença!</p>
         </div>
-
-        <p class="thanks-footer">Os noivos amaram sua presença!</p>
-      </div>
     </div>
 
-  </div>
-
-  <script src="script.js?v=100"></script>
+    <script src="script.js"></script>
 </body>
 </html>
