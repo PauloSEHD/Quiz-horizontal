@@ -23,8 +23,9 @@ let slideIndex = 0;
 let slideInterval = null;
 
 let inactivityTimer = null;
-const TEMPO_INATIVIDADE_MS = 2 * 60 * 1000;
+const TEMPO_INATIVIDADE_MS = 2 * 60 * 1000; // 2 minutos
 
+// Imagem do Logo para o Canvas
 let logoImg = new Image();
 logoImg.src = 'imagens/logo.jpg';
 
@@ -67,7 +68,7 @@ async function iniciarCameraBackground() {
 }
 
 // ======================================================
-// SLIDE SHOW & INATIVIDADE
+// SLIDE SHOW & MODO INATIVIDADE
 // ======================================================
 function iniciarSlideShow() {
     const container = document.getElementById('slideshow-container');
@@ -121,7 +122,7 @@ function voltarParaSlideShow() {
 }
 
 // ======================================================
-// EVENTOS & TELAS
+// EVENTOS E TELA CHEIA
 // ======================================================
 function vincularEventos() {
     const screenSlideshow = document.getElementById('screen-slideshow');
@@ -170,11 +171,11 @@ function mostrarTela(idTela) {
 }
 
 // ======================================================
-// FLUXO DO JOGO E CAPTURAS
+// FLUXO DO JOGO
 // ======================================================
 async function iniciarFluxoJogo() {
     if (!perguntas.length) {
-        alert("Carregando perguntas... Tente novamente.");
+        alert("Carregando perguntas... Tente novamente em instantes.");
         return;
     }
 
@@ -210,7 +211,7 @@ function iniciarPartida() {
     atualizarHTMLJogo();
     mostrarTela('screen-game');
 
-    // Fotos 1 e 2 ao carregar a pergunta
+    // MOMENTO 1: Tira 2 fotos no início (Lendo a Pergunta)
     capturarFoto('pergunta_1');
     setTimeout(() => {
         capturarFoto('pergunta_2');
@@ -232,8 +233,8 @@ function iniciarPartida() {
             if (timerEl) {
                 timerEl.innerText = tempoRestante;
                 if (tempoRestante <= 5) timerEl.className = 'timer-vermelho';
-                else if (tempoRestante <= 10) timerEl.className = 'timer-amarelo';
-                else if (tempoRestante <= 15) timerEl.className = 'timer-laranja';
+                else if (tempoRestante <= 10) timerEl.className = 'timer-laranja';
+                else if (tempoRestante <= 15) timerEl.className = 'timer-amarelo';
             }
         } else if (tempoRestante === 0 && jogoAtivo) {
             processarResposta(-1);
@@ -282,7 +283,7 @@ function processarResposta(index) {
         }
     }
 
-    // Fotos 3 e 4 ao clicar na resposta
+    // MOMENTO 2: Tira 2 fotos na escolha da opção
     capturarFoto('resposta_1');
     setTimeout(() => {
         capturarFoto('resposta_2');
@@ -291,9 +292,10 @@ function processarResposta(index) {
     setTimeout(() => {
         exibirFeedback(acertou);
         
-        // Fotos 5 e 6 no momento do feedback
+        // MOMENTO 3: Tira 2 fotos com o resultado na tela (Feedback)
         capturarFoto('feedback_1');
         setTimeout(() => {
+            // A última foto atualiza a miniatura exibida na Tela de Agradecimento
             const ultimaFoto = capturarFoto('feedback_2');
             const imgDestino = document.getElementById('captured-photo');
             if (imgDestino && ultimaFoto) imgDestino.src = ultimaFoto;
@@ -336,7 +338,7 @@ function exibirFeedback(acertou) {
 }
 
 // ======================================================
-// RENDERIZAÇÃO NO CANVAS E CAPTURA DE IMAGEM
+// RENDERIZADOR DO CANVAS E DISPARADOR DE FOTOS
 // ======================================================
 function capturarFoto(rotuloMomento) {
     const videoEl = document.getElementById('webcam');
@@ -368,27 +370,27 @@ function capturarFoto(rotuloMomento) {
 
     // 3. Logo
     if (logoImg.complete && logoImg.naturalWidth !== 0) {
-        const logoWidth = 260;
+        const logoWidth = 200;
         const logoHeight = (logoImg.naturalHeight / logoImg.naturalWidth) * logoWidth;
         ctx.drawImage(logoImg, 40, 20, logoWidth, logoHeight);
     }
 
     // 4. Pergunta
     const boxX = 40;
-    const boxY = 100;
+    const boxY = 90;
     const boxWidth = 560;
 
     ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
-    ctx.strokeStyle = 'rgba(212, 175, 55, 0.8)';
+    ctx.strokeStyle = 'rgba(212, 175, 55, 0.6)';
     ctx.lineWidth = 2;
     
     if (ctx.roundRect) {
         ctx.beginPath();
-        ctx.roundRect(boxX, boxY, boxWidth, 100, 14);
+        ctx.roundRect(boxX, boxY, boxWidth, 110, 14);
         ctx.fill();
         ctx.stroke();
     } else {
-        ctx.fillRect(boxX, boxY, boxWidth, 100);
+        ctx.fillRect(boxX, boxY, boxWidth, 110);
     }
 
     ctx.fillStyle = '#ffffff';
@@ -397,13 +399,13 @@ function capturarFoto(rotuloMomento) {
 
     // 5. Opções
     const optStartY = 215;
-    const optHeight = 62;
+    const optHeight = 65;
     const gap = 12;
 
     perguntaAtual.opcoes.forEach((opcao, i) => {
         const y = optStartY + i * (optHeight + gap);
 
-        let bgColor = 'rgba(30, 41, 59, 0.92)';
+        let bgColor = 'rgba(30, 41, 59, 0.9)';
         let borderColor = 'rgba(255, 255, 255, 0.2)';
         let badgeBg = '#d4af37';
         let badgeTextColor = '#0f172a';
@@ -433,25 +435,24 @@ function capturarFoto(rotuloMomento) {
             ctx.fillRect(boxX, y, boxWidth, optHeight);
         }
 
-        // Círculo com a letra
         ctx.fillStyle = badgeBg;
         ctx.beginPath();
-        ctx.arc(boxX + 32, y + 31, 18, 0, Math.PI * 2);
+        ctx.arc(boxX + 32, y + 32, 18, 0, Math.PI * 2);
         ctx.fill();
 
         ctx.fillStyle = badgeTextColor;
         ctx.font = 'bold 18px sans-serif';
-        ctx.fillText(letrasOpcoes[i], boxX + 26, y + 37);
+        ctx.fillText(letrasOpcoes[i], boxX + 26, y + 38);
 
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 18px sans-serif';
-        ctx.fillText(opcao, boxX + 65, y + 37);
+        ctx.fillText(opcao, boxX + 65, y + 38);
     });
 
-    // 6. Caixa de Feedback no Canvas
+    // 6. Explicação (quando visível)
     const fbBanner = document.getElementById('feedback-banner');
     if (fbBanner && !fbBanner.classList.contains('hidden')) {
-        const expY = 520;
+        const expY = 530;
         const acertou = (respostaSelecionada === perguntaAtual.correta);
         let textoExplicacao = perguntaAtual.explicacao;
         if (!textoExplicacao) {
@@ -462,29 +463,29 @@ function capturarFoto(rotuloMomento) {
 
         ctx.fillStyle = 'rgba(15, 23, 42, 0.95)';
         ctx.strokeStyle = acertou ? '#2ecc71' : '#e74c3c';
-        ctx.lineWidth = 2.5;
+        ctx.lineWidth = 2;
 
         if (ctx.roundRect) {
             ctx.beginPath();
-            ctx.roundRect(boxX, expY, boxWidth, 145, 14);
+            ctx.roundRect(boxX, expY, boxWidth, 140, 14);
             ctx.fill();
             ctx.stroke();
         } else {
-            ctx.fillRect(boxX, expY, boxWidth, 145);
+            ctx.fillRect(boxX, expY, boxWidth, 140);
         }
 
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 18px sans-serif';
         ctx.fillText(`${acertou ? '🎉 RESPOSTA CORRETA!' : '🙈 RESPOSTA INCORRETA!'}`, boxX + 20, expY + 35);
 
-        ctx.fillStyle = '#f1f5f9';
+        ctx.fillStyle = '#cbd5e1';
         ctx.font = '16px sans-serif';
         quebrarTexto(ctx, textoExplicacao, boxX + 20, expY + 70, boxWidth - 40, 22);
     }
 
     const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
 
-    // Download da imagem gerada
+    // Salva a foto automaticamente via download
     const timestamp = Date.now();
     const a = document.createElement('a');
     a.href = dataUrl;
