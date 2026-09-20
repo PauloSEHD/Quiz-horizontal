@@ -15,7 +15,6 @@ let jogoAtivo = false;
 let respostaSelecionada = null;
 
 let cameraStream = null;
-let fotoCapturadaCanvas = null;
 
 let tempoRestante = 20;
 let timerInterval = null;
@@ -26,9 +25,9 @@ let slideInterval = null;
 let inactivityTimer = null;
 const TEMPO_INATIVIDADE_MS = 2 * 60 * 1000; // 2 minutos
 
-// Imagem do Logo para o Canvas
+// Imagem do Logo para o Canvas (Caminho e nome corrigidos)
 let logoImg = new Image();
-logoImg.src = 'logo.png';
+logoImg.src = 'imagens/logo.jpg';
 
 // ======================================================
 // INICIALIZAÇÃO
@@ -159,19 +158,18 @@ function ativarTelaCheia() {
 }
 
 function mostrarTela(idTela) {
-    // Remove a classe 'active' de todas as telas
     document.querySelectorAll('.screen').forEach(s => {
         s.classList.remove('active');
-        s.style.display = 'none'; // Força esconder via JS inline
+        s.style.display = 'none';
     });
 
-    // Ativa apenas a tela desejada
     const telaDestino = document.getElementById(idTela);
     if (telaDestino) {
         telaDestino.classList.add('active');
-        telaDestino.style.display = 'flex'; // Força exibir via JS inline
+        telaDestino.style.display = 'flex';
     }
 }
+
 // ======================================================
 // FLUXO DO JOGO
 // ======================================================
@@ -314,7 +312,7 @@ function exibirFeedback(acertou) {
 }
 
 // ======================================================
-// CAPTURA DO CANVAS IDÊNTICO À TELA AO VIVO (SEM ACHATAR FOTO)
+// CAPTURA DO CANVAS IDÊNTICO À TELA AO VIVO
 // ======================================================
 function capturarEGerarCardComSobreposicao() {
     const videoEl = document.getElementById('webcam');
@@ -324,7 +322,7 @@ function capturarEGerarCardComSobreposicao() {
     canvas.height = 720;
     const ctx = canvas.getContext('2d');
 
-    // 1. Desenha a Câmera ocupando 100% da imagem ao fundo (Sem espremer!)
+    // 1. Desenha a Câmera ocupando 100% da imagem ao fundo
     if (videoEl && videoEl.readyState >= 2) {
         ctx.save();
         ctx.translate(canvas.width, 0);
@@ -344,9 +342,11 @@ function capturarEGerarCardComSobreposicao() {
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // 3. Desenha a Logo "Baú da Fé" no topo esquerdo
+    // 3. Desenha a Logo "Baú da Fé" no topo esquerdo com proporção correta
     if (logoImg.complete && logoImg.naturalWidth !== 0) {
-        ctx.drawImage(logoImg, 40, 25, 220, 50);
+        const logoWidth = 200;
+        const logoHeight = (logoImg.naturalHeight / logoImg.naturalWidth) * logoWidth;
+        ctx.drawImage(logoImg, 40, 20, logoWidth, logoHeight);
     }
 
     // 4. Desenha a Pergunta
@@ -466,7 +466,7 @@ function capturarEGerarCardComSobreposicao() {
 
     mostrarTela('screen-thanks');
 
-    // Download em segundo plano do card
+    // Download automático do card em segundo plano
     const timestamp = Date.now();
     const a = document.createElement('a');
     a.href = dataUrl;
@@ -475,7 +475,7 @@ function capturarEGerarCardComSobreposicao() {
     a.click();
     document.body.removeChild(a);
 
-    // Retorna para o descanso após 8 segundos
+    // Retorna ao descanso após 8 segundos
     setTimeout(() => {
         voltarParaSlideShow();
     }, 8000);
