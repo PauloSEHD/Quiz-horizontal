@@ -1,95 +1,100 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baú da Fé - Jogo dos Noivos</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz dos Noivos - Baú da Fé</title>
+  <link rel="stylesheet" href="styles.css?v=100">
 </head>
 <body>
 
-    <!-- TELA 1: CAPA DE FOTOS DAGALERIA / SLIDESHOW -->
-    <div id="screen-photos" class="screen active">
-        <div class="slideshow-container">
-            <img src="fotos/foto1.jpg" class="slide active" alt="Foto dos Noivos 1">
-            <img src="fotos/foto2.jpg" class="slide" alt="Foto dos Noivos 2">
-            <img src="fotos/foto3.jpg" class="slide" alt="Foto dos Noivos 3">
-        </div>
-        <div class="banner-bottom">
-            <span>Toque na tela para brincar! 👆</span>
-        </div>
-    </div>
+  <!-- Câmera / Fundo Vivo -->
+  <video id="webcam" autoplay playsinline muted></video>
+  <div id="camera-overlay" class="hidden"></div>
 
-    <!-- TELA 2: INTRODUÇÃO / INSTRUÇÕES (COM FOTO DOS NOIVOS AO FUNDO) -->
+  <div id="app">
+
+    <!-- TELA 0: SLIDE SHOW DE FOTOS DO CASAL -->
+    <div id="screen-slideshow" class="screen active">
+      <div id="slideshow-container"></div>
+      <div class="slideshow-touch-prompt">
+        <span>Toque na tela para brincar! 🎁</span>
+      </div>
+    </div>
+    
+    <!-- TELA 1: CAPA COM PIX E INÍCIO DO JOGO -->
     <div id="screen-intro" class="screen">
-        <div class="intro-bg-image"></div>
-        <div class="intro-overlay"></div>
-        
-        <div class="intro-card">
-            <img src="imagens/logo.jpg" alt="Baú da Fé" class="intro-logo">
-            <h1 class="intro-title">Abençoe os noivos & Teste seus conhecimentos!</h1>
-            <p class="intro-subtitle">Ao jogar, você autoriza a captura de fotos para recordação do casal.</p>
-
-            <div class="qr-section">
-                <div class="qr-box">
-                    <img src="imagens/qr_pix.png" alt="QR Code Pix" onerror="this.src='https://via.placeholder.com/150?text=QR+PIX'">
-                    <p>Chave PIX Noivos</p>
-                </div>
-            </div>
-
-            <button id="btn-start" class="btn-primary">Já abençoei os noivos e quero brincar!</button>
-        </div>
+      <div class="intro-banner-container">
+        <img src="fundo-intro.jpg" alt="Baú da Fé - Quiz dos Noivos" class="bg-banner-img">
+        <button id="btn-start" class="btn-start-overlay">
+          Já abençoei os noivos e quero brincar!
+        </button>
+      </div>
     </div>
 
-    <!-- TELA 3: CONTAGEM REGRESSIVA -->
+    <!-- TELA 2: CONTAGEM REGRESSIVA (3s) -->
     <div id="screen-countdown" class="screen">
-        <div class="countdown-card">
-            <h2>Prepare-se... 📸</h2>
-            <div id="countdown-timer">3</div>
-        </div>
+      <div class="countdown-overlay">
+        <h2>Prepare-se... 📸</h2>
+        <span id="countdown-number">3</span>
+      </div>
     </div>
 
-    <!-- TELA 4: QUIZ / PERGUNTAS -->
-    <div id="screen-quiz" class="screen">
-        <div class="quiz-header">
-            <img src="imagens/logo.jpg" alt="Baú da Fé" class="quiz-logo">
+    <!-- TELA 3: JOGO DO QUIZ -->
+    <div id="screen-game" class="screen">
+      <div class="gradient-overlay"></div>
+
+      <div class="quiz-sidebar">
+        <!-- Logo no Topo do Jogo -->
+        <div class="logo-box-game">
+          <img src="imagens/logo.jpg" alt="Baú da Fé" class="app-logo">
         </div>
 
-        <div class="quiz-card">
-            <h2 id="question-text">Qual é o maior livro de toda a Bíblia em número de capítulos?</h2>
-            
-            <div class="options-container">
-                <button class="btn-option" data-option="A"><span class="opt-letter">A</span> Salmos</button>
-                <button class="btn-option" data-option="B"><span class="opt-letter">B</span> Isaías</button>
-                <button class="btn-option" data-option="C"><span class="opt-letter">C</span> Gênesis</button>
-                <button class="btn-option" data-option="D"><span class="opt-letter">D</span> Jeremias</button>
+        <div class="question-container">
+          <h2 id="question-text">Carregando pergunta...</h2>
+        </div>
+
+        <div class="options-stack">
+          <button id="btn-0" class="btn-option"><span class="opt-badge">A</span> <span class="opt-text">Opção 1</span></button>
+          <button id="btn-1" class="btn-option"><span class="opt-badge">B</span> <span class="opt-text">Opção 2</span></button>
+          <button id="btn-2" class="btn-option"><span class="opt-badge">C</span> <span class="opt-text">Opção 3</span></button>
+          <button id="btn-3" class="btn-option"><span class="opt-badge">D</span> <span class="opt-text">Opção 4</span></button>
+        </div>
+
+        <div class="bottom-status-zone">
+          <div id="timer-badge" class="timer-badge">
+            <span id="timer" class="timer-verde">20</span>
+          </div>
+
+          <div id="feedback-banner" class="feedback-banner hidden">
+            <div class="feedback-header">
+              <span id="feedback-emoji">🎉</span>
+              <span id="feedback-title">RESPOSTA CORRETA!</span>
             </div>
-
-            <div class="quiz-footer">
-                <div id="timer-badge">20</div>
-            </div>
+            <p id="feedback-text"></p>
+          </div>
         </div>
-
-        <div id="feedback-message" class="feedback-box hidden">
-            <span id="feedback-title"></span>
-            <p id="feedback-detail"></p>
-        </div>
+      </div>
     </div>
 
-    <!-- TELA 5: AGRADECIMENTO / FINAL -->
+    <!-- TELA 4: AGRADECIMENTO & MOLDURA FINAL -->
     <div id="screen-thanks" class="screen">
-        <div class="thanks-card">
-            <h2>Muito Obrigado por Participar! ❤️</h2>
-            <p>Sua reação e participação foram registradas com sucesso!</p>
-            
-            <div class="photo-preview-box">
-                <img id="captured-photo-preview" src="imagens/placeholder-reaction.jpg" alt="Foto da Reação">
-            </div>
-
-            <p class="thanks-footer">Os noivos amaram sua presença!</p>
+      <div class="thanks-card">
+        <h2>Muito Obrigado por Participar! ❤️</h2>
+        <p>Sua reação e participação foram registradas com sucesso:</p>
+        
+        <div class="captured-photo-frame">
+          <img id="captured-photo" src="" alt="Sua Reação no Quiz">
+          <!-- Logo sobreposto na miniatura final -->
+          <img src="imagens/logo.jpg" alt="Logo Baú da Fé" class="photo-logo-overlay">
         </div>
+
+        <p class="thanks-footer">Os noivos amaram sua presença!</p>
+      </div>
     </div>
 
-    <script src="script.js"></script>
+  </div>
+
+  <script src="script.js?v=100"></script>
 </body>
 </html>
