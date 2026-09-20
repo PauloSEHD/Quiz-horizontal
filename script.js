@@ -159,13 +159,19 @@ function ativarTelaCheia() {
 }
 
 function mostrarTela(idTela) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    // Remove a classe 'active' de todas as telas
+    document.querySelectorAll('.screen').forEach(s => {
+        s.classList.remove('active');
+        s.style.display = 'none'; // Força esconder via JS inline
+    });
+
+    // Ativa apenas a tela desejada
     const telaDestino = document.getElementById(idTela);
     if (telaDestino) {
         telaDestino.classList.add('active');
+        telaDestino.style.display = 'flex'; // Força exibir via JS inline
     }
 }
-
 // ======================================================
 // FLUXO DO JOGO
 // ======================================================
