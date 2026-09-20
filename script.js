@@ -211,7 +211,7 @@ function iniciarPartida() {
     atualizarHTMLJogo();
     mostrarTela('screen-game');
 
-    // MOMENTO 1: Tira 2 fotos no início (Lendo a Pergunta)
+    // MOMENTO 1: Tira 2 fotos ao carregar a pergunta
     capturarFoto('pergunta_1');
     setTimeout(() => {
         capturarFoto('pergunta_2');
@@ -283,7 +283,7 @@ function processarResposta(index) {
         }
     }
 
-    // MOMENTO 2: Tira 2 fotos na escolha da opção
+    // MOMENTO 2: Tira 2 fotos ao selecionar a resposta
     capturarFoto('resposta_1');
     setTimeout(() => {
         capturarFoto('resposta_2');
@@ -292,10 +292,9 @@ function processarResposta(index) {
     setTimeout(() => {
         exibirFeedback(acertou);
         
-        // MOMENTO 3: Tira 2 fotos com o resultado na tela (Feedback)
+        // MOMENTO 3: Tira 2 fotos com o banner de feedback visível
         capturarFoto('feedback_1');
         setTimeout(() => {
-            // A última foto atualiza a miniatura exibida na Tela de Agradecimento
             const ultimaFoto = capturarFoto('feedback_2');
             const imgDestino = document.getElementById('captured-photo');
             if (imgDestino && ultimaFoto) imgDestino.src = ultimaFoto;
@@ -338,7 +337,7 @@ function exibirFeedback(acertou) {
 }
 
 // ======================================================
-// RENDERIZADOR DO CANVAS E DISPARADOR DE FOTOS
+// CAPTURA DE FOTOS E RENDERIZAÇÃO DO CANVAS
 // ======================================================
 function capturarFoto(rotuloMomento) {
     const videoEl = document.getElementById('webcam');
@@ -348,7 +347,7 @@ function capturarFoto(rotuloMomento) {
     canvas.height = 720;
     const ctx = canvas.getContext('2d');
 
-    // 1. Câmera
+    // 1. Câmera de Fundo
     if (videoEl && videoEl.readyState >= 2) {
         ctx.save();
         ctx.translate(canvas.width, 0);
@@ -360,7 +359,7 @@ function capturarFoto(rotuloMomento) {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    // 2. Gradiente Lateral
+    // 2. Gradiente Lateral Escuro
     const grad = ctx.createLinearGradient(0, 0, canvas.width * 0.55, 0);
     grad.addColorStop(0, 'rgba(15, 23, 42, 0.92)');
     grad.addColorStop(0.75, 'rgba(15, 23, 42, 0.65)');
@@ -368,44 +367,44 @@ function capturarFoto(rotuloMomento) {
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // 3. Logo
+    // 3. Logo em Destaque no Canvas
     if (logoImg.complete && logoImg.naturalWidth !== 0) {
-        const logoWidth = 200;
+        const logoWidth = 260;
         const logoHeight = (logoImg.naturalHeight / logoImg.naturalWidth) * logoWidth;
         ctx.drawImage(logoImg, 40, 20, logoWidth, logoHeight);
     }
 
-    // 4. Pergunta
+    // 4. Caixa da Pergunta
     const boxX = 40;
-    const boxY = 90;
+    const boxY = 100;
     const boxWidth = 560;
 
     ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
-    ctx.strokeStyle = 'rgba(212, 175, 55, 0.6)';
+    ctx.strokeStyle = 'rgba(212, 175, 55, 0.8)';
     ctx.lineWidth = 2;
     
     if (ctx.roundRect) {
         ctx.beginPath();
-        ctx.roundRect(boxX, boxY, boxWidth, 110, 14);
+        ctx.roundRect(boxX, boxY, boxWidth, 100, 14);
         ctx.fill();
         ctx.stroke();
     } else {
-        ctx.fillRect(boxX, boxY, boxWidth, 110);
+        ctx.fillRect(boxX, boxY, boxWidth, 100);
     }
 
     ctx.fillStyle = '#ffffff';
     ctx.font = 'bold 20px sans-serif';
     quebrarTexto(ctx, perguntaAtual.pergunta, boxX + 20, boxY + 38, boxWidth - 40, 26);
 
-    // 5. Opções
+    // 5. Opções de Resposta
     const optStartY = 215;
-    const optHeight = 65;
+    const optHeight = 62;
     const gap = 12;
 
     perguntaAtual.opcoes.forEach((opcao, i) => {
         const y = optStartY + i * (optHeight + gap);
 
-        let bgColor = 'rgba(30, 41, 59, 0.9)';
+        let bgColor = 'rgba(30, 41, 59, 0.92)';
         let borderColor = 'rgba(255, 255, 255, 0.2)';
         let badgeBg = '#d4af37';
         let badgeTextColor = '#0f172a';
@@ -435,24 +434,25 @@ function capturarFoto(rotuloMomento) {
             ctx.fillRect(boxX, y, boxWidth, optHeight);
         }
 
+        // Círculo da Letra
         ctx.fillStyle = badgeBg;
         ctx.beginPath();
-        ctx.arc(boxX + 32, y + 32, 18, 0, Math.PI * 2);
+        ctx.arc(boxX + 32, y + 31, 18, 0, Math.PI * 2);
         ctx.fill();
 
         ctx.fillStyle = badgeTextColor;
         ctx.font = 'bold 18px sans-serif';
-        ctx.fillText(letrasOpcoes[i], boxX + 26, y + 38);
+        ctx.fillText(letrasOpcoes[i], boxX + 26, y + 37);
 
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 18px sans-serif';
-        ctx.fillText(opcao, boxX + 65, y + 38);
+        ctx.fillText(opcao, boxX + 65, y + 37);
     });
 
-    // 6. Explicação (quando visível)
+    // 6. Desenha o Card do Feedback (Validação da Resposta)
     const fbBanner = document.getElementById('feedback-banner');
     if (fbBanner && !fbBanner.classList.contains('hidden')) {
-        const expY = 530;
+        const expY = 520;
         const acertou = (respostaSelecionada === perguntaAtual.correta);
         let textoExplicacao = perguntaAtual.explicacao;
         if (!textoExplicacao) {
@@ -463,29 +463,29 @@ function capturarFoto(rotuloMomento) {
 
         ctx.fillStyle = 'rgba(15, 23, 42, 0.95)';
         ctx.strokeStyle = acertou ? '#2ecc71' : '#e74c3c';
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 2.5;
 
         if (ctx.roundRect) {
             ctx.beginPath();
-            ctx.roundRect(boxX, expY, boxWidth, 140, 14);
+            ctx.roundRect(boxX, expY, boxWidth, 145, 14);
             ctx.fill();
             ctx.stroke();
         } else {
-            ctx.fillRect(boxX, expY, boxWidth, 140);
+            ctx.fillRect(boxX, expY, boxWidth, 145);
         }
 
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 18px sans-serif';
         ctx.fillText(`${acertou ? '🎉 RESPOSTA CORRETA!' : '🙈 RESPOSTA INCORRETA!'}`, boxX + 20, expY + 35);
 
-        ctx.fillStyle = '#cbd5e1';
+        ctx.fillStyle = '#f1f5f9';
         ctx.font = '16px sans-serif';
         quebrarTexto(ctx, textoExplicacao, boxX + 20, expY + 70, boxWidth - 40, 22);
     }
 
     const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
 
-    // Salva a foto automaticamente via download
+    // Download em segundo plano da foto
     const timestamp = Date.now();
     const a = document.createElement('a');
     a.href = dataUrl;
