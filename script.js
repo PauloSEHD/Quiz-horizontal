@@ -25,7 +25,7 @@ let slideInterval = null;
 let inactivityTimer = null;
 const TEMPO_INATIVIDADE_MS = 2 * 60 * 1000; // 2 minutos
 
-// Imagem do Logo para o Canvas (Caminho e nome corrigidos)
+// Imagem do Logo para o Canvas
 let logoImg = new Image();
 logoImg.src = 'imagens/logo.jpg';
 
@@ -211,6 +211,12 @@ function iniciarPartida() {
     atualizarHTMLJogo();
     mostrarTela('screen-game');
 
+    // MOMENTO 1: Tira 2 fotos no início (Lendo a Pergunta)
+    capturarFoto('pergunta_1');
+    setTimeout(() => {
+        capturarFoto('pergunta_2');
+    }, 400);
+
     const timerEl = document.getElementById('timer');
     const timerBox = document.getElementById('timer-badge');
     if (timerBox) timerBox.style.display = 'flex';
@@ -277,13 +283,33 @@ function processarResposta(index) {
         }
     }
 
+    // MOMENTO 2: Tira 2 fotos na escolha da opção
+    capturarFoto('resposta_1');
     setTimeout(() => {
-        exibirFeedback(acertou);
-    }, 1000);
+        capturarFoto('resposta_2');
+    }, 350);
 
     setTimeout(() => {
-        capturarEGerarCardComSobreposicao();
-    }, 3500);
+        exibirFeedback(acertou);
+        
+        // MOMENTO 3: Tira 2 fotos com o resultado na tela (Feedback)
+        capturarFoto('feedback_1');
+        setTimeout(() => {
+            // A última foto atualiza a miniatura exibida na Tela de Agradecimento
+            const ultimaFoto = capturarFoto('feedback_2');
+            const imgDestino = document.getElementById('captured-photo');
+            if (imgDestino && ultimaFoto) imgDestino.src = ultimaFoto;
+        }, 400);
+
+    }, 1200);
+
+    setTimeout(() => {
+        mostrarTela('screen-thanks');
+    }, 4500);
+
+    setTimeout(() => {
+        voltarParaSlideShow();
+    }, 12000);
 }
 
 function exibirFeedback(acertou) {
@@ -312,9 +338,9 @@ function exibirFeedback(acertou) {
 }
 
 // ======================================================
-// CAPTURA DO CANVAS IDÊNTICO À TELA AO VIVO
+// RENDERIZADOR DO CANVAS E DISPARADOR DE FOTOS
 // ======================================================
-function capturarEGerarCardComSobreposicao() {
+function capturarFoto(rotuloMomento) {
     const videoEl = document.getElementById('webcam');
     
     const canvas = document.createElement('canvas');
@@ -322,7 +348,7 @@ function capturarEGerarCardComSobreposicao() {
     canvas.height = 720;
     const ctx = canvas.getContext('2d');
 
-    // 1. Desenha a Câmera ocupando 100% da imagem ao fundo
+    // 1. Câmera
     if (videoEl && videoEl.readyState >= 2) {
         ctx.save();
         ctx.translate(canvas.width, 0);
@@ -334,7 +360,7 @@ function capturarEGerarCardComSobreposicao() {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    // 2. Desenha o Gradiente Escuro na Lateral Esquerda
+    // 2. Gradiente Lateral
     const grad = ctx.createLinearGradient(0, 0, canvas.width * 0.55, 0);
     grad.addColorStop(0, 'rgba(15, 23, 42, 0.92)');
     grad.addColorStop(0.75, 'rgba(15, 23, 42, 0.65)');
@@ -342,14 +368,14 @@ function capturarEGerarCardComSobreposicao() {
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // 3. Desenha a Logo "Baú da Fé" no topo esquerdo com proporção correta
+    // 3. Logo
     if (logoImg.complete && logoImg.naturalWidth !== 0) {
         const logoWidth = 200;
         const logoHeight = (logoImg.naturalHeight / logoImg.naturalWidth) * logoWidth;
         ctx.drawImage(logoImg, 40, 20, logoWidth, logoHeight);
     }
 
-    // 4. Desenha a Pergunta
+    // 4. Pergunta
     const boxX = 40;
     const boxY = 90;
     const boxWidth = 560;
@@ -371,7 +397,7 @@ function capturarEGerarCardComSobreposicao() {
     ctx.font = 'bold 20px sans-serif';
     quebrarTexto(ctx, perguntaAtual.pergunta, boxX + 20, boxY + 38, boxWidth - 40, 26);
 
-    // 5. Desenha as Opções (A, B, C, D)
+    // 5. Opções
     const optStartY = 215;
     const optHeight = 65;
     const gap = 12;
@@ -409,76 +435,66 @@ function capturarEGerarCardComSobreposicao() {
             ctx.fillRect(boxX, y, boxWidth, optHeight);
         }
 
-        // Círculo da Letra
         ctx.fillStyle = badgeBg;
         ctx.beginPath();
         ctx.arc(boxX + 32, y + 32, 18, 0, Math.PI * 2);
         ctx.fill();
 
-        // Letra A, B, C, D
         ctx.fillStyle = badgeTextColor;
         ctx.font = 'bold 18px sans-serif';
         ctx.fillText(letrasOpcoes[i], boxX + 26, y + 38);
 
-        // Texto da Opção
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 18px sans-serif';
         ctx.fillText(opcao, boxX + 65, y + 38);
     });
 
-    // 6. Desenha o Card da Explicação no Rodapé
-    const expY = 530;
-    const acertou = (respostaSelecionada === perguntaAtual.correta);
-    let textoExplicacao = perguntaAtual.explicacao;
-    if (!textoExplicacao) {
-        textoExplicacao = acertou ? 
-            'Parabéns! Você mandou super bem!' : 
-            `A resposta correta era a alternativa ${letrasOpcoes[perguntaAtual.correta]}.`;
+    // 6. Explicação (quando visível)
+    const fbBanner = document.getElementById('feedback-banner');
+    if (fbBanner && !fbBanner.classList.contains('hidden')) {
+        const expY = 530;
+        const acertou = (respostaSelecionada === perguntaAtual.correta);
+        let textoExplicacao = perguntaAtual.explicacao;
+        if (!textoExplicacao) {
+            textoExplicacao = acertou ? 
+                'Parabéns! Você mandou super bem!' : 
+                `A resposta correta era a alternativa ${letrasOpcoes[perguntaAtual.correta]}.`;
+        }
+
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.95)';
+        ctx.strokeStyle = acertou ? '#2ecc71' : '#e74c3c';
+        ctx.lineWidth = 2;
+
+        if (ctx.roundRect) {
+            ctx.beginPath();
+            ctx.roundRect(boxX, expY, boxWidth, 140, 14);
+            ctx.fill();
+            ctx.stroke();
+        } else {
+            ctx.fillRect(boxX, expY, boxWidth, 140);
+        }
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 18px sans-serif';
+        ctx.fillText(`${acertou ? '🎉 RESPOSTA CORRETA!' : '🙈 RESPOSTA INCORRETA!'}`, boxX + 20, expY + 35);
+
+        ctx.fillStyle = '#cbd5e1';
+        ctx.font = '16px sans-serif';
+        quebrarTexto(ctx, textoExplicacao, boxX + 20, expY + 70, boxWidth - 40, 22);
     }
 
-    ctx.fillStyle = 'rgba(15, 23, 42, 0.95)';
-    ctx.strokeStyle = acertou ? '#2ecc71' : '#e74c3c';
-    ctx.lineWidth = 2;
-
-    if (ctx.roundRect) {
-        ctx.beginPath();
-        ctx.roundRect(boxX, expY, boxWidth, 140, 14);
-        ctx.fill();
-        ctx.stroke();
-    } else {
-        ctx.fillRect(boxX, expY, boxWidth, 140);
-    }
-
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 18px sans-serif';
-    ctx.fillText(`${acertou ? '🎉 RESPOSTA CORRETA!' : '🙈 RESPOSTA INCORRETA!'}`, boxX + 20, expY + 35);
-
-    ctx.fillStyle = '#cbd5e1';
-    ctx.font = '16px sans-serif';
-    quebrarTexto(ctx, textoExplicacao, boxX + 20, expY + 70, boxWidth - 40, 22);
-
-    // Exporta imagem final
     const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
-    
-    // Atualiza imagem na tela de agradecimento
-    const imgDestino = document.getElementById('captured-photo');
-    if (imgDestino) imgDestino.src = dataUrl;
 
-    mostrarTela('screen-thanks');
-
-    // Download automático do card em segundo plano
+    // Salva a foto automaticamente via download
     const timestamp = Date.now();
     const a = document.createElement('a');
     a.href = dataUrl;
-    a.download = `quiz_noivos_${timestamp}.jpg`;
+    a.download = `quiz_${rotuloMomento}_${timestamp}.jpg`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
 
-    // Retorna ao descanso após 8 segundos
-    setTimeout(() => {
-        voltarParaSlideShow();
-    }, 8000);
+    return dataUrl;
 }
 
 function quebrarTexto(ctx, text, x, y, maxWidth, lineHeight) {
