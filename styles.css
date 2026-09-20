@@ -1,3 +1,4 @@
+/* RESET GLOBAL PARA RETIRAR ROLAGEM E MARGENS */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -10,11 +11,12 @@
 html, body {
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
-  background: #000 !important;
+  overflow: hidden !important; /* Impede a rolagem vertical que apareceu no vídeo */
+  background: #000;
+  position: relative;
 }
 
-/* Câmera em Tela Cheia no Fundo */
+/* CÂMERA DE FUNDO EM TELA CHEIA */
 #webcam {
   position: fixed;
   top: 0;
@@ -37,7 +39,7 @@ html, body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(15, 23, 42, 0.4) !important;
+  background: rgba(15, 23, 42, 0.4);
   z-index: 2;
 }
 
@@ -45,30 +47,36 @@ html, body {
   display: none;
 }
 
+/* CONTAINER PRINCIPAL */
 #app {
   position: relative;
   z-index: 3;
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
 }
 
+/* REGRAS DAS TELAS - IMPEDE QUE ELAS EMPILHEM NA PÁGINA */
 .screen {
-  display: none !important;
-  width: 100%;
-  height: 100%;
+  display: none !important; /* Esconde todas por padrão */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
+/* APENAS A TELA COM A CLASSE ACTIVE É EXIBIDA */
 .screen.active {
   display: flex !important;
 }
 
-/* SLIDE SHOW DE FOTOS */
+/* -----------------------------------------------------
+   TELA 0: SLIDESHOW DE FOTOS
+----------------------------------------------------- */
 #screen-slideshow {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
   background: #000;
-  overflow: hidden;
   cursor: pointer;
 }
 
@@ -118,11 +126,10 @@ html, body {
   100% { transform: translateX(-50%) scale(1); }
 }
 
-/* TELA CAPA / INÍCIO */
+/* -----------------------------------------------------
+   TELA 1: CAPA COM PIX E BOTÃO DE INÍCIO
+----------------------------------------------------- */
 #screen-intro {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
   justify-content: center;
   align-items: center;
   background: #0f172a;
@@ -160,7 +167,9 @@ html, body {
   cursor: pointer;
 }
 
-/* CONTAGEM REGRESSIVA */
+/* -----------------------------------------------------
+   TELA 2: CONTAGEM REGRESSIVA
+----------------------------------------------------- */
 #screen-countdown {
   justify-content: center;
   align-items: center;
@@ -178,15 +187,14 @@ html, body {
 .countdown-overlay h2 { color: #ffffff; font-size: 2rem; margin-bottom: 10px; }
 #countdown-number { font-size: 5.5rem; font-weight: 900; color: #2ecc71; display: block; }
 
-/* TELA DE JOGO */
+/* -----------------------------------------------------
+   TELA 3: JOGO DO QUIZ
+----------------------------------------------------- */
 #screen-game {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
   padding: 24px 32px;
+  box-sizing: border-box;
 }
 
-/* Sombreamento lateral para leitura perfeita sobre a foto */
 .gradient-overlay {
   position: absolute;
   top: 0;
@@ -201,7 +209,7 @@ html, body {
 .quiz-sidebar {
   position: relative;
   z-index: 3;
-  width: 48%; /* Aumentado para ocupar melhor a tela do tablet */
+  width: 48%;
   min-width: 400px;
   display: flex;
   flex-direction: column;
@@ -210,11 +218,7 @@ html, body {
   height: 100%;
 }
 
-/* Logo no topo */
-.logo-box-game {
-  margin-bottom: 4px;
-}
-
+.logo-box-game { margin-bottom: 4px; }
 .app-logo {
   max-height: 60px;
   max-width: 85%;
@@ -222,9 +226,8 @@ html, body {
   filter: drop-shadow(0px 2px 8px rgba(0,0,0,0.6));
 }
 
-/* Pergunta (Aumentada) */
 .question-container {
-  background: rgba(15, 23, 42, 0.92) !important;
+  background: rgba(15, 23, 42, 0.92);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(212, 175, 55, 0.4);
   border-left: 6px solid #d4af37;
@@ -237,13 +240,12 @@ html, body {
 }
 
 #question-text {
-  font-size: 1.45rem; /* Aumentado */
+  font-size: 1.45rem;
   line-height: 1.35;
   color: #ffffff;
   font-weight: 600;
 }
 
-/* Alternativas A, B, C, D (Aumentadas) */
 .options-stack {
   display: flex;
   flex-direction: column;
@@ -251,13 +253,13 @@ html, body {
 }
 
 .btn-option {
-  background: rgba(30, 41, 59, 0.9) !important;
+  background: rgba(30, 41, 59, 0.9);
   backdrop-filter: blur(8px);
   color: #ffffff;
   border: 1.5px solid rgba(255, 255, 255, 0.15);
   border-radius: 14px;
-  padding: 16px 20px; /* Mais alta */
-  font-size: 1.25rem; /* Letras maiores */
+  padding: 16px 20px;
+  font-size: 1.25rem;
   font-weight: 600;
   cursor: pointer;
   display: flex;
@@ -278,7 +280,6 @@ html, body {
   font-weight: 900;
   font-size: 1.15rem;
   flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
 }
 
 .opt-text { flex: 1; }
@@ -287,7 +288,6 @@ html, body {
 .btn-option.correta .opt-badge { background: #ffffff; color: #2ecc71; }
 .btn-option.incorreta { background-color: #e74c3c !important; border-color: #c0392b !important; }
 
-/* CRONÔMETRO MAIOR & FEEDBACK */
 .bottom-status-zone {
   margin-top: auto;
   min-height: 90px;
@@ -295,7 +295,6 @@ html, body {
   align-items: center;
 }
 
-/* Cronômetro com tamanho aumentado */
 .timer-badge { display: flex; align-items: center; }
 
 #timer {
@@ -317,7 +316,6 @@ html, body {
 .timer-laranja { color: #e67e22; border-color: #e67e22 !important; }
 .timer-vermelho { color: #e74c3c; border-color: #e74c3c !important; }
 
-/* Card de Explicação */
 .feedback-banner {
   width: 100%;
   background: rgba(15, 23, 42, 0.95);
@@ -329,7 +327,7 @@ html, body {
   border: 1.5px solid rgba(255, 255, 255, 0.2);
 }
 
-.feedback-banner.hidden { display: none; }
+.feedback-banner.hidden { display: none !important; }
 .feedback-header { display: flex; align-items: center; gap: 8px; }
 #feedback-emoji { font-size: 1.5rem; }
 #feedback-title { font-size: 1.15rem; font-weight: 800; color: #ffffff; }
@@ -338,7 +336,9 @@ html, body {
 .feedback-banner.sucesso { border-color: #2ecc71; }
 .feedback-banner.erro { border-color: #e74c3c; }
 
-/* TELA DE AGRADECIMENTO */
+/* -----------------------------------------------------
+   TELA 4: AGRADECIMENTO E REAÇÃO
+----------------------------------------------------- */
 #screen-thanks {
   justify-content: center;
   align-items: center;
@@ -364,7 +364,7 @@ html, body {
 
 .captured-photo-frame {
   width: 600px;
-  height: 337px; /* Proporção 16:9 perfeita sem deformação */
+  height: 337px;
   border-radius: 16px;
   overflow: hidden;
   border: 3px solid #d4af37;
