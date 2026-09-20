@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quiz dos Noivos - Baú da Fé</title>
-  <!-- O ?v=2 ao final do arquivo impede que o navegador use a versão em cache -->
-  <link rel="stylesheet" href="styles.css?v=99">
+  <link rel="stylesheet" href="styles.css?v=100">
 </head>
 <body>
 
@@ -15,11 +14,9 @@
 
   <div id="app">
 
-    <!-- TELA 0: SLIDE SHOW DE FOTOS DO CASAL (MODO DESCANSO) -->
+    <!-- TELA 0: SLIDE SHOW DE FOTOS DO CASAL -->
     <div id="screen-slideshow" class="screen active">
-      <div id="slideshow-container">
-        <!-- As imagens são inseridas pelo JS -->
-      </div>
+      <div id="slideshow-container"></div>
       <div class="slideshow-touch-prompt">
         <span>Toque na tela para brincar! 🎁</span>
       </div>
@@ -65,12 +62,10 @@
         </div>
 
         <div class="bottom-status-zone">
-          <!-- Cronômetro Maior -->
           <div id="timer-badge" class="timer-badge">
             <span id="timer" class="timer-verde">20</span>
           </div>
 
-          <!-- Banner de Feedback / Explicação -->
           <div id="feedback-banner" class="feedback-banner hidden">
             <div class="feedback-header">
               <span id="feedback-emoji">🎉</span>
@@ -82,7 +77,7 @@
       </div>
     </div>
 
-    <!-- TELA 4: AGRADECIMENTO & MOLDURA FINAL DA REAÇÃO -->
+    <!-- TELA 4: AGRADECIMENTO & MOLDURA FINAL -->
     <div id="screen-thanks" class="screen">
       <div class="thanks-card">
         <h2>Muito Obrigado por Participar! ❤️</h2>
@@ -90,6 +85,8 @@
         
         <div class="captured-photo-frame">
           <img id="captured-photo" src="" alt="Sua Reação no Quiz">
+          <!-- Logo sobreposto na miniatura final -->
+          <img src="imagens/logo.jpg" alt="Logo Baú da Fé" class="photo-logo-overlay">
         </div>
 
         <p class="thanks-footer">Os noivos amaram sua presença!</p>
@@ -98,6 +95,6 @@
 
   </div>
 
-  <script src="script.js?v=2"></script>
+  <script src="script.js?v=100"></script>
 </body>
 </html>
