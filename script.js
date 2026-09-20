@@ -23,9 +23,8 @@ let slideIndex = 0;
 let slideInterval = null;
 
 let inactivityTimer = null;
-const TEMPO_INATIVIDADE_MS = 2 * 60 * 1000; // 2 minutos
+const TEMPO_INATIVIDADE_MS = 2 * 60 * 1000;
 
-// Imagem do Logo para o Canvas
 let logoImg = new Image();
 logoImg.src = 'imagens/logo.jpg';
 
@@ -68,7 +67,7 @@ async function iniciarCameraBackground() {
 }
 
 // ======================================================
-// SLIDE SHOW & MODO INATIVIDADE
+// SLIDE SHOW & INATIVIDADE
 // ======================================================
 function iniciarSlideShow() {
     const container = document.getElementById('slideshow-container');
@@ -122,7 +121,7 @@ function voltarParaSlideShow() {
 }
 
 // ======================================================
-// EVENTOS E TELA CHEIA
+// EVENTOS & TELAS
 // ======================================================
 function vincularEventos() {
     const screenSlideshow = document.getElementById('screen-slideshow');
@@ -171,11 +170,11 @@ function mostrarTela(idTela) {
 }
 
 // ======================================================
-// FLUXO DO JOGO
+// FLUXO DO JOGO E CAPTURAS
 // ======================================================
 async function iniciarFluxoJogo() {
     if (!perguntas.length) {
-        alert("Carregando perguntas... Tente novamente em instantes.");
+        alert("Carregando perguntas... Tente novamente.");
         return;
     }
 
@@ -211,7 +210,7 @@ function iniciarPartida() {
     atualizarHTMLJogo();
     mostrarTela('screen-game');
 
-    // MOMENTO 1: Tira 2 fotos ao carregar a pergunta
+    // Fotos 1 e 2 ao carregar a pergunta
     capturarFoto('pergunta_1');
     setTimeout(() => {
         capturarFoto('pergunta_2');
@@ -233,8 +232,8 @@ function iniciarPartida() {
             if (timerEl) {
                 timerEl.innerText = tempoRestante;
                 if (tempoRestante <= 5) timerEl.className = 'timer-vermelho';
-                else if (tempoRestante <= 10) timerEl.className = 'timer-laranja';
-                else if (tempoRestante <= 15) timerEl.className = 'timer-amarelo';
+                else if (tempoRestante <= 10) timerEl.className = 'timer-amarelo';
+                else if (tempoRestante <= 15) timerEl.className = 'timer-laranja';
             }
         } else if (tempoRestante === 0 && jogoAtivo) {
             processarResposta(-1);
@@ -283,7 +282,7 @@ function processarResposta(index) {
         }
     }
 
-    // MOMENTO 2: Tira 2 fotos ao selecionar a resposta
+    // Fotos 3 e 4 ao clicar na resposta
     capturarFoto('resposta_1');
     setTimeout(() => {
         capturarFoto('resposta_2');
@@ -292,7 +291,7 @@ function processarResposta(index) {
     setTimeout(() => {
         exibirFeedback(acertou);
         
-        // MOMENTO 3: Tira 2 fotos com o banner de feedback visível
+        // Fotos 5 e 6 no momento do feedback
         capturarFoto('feedback_1');
         setTimeout(() => {
             const ultimaFoto = capturarFoto('feedback_2');
@@ -337,7 +336,7 @@ function exibirFeedback(acertou) {
 }
 
 // ======================================================
-// CAPTURA DE FOTOS E RENDERIZAÇÃO DO CANVAS
+// RENDERIZAÇÃO NO CANVAS E CAPTURA DE IMAGEM
 // ======================================================
 function capturarFoto(rotuloMomento) {
     const videoEl = document.getElementById('webcam');
@@ -347,7 +346,7 @@ function capturarFoto(rotuloMomento) {
     canvas.height = 720;
     const ctx = canvas.getContext('2d');
 
-    // 1. Câmera de Fundo
+    // 1. Câmera
     if (videoEl && videoEl.readyState >= 2) {
         ctx.save();
         ctx.translate(canvas.width, 0);
@@ -359,7 +358,7 @@ function capturarFoto(rotuloMomento) {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    // 2. Gradiente Lateral Escuro
+    // 2. Gradiente Lateral
     const grad = ctx.createLinearGradient(0, 0, canvas.width * 0.55, 0);
     grad.addColorStop(0, 'rgba(15, 23, 42, 0.92)');
     grad.addColorStop(0.75, 'rgba(15, 23, 42, 0.65)');
@@ -367,14 +366,14 @@ function capturarFoto(rotuloMomento) {
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // 3. Logo em Destaque no Canvas
+    // 3. Logo
     if (logoImg.complete && logoImg.naturalWidth !== 0) {
         const logoWidth = 260;
         const logoHeight = (logoImg.naturalHeight / logoImg.naturalWidth) * logoWidth;
         ctx.drawImage(logoImg, 40, 20, logoWidth, logoHeight);
     }
 
-    // 4. Caixa da Pergunta
+    // 4. Pergunta
     const boxX = 40;
     const boxY = 100;
     const boxWidth = 560;
@@ -396,7 +395,7 @@ function capturarFoto(rotuloMomento) {
     ctx.font = 'bold 20px sans-serif';
     quebrarTexto(ctx, perguntaAtual.pergunta, boxX + 20, boxY + 38, boxWidth - 40, 26);
 
-    // 5. Opções de Resposta
+    // 5. Opções
     const optStartY = 215;
     const optHeight = 62;
     const gap = 12;
@@ -434,7 +433,7 @@ function capturarFoto(rotuloMomento) {
             ctx.fillRect(boxX, y, boxWidth, optHeight);
         }
 
-        // Círculo da Letra
+        // Círculo com a letra
         ctx.fillStyle = badgeBg;
         ctx.beginPath();
         ctx.arc(boxX + 32, y + 31, 18, 0, Math.PI * 2);
@@ -449,7 +448,7 @@ function capturarFoto(rotuloMomento) {
         ctx.fillText(opcao, boxX + 65, y + 37);
     });
 
-    // 6. Desenha o Card do Feedback (Validação da Resposta)
+    // 6. Caixa de Feedback no Canvas
     const fbBanner = document.getElementById('feedback-banner');
     if (fbBanner && !fbBanner.classList.contains('hidden')) {
         const expY = 520;
@@ -485,7 +484,7 @@ function capturarFoto(rotuloMomento) {
 
     const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
 
-    // Download em segundo plano da foto
+    // Download da imagem gerada
     const timestamp = Date.now();
     const a = document.createElement('a');
     a.href = dataUrl;
