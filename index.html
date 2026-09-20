@@ -2,25 +2,29 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Quiz Baú da Fé</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baú da Fé - Jogo dos Noivos</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Câmera ao vivo em segundo plano -->
-    <video id="webcam" autoplay playsinline muted></video>
-
-    <!-- TELA 1: Slideshow de Descanso -->
-    <div id="screen-slideshow" class="screen active">
-        <div id="slideshow-container" class="slideshow-container"></div>
-        <div class="slideshow-overlay">
-            <p>Toque na tela para brincar! 💡</p>
+    <!-- TELA 1: CAPA DE FOTOS DAGALERIA / SLIDESHOW -->
+    <div id="screen-photos" class="screen active">
+        <div class="slideshow-container">
+            <img src="fotos/foto1.jpg" class="slide active" alt="Foto dos Noivos 1">
+            <img src="fotos/foto2.jpg" class="slide" alt="Foto dos Noivos 2">
+            <img src="fotos/foto3.jpg" class="slide" alt="Foto dos Noivos 3">
+        </div>
+        <div class="banner-bottom">
+            <span>Toque na tela para brincar! 👆</span>
         </div>
     </div>
 
-    <!-- TELA 2: Introdução / Instruções -->
+    <!-- TELA 2: INTRODUÇÃO / INSTRUÇÕES (COM FOTO DOS NOIVOS AO FUNDO) -->
     <div id="screen-intro" class="screen">
+        <div class="intro-bg-image"></div>
+        <div class="intro-overlay"></div>
+        
         <div class="intro-card">
             <img src="imagens/logo.jpg" alt="Baú da Fé" class="intro-logo">
             <h1 class="intro-title">Abençoe os noivos & Teste seus conhecimentos!</h1>
@@ -37,65 +41,52 @@
         </div>
     </div>
 
-    <!-- TELA 3: Contagem Regressiva -->
+    <!-- TELA 3: CONTAGEM REGRESSIVA -->
     <div id="screen-countdown" class="screen">
-        <div class="countdown-box">
+        <div class="countdown-card">
             <h2>Prepare-se... 📸</h2>
-            <div id="countdown-number" class="countdown-number">3</div>
+            <div id="countdown-timer">3</div>
         </div>
     </div>
 
-    <!-- TELA 4: Quiz ao vivo -->
-    <div id="screen-game" class="screen">
-        <div class="quiz-overlay-panel">
-            <div class="quiz-header">
-                <img src="imagens/logo.jpg" alt="Baú da Fé" class="quiz-logo">
-            </div>
+    <!-- TELA 4: QUIZ / PERGUNTAS -->
+    <div id="screen-quiz" class="screen">
+        <div class="quiz-header">
+            <img src="imagens/logo.jpg" alt="Baú da Fé" class="quiz-logo">
+        </div>
 
-            <div class="question-card">
-                <p id="question-text" class="question-text">Carregando pergunta...</p>
-            </div>
-
+        <div class="quiz-card">
+            <h2 id="question-text">Qual é o maior livro de toda a Bíblia em número de capítulos?</h2>
+            
             <div class="options-container">
-                <div id="btn-0" class="btn-option">
-                    <span class="opt-badge">A</span>
-                    <span class="opt-text">Opção A</span>
-                </div>
-                <div id="btn-1" class="btn-option">
-                    <span class="opt-badge">B</span>
-                    <span class="opt-text">Opção B</span>
-                </div>
-                <div id="btn-2" class="btn-option">
-                    <span class="opt-badge">C</span>
-                    <span class="opt-text">Opção C</span>
-                </div>
-                <div id="btn-3" class="btn-option">
-                    <span class="opt-badge">D</span>
-                    <span class="opt-text">Opção D</span>
-                </div>
+                <button class="btn-option" data-option="A"><span class="opt-letter">A</span> Salmos</button>
+                <button class="btn-option" data-option="B"><span class="opt-letter">B</span> Isaías</button>
+                <button class="btn-option" data-option="C"><span class="opt-letter">C</span> Gênesis</button>
+                <button class="btn-option" data-option="D"><span class="opt-letter">D</span> Jeremias</button>
             </div>
 
-            <div id="feedback-banner" class="feedback-banner hidden">
-                <div class="feedback-header">
-                    <span id="feedback-emoji" class="feedback-emoji">🎉</span>
-                    <span id="feedback-title" class="feedback-title">RESPOSTA CORRETA!</span>
-                </div>
-                <p id="feedback-text" class="feedback-text">Explicação aqui...</p>
+            <div class="quiz-footer">
+                <div id="timer-badge">20</div>
             </div>
         </div>
 
-        <div id="timer-badge" class="timer-badge">
-            <span id="timer" class="timer-number">20</span>
+        <div id="feedback-message" class="feedback-box hidden">
+            <span id="feedback-title"></span>
+            <p id="feedback-detail"></p>
         </div>
     </div>
 
-    <!-- TELA 5: Agradecimento -->
+    <!-- TELA 5: AGRADECIMENTO / FINAL -->
     <div id="screen-thanks" class="screen">
         <div class="thanks-card">
             <h2>Muito Obrigado por Participar! ❤️</h2>
             <p>Sua reação e participação foram registradas com sucesso!</p>
-            <img id="captured-photo" class="photo-preview" src="" alt="Sua Foto no Quiz">
-            <p style="font-size: 0.95rem; color: #94a3b8;">Os noivos amaram sua presença!</p>
+            
+            <div class="photo-preview-box">
+                <img id="captured-photo-preview" src="imagens/placeholder-reaction.jpg" alt="Foto da Reação">
+            </div>
+
+            <p class="thanks-footer">Os noivos amaram sua presença!</p>
         </div>
     </div>
 
