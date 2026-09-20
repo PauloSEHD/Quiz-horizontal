@@ -142,7 +142,6 @@ html, body {
   object-fit: cover; 
 }
 
-/* BOTÃO DE INÍCIO AJUSTADO (VERDE, FONTE MAIOR, LIBERANDO O TEXTO) */
 .btn-start-overlay {
   position: absolute;
   bottom: 6%;
@@ -314,6 +313,12 @@ html, body {
   align-items: center; 
 }
 
+#timer-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #timer { 
   font-size: 2.3rem; 
   font-weight: 900; 
@@ -328,6 +333,11 @@ html, body {
   color: #2ecc71; 
 }
 
+.timer-verde { border-color: #2ecc71 !important; color: #2ecc71 !important; }
+.timer-amarelo { border-color: #f1c40f !important; color: #f1c40f !important; }
+.timer-laranja { border-color: #e67e22 !important; color: #e67e22 !important; }
+.timer-vermelho { border-color: #e74c3c !important; color: #e74c3c !important; }
+
 .feedback-banner { 
   width: 100%; 
   background: rgba(15, 23, 42, 0.95); 
@@ -338,6 +348,9 @@ html, body {
   gap: 6px; 
   border: 1.5px solid rgba(255, 255, 255, 0.2); 
 }
+
+.feedback-banner.sucesso { border-color: #2ecc71; }
+.feedback-banner.erro { border-color: #e74c3c; }
 
 .feedback-banner.hidden { 
   display: none !important; 
