@@ -1,75 +1,100 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Quiz - Baú da Fé</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz dos Noivos - Baú da Fé</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Container principal (Espelho da Câmera + Overlay) -->
-  <div id="quiz-container">
+  <!-- Câmera Escondida / Fundo Vivo -->
+  <video id="webcam" autoplay playsinline muted></video>
+  <div id="camera-overlay" class="hidden"></div>
+
+  <div id="app">
+
+    <!-- TELA 0: SLIDE SHOW DE FOTOS DO CASAL (MODO DESCANSO) -->
+    <div id="screen-slideshow" class="screen active">
+      <div id="slideshow-container">
+        <!-- As imagens são inseridas pelo JS -->
+      </div>
+      <div class="slideshow-touch-prompt">
+        <span>Toque na tela para brincar! 🎁</span>
+      </div>
+    </div>
     
-    <!-- Feed da Câmera em Tela Cheia -->
-    <video id="webcam" autoplay playsinline muted></video>
-
-    <!-- Overlay Gradiente Escuro (Garante leitura perfeita das letras) -->
-    <div class="gradient-overlay"></div>
-
-    <!-- Painel Lateral de Perguntas e Respostas -->
-    <div class="sidebar-panel">
-      
-      <!-- Topo com Logo -->
-      <div class="logo-container">
-        <img src="logo.png" alt="Baú da Fé" class="app-logo" />
+    <!-- TELA 1: CAPA COM PIX E INÍCIO DO JOGO -->
+    <div id="screen-intro" class="screen">
+      <div class="intro-banner-container">
+        <img src="fundo-intro.jpg" alt="Baú da Fé - Quiz dos Noivos" class="bg-banner-img">
+        <button id="btn-start" class="btn-start-overlay">
+          Já abençoei os noivos e quero brincar! 🎁
+        </button>
       </div>
+    </div>
 
-      <!-- Caixa da Pergunta -->
-      <div class="question-card">
-        <h2 id="question-text">Carregando pergunta...</h2>
+    <!-- TELA 2: CONTAGEM REGRESSIVA (3s) -->
+    <div id="screen-countdown" class="screen">
+      <div class="countdown-overlay">
+        <h2>Prepare-se... 📸</h2>
+        <span id="countdown-number">3</span>
       </div>
+    </div>
 
-      <!-- Lista de Alternativas (A, B, C, D) -->
-      <div class="options-container" id="options-container">
-        <!-- Gerado via JavaScript -->
-      </div>
+    <!-- TELA 3: JOGO -->
+    <div id="screen-game" class="screen">
+      <div class="gradient-overlay"></div>
 
-      <!-- Rodapé do Painel: Cronômetro / Card de Explicação -->
-      <div class="bottom-panel">
-        
-        <!-- Cronômetro Destacado -->
-        <div id="timer-box" class="timer-box">
-          <span id="timer-count">10</span>
+      <div class="quiz-sidebar">
+        <!-- Logo no Topo do Jogo -->
+        <div class="logo-box-game">
+          <img src="logo.png" alt="Baú da Fé" class="app-logo">
         </div>
 
-        <!-- Card de Explicação (Escondido inicialmente) -->
-        <div id="explanation-card" class="explanation-card hidden">
-          <div class="explanation-header">
-            <span class="icon">📢</span> EXPLICAÇÃO
+        <div class="question-container">
+          <h2 id="question-text">Carregando pergunta...</h2>
+        </div>
+
+        <div class="options-stack">
+          <button id="btn-0" class="btn-option"><span class="opt-badge">A</span> <span class="opt-text">Opção 1</span></button>
+          <button id="btn-1" class="btn-option"><span class="opt-badge">B</span> <span class="opt-text">Opção 2</span></button>
+          <button id="btn-2" class="btn-option"><span class="opt-badge">C</span> <span class="opt-text">Opção 3</span></button>
+          <button id="btn-3" class="btn-option"><span class="opt-badge">D</span> <span class="opt-text">Opção 4</span></button>
+        </div>
+
+        <div class="bottom-status-zone">
+          <!-- Cronômetro Maior -->
+          <div id="timer-badge" class="timer-badge">
+            <span id="timer" class="timer-verde">20</span>
           </div>
-          <p id="explanation-text"></p>
+
+          <!-- Banner de Feedback / Explicação -->
+          <div id="feedback-banner" class="feedback-banner hidden">
+            <div class="feedback-header">
+              <span id="feedback-emoji">🎉</span>
+              <span id="feedback-title">RESPOSTA CORRETA!</span>
+            </div>
+            <p id="feedback-text"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TELA 4: AGRADECIMENTO & MOLDURA FINAL DA REAÇÃO -->
+    <div id="screen-thanks" class="screen">
+      <div class="thanks-card">
+        <h2>Muito Obrigado por Participar! ❤️</h2>
+        <p>Sua reação e participação foram registradas com sucesso:</p>
+        
+        <div class="captured-photo-frame">
+          <img id="captured-photo" src="" alt="Sua Reação no Quiz">
         </div>
 
+        <p class="thanks-footer">Os noivos amaram sua presença!</p>
       </div>
-
     </div>
 
-  </div>
-
-  <!-- Modal de Finalização (Resultado e Miniatura) -->
-  <div id="result-modal" class="modal hidden">
-    <div class="modal-content">
-      <h2>Muito Obrigado por Participar! ❤️</h2>
-      <p>Sua reação e participação foram registradas com sucesso:</p>
-      
-      <!-- Preview do Card da Imagem Final -->
-      <div class="preview-frame">
-        <canvas id="final-canvas"></canvas>
-      </div>
-
-      <p class="wedding-footer-text">Os noivos amaram sua presença!</p>
-    </div>
   </div>
 
   <script src="script.js"></script>
