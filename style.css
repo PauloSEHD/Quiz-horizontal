@@ -295,7 +295,7 @@ TELA 3: JOGO DO QUIZ
 .app-logo {
   width: 100%; 
   max-width: 800px; 
-  max-height: 120px;
+  max-height: 300px; /*egunto turno. Aumentei aqui agora de 120 para 300
   object-fit: contain;
   display: block;
 }
