@@ -232,7 +232,7 @@ TELA 2: CONTAGEM REGRESSIVA E MOLDURA DE ENQUADRAMENTO
   top: 0;
   right: 0;
   bottom: 0;
-  width: calc(50% + 1000px); /* 50% da tela + 50px de avanço para a esquerda sobre a área esmaecida */
+  width: calc(50% + 100px); /* 50% da tela + 50px de avanço para a esquerda sobre a área esmaecida */
   height: 100%;
   z-index: 11;
   display: flex;
