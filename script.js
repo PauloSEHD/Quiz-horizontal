@@ -368,8 +368,8 @@ function capturarFoto(rotuloMomento) {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    // 2. Gradiente Lateral
-    const grad = ctx.createLinearGradient(0, 0, canvas.width * 0.55, 0);
+    // 2. Gradiente Lateral (Estendido para cobrir caixas mais largas)
+    const grad = ctx.createLinearGradient(0, 0, canvas.width * 0.65, 0);
     grad.addColorStop(0, 'rgba(15, 23, 42, 0.92)');
     grad.addColorStop(0.75, 'rgba(15, 23, 42, 0.65)');
     grad.addColorStop(1, 'rgba(15, 23, 42, 0)');
@@ -378,15 +378,15 @@ function capturarFoto(rotuloMomento) {
 
     // 3. Logo
     if (logoImg.complete && logoImg.naturalWidth !== 0) {
-        const logoWidth = 200;
+        const logoWidth = 280; 
         const logoHeight = (logoImg.naturalHeight / logoImg.naturalWidth) * logoWidth;
         ctx.drawImage(logoImg, 40, 20, logoWidth, logoHeight);
     }
 
-    // 4. Pergunta
+    // 4. Pergunta (Ajustada para ficar mais larga e com fonte maior)
     const boxX = 40;
-    const boxY = 90;
-    const boxWidth = 560;
+    const boxY = 140; // Movido para baixo para evitar sobrepor o logo maior
+    const boxWidth = 720; // Largura aumentada (era 560)
 
     ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
     ctx.strokeStyle = 'rgba(212, 175, 55, 0.6)';
@@ -394,20 +394,20 @@ function capturarFoto(rotuloMomento) {
     
     if (ctx.roundRect) {
         ctx.beginPath();
-        ctx.roundRect(boxX, boxY, boxWidth, 110, 14);
+        ctx.roundRect(boxX, boxY, boxWidth, 120, 14); // Altura aumentada para 120
         ctx.fill();
         ctx.stroke();
     } else {
-        ctx.fillRect(boxX, boxY, boxWidth, 110);
+        ctx.fillRect(boxX, boxY, boxWidth, 120);
     }
 
     ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 20px sans-serif';
-    quebrarTexto(ctx, perguntaAtual.pergunta, boxX + 20, boxY + 38, boxWidth - 40, 26);
+    ctx.font = 'bold 22px sans-serif'; // Fonte maior
+    quebrarTexto(ctx, perguntaAtual.pergunta, boxX + 20, boxY + 40, boxWidth - 40, 30); // Espaçamento maior entre linhas
 
     // 5. Opções
-    const optStartY = 215;
-    const optHeight = 65;
+    const optStartY = 275; // Movido para baixo
+    const optHeight = 70; // Altura aumentada
     const gap = 12;
 
     perguntaAtual.opcoes.forEach((opcao, i) => {
@@ -445,22 +445,22 @@ function capturarFoto(rotuloMomento) {
 
         ctx.fillStyle = badgeBg;
         ctx.beginPath();
-        ctx.arc(boxX + 32, y + 32, 18, 0, Math.PI * 2);
+        ctx.arc(boxX + 35, y + 35, 20, 0, Math.PI * 2); // Bolinha de letra maior
         ctx.fill();
 
         ctx.fillStyle = badgeTextColor;
-        ctx.font = 'bold 18px sans-serif';
-        ctx.fillText(letrasOpcoes[i], boxX + 26, y + 38);
+        ctx.font = 'bold 20px sans-serif'; // Letra maior
+        ctx.fillText(letrasOpcoes[i], boxX + 28, y + 42);
 
         ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 18px sans-serif';
-        ctx.fillText(opcao, boxX + 65, y + 38);
+        ctx.font = 'bold 20px sans-serif'; // Texto da opção maior
+        ctx.fillText(opcao, boxX + 70, y + 42);
     });
 
     // 6. Explicação (quando visível)
     const fbBanner = document.getElementById('feedback-banner');
     if (fbBanner && !fbBanner.classList.contains('hidden')) {
-        const expY = 530;
+        const expY = 615; // Ajustado para o fundo da tela
         const acertou = (respostaSelecionada === perguntaAtual.correta);
         let textoExplicacao = perguntaAtual.explicacao;
         if (!textoExplicacao) {
@@ -475,20 +475,20 @@ function capturarFoto(rotuloMomento) {
 
         if (ctx.roundRect) {
             ctx.beginPath();
-            ctx.roundRect(boxX, expY, boxWidth, 140, 14);
+            ctx.roundRect(boxX, expY, boxWidth, 90, 14); // Caixa mais compacta
             ctx.fill();
             ctx.stroke();
         } else {
-            ctx.fillRect(boxX, expY, boxWidth, 140);
+            ctx.fillRect(boxX, expY, boxWidth, 90);
         }
 
         ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 18px sans-serif';
+        ctx.font = 'bold 20px sans-serif';
         ctx.fillText(`${acertou ? '🎉 RESPOSTA CORRETA!' : '🙈 RESPOSTA INCORRETA!'}`, boxX + 20, expY + 35);
 
         ctx.fillStyle = '#cbd5e1';
-        ctx.font = '16px sans-serif';
-        quebrarTexto(ctx, textoExplicacao, boxX + 20, expY + 70, boxWidth - 40, 22);
+        ctx.font = '18px sans-serif';
+        quebrarTexto(ctx, textoExplicacao, boxX + 20, expY + 65, boxWidth - 40, 24);
     }
 
     const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
