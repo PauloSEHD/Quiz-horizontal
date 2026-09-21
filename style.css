@@ -231,12 +231,15 @@ TELA 2: CONTAGEM REGRESSIVA E MOLDURA DE ENQUADRAMENTO
   width: 40%; /* Ocupa o lado direito */
   height: 80%;
   margin-right: 5%;
-  border: 6px dashed rgba(212, 175, 55, 0.8); /* Dourado combinando com o tema */
+  border: none; /PAULO MUDOU *6px dashed rgba(212, 175, 55, 0.8); /* Dourado combinando com o tema */*/
   border-radius: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.15); /* Leve escurecimento interno para dar contraste */
+  background-image: url('imagens/moldura-vintage.png');
+  background-size: 100% 100%; /* Garante que a imagem preencha toda a div */
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .frame-text {
