@@ -16,7 +16,7 @@ let respostaSelecionada = null;
 
 let cameraStream = null;
 
-let tempoRestante = 20;
+let tempoRestante = 30; // Atualizado para 30 segundos
 let timerInterval = null;
 
 let slideIndex = 0;
@@ -206,7 +206,7 @@ function iniciarPartida() {
     perguntaAtual = sorteadas[0];
     respostaSelecionada = null;
     jogoAtivo = true;
-    tempoRestante = 20;
+    tempoRestante = 30; // 30 Segundos de contagem
 
     atualizarHTMLJogo();
     mostrarTela('screen-game');
@@ -232,12 +232,14 @@ function iniciarPartida() {
             tempoRestante--;
             if (timerEl) {
                 timerEl.innerText = tempoRestante;
+                // Transições de cores ajustadas para a escala de 30s
                 if (tempoRestante <= 5) timerEl.className = 'timer-vermelho';
-                else if (tempoRestante <= 10) timerEl.className = 'timer-laranja';
-                else if (tempoRestante <= 15) timerEl.className = 'timer-amarelo';
+                else if (tempoRestante <= 12) timerEl.className = 'timer-laranja';
+                else if (tempoRestante <= 20) timerEl.className = 'timer-amarelo';
+                else timerEl.className = 'timer-verde';
             }
         } else if (tempoRestante === 0 && jogoAtivo) {
-            processarResposta(-1);
+            processarResposta(-1); // Tempo Esgotado
         }
     }, 1000);
 }
@@ -262,7 +264,7 @@ function atualizarHTMLJogo() {
     const fbBanner = document.getElementById('feedback-banner');
     if (fbBanner) fbBanner.classList.add('hidden');
 
-    // NOVO: Mostra a mensagem de aguardo de resposta
+    // Mostra a mensagem de aguardo de resposta
     const waitMsg = document.getElementById('waiting-message');
     if (waitMsg) waitMsg.classList.remove('hidden');
 }
@@ -287,7 +289,7 @@ function processarResposta(index) {
         }
     }
 
-    // MOMENTO 2: Tira 2 fotos na escolha da opção
+    // MOMENTO 2: Tira 2 fotos na escolha da opção ou no fim do tempo
     capturarFoto('resposta_1');
     setTimeout(() => {
         capturarFoto('resposta_2');
@@ -299,7 +301,6 @@ function processarResposta(index) {
         // MOMENTO 3: Tira 2 fotos com o resultado na tela (Feedback)
         capturarFoto('feedback_1');
         setTimeout(() => {
-            // A última foto atualiza a miniatura exibida na Tela de Agradecimento
             const ultimaFoto = capturarFoto('feedback_2');
             const imgDestino = document.getElementById('captured-photo');
             if (imgDestino && ultimaFoto) imgDestino.src = ultimaFoto;
@@ -317,7 +318,6 @@ function processarResposta(index) {
 }
 
 function exibirFeedback(acertou) {
-    // NOVO: Esconde a mensagem de aguardo antes de exibir o feedback
     const waitMsg = document.getElementById('waiting-message');
     if (waitMsg) waitMsg.classList.add('hidden');
 
@@ -330,17 +330,27 @@ function exibirFeedback(acertou) {
     const fbText = document.getElementById('feedback-text');
 
     let explicacao = perguntaAtual.explicacao;
-    if (!explicacao) {
-        explicacao = acertou ? 
-            'Parabéns! Você mandou super bem!' : 
-            `A resposta correta era a alternativa ${letrasOpcoes[perguntaAtual.correta]}.`;
-    }
 
     if (fbBanner) {
-        fbBanner.className = `feedback-banner ${acertou ? 'sucesso' : 'erro'}`;
-        if (fbEmoji) fbEmoji.innerText = acertou ? '🎉' : '🙈';
-        if (fbTitle) fbTitle.innerText = acertou ? 'RESPOSTA CORRETA!' : 'RESPOSTA INCORRETA!';
-        if (fbText) fbText.innerText = explicacao;
+        if (respostaSelecionada === -1) {
+            // Caso de Tempo Esgotado
+            fbBanner.className = 'feedback-banner erro';
+            if (fbEmoji) fbEmoji.innerText = '⏱️';
+            if (fbTitle) fbTitle.innerText = 'O TEMPO ACABOU!';
+            if (fbText) fbText.innerText = explicacao || `Você não selecionou nenhuma opção a tempo. A resposta correta era a alternativa ${letrasOpcoes[perguntaAtual.correta]}.`;
+        } else {
+            // Caso onde o usuário respondeu
+            if (!explicacao) {
+                explicacao = acertou ? 
+                    'Parabéns! Você mandou super bem!' : 
+                    `A resposta correta era a alternativa ${letrasOpcoes[perguntaAtual.correta]}.`;
+            }
+
+            fbBanner.className = `feedback-banner ${acertou ? 'sucesso' : 'erro'}`;
+            if (fbEmoji) fbEmoji.innerText = acertou ? '🎉' : '🙈';
+            if (fbTitle) fbTitle.innerText = acertou ? 'RESPOSTA CORRETA!' : 'RESPOSTA INCORRETA!';
+            if (fbText) fbText.innerText = explicacao;
+        }
         fbBanner.classList.remove('hidden');
     }
 }
@@ -368,25 +378,27 @@ function capturarFoto(rotuloMomento) {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    // 2. Gradiente Lateral (Estendido para cobrir caixas mais largas)
+    // 2. Gradiente Lateral
     const grad = ctx.createLinearGradient(0, 0, canvas.width * 0.65, 0);
-    grad.addColorStop(0, 'rgba(15, 23, 42, 0.92)');
-    grad.addColorStop(0.75, 'rgba(15, 23, 42, 0.65)');
+    grad.addColorStop(0, 'rgba(15, 23, 42, 0.95)');
+    grad.addColorStop(0.75, 'rgba(15, 23, 42, 0.70)');
     grad.addColorStop(1, 'rgba(15, 23, 42, 0)');
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // 3. Logo
+    const boxX = 40;
+    const boxWidth = 720;
+
+    // 3. Logo ajustado harmoniosamente
     if (logoImg.complete && logoImg.naturalWidth !== 0) {
-        const logoWidth = 280; 
+        const logoWidth = 260; 
         const logoHeight = (logoImg.naturalHeight / logoImg.naturalWidth) * logoWidth;
-        ctx.drawImage(logoImg, 40, 20, logoWidth, logoHeight);
+        ctx.drawImage(logoImg, boxX, 15, logoWidth, logoHeight);
     }
 
-    // 4. Pergunta (Ajustada para ficar mais larga e com fonte maior)
-    const boxX = 40;
-    const boxY = 140; // Movido para baixo para evitar sobrepor o logo maior
-    const boxWidth = 720; // Largura aumentada (era 560)
+    // 4. Pergunta (Posição e tamanhos proporcionalmente calculados)
+    const boxY = 125;
+    const boxHeight = 115;
 
     ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
     ctx.strokeStyle = 'rgba(212, 175, 55, 0.6)';
@@ -394,20 +406,20 @@ function capturarFoto(rotuloMomento) {
     
     if (ctx.roundRect) {
         ctx.beginPath();
-        ctx.roundRect(boxX, boxY, boxWidth, 120, 14); // Altura aumentada para 120
+        ctx.roundRect(boxX, boxY, boxWidth, boxHeight, 16);
         ctx.fill();
         ctx.stroke();
     } else {
-        ctx.fillRect(boxX, boxY, boxWidth, 120);
+        ctx.fillRect(boxX, boxY, boxWidth, boxHeight);
     }
 
     ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 22px sans-serif'; // Fonte maior
-    quebrarTexto(ctx, perguntaAtual.pergunta, boxX + 20, boxY + 40, boxWidth - 40, 30); // Espaçamento maior entre linhas
+    ctx.font = 'bold 23px sans-serif';
+    quebrarTexto(ctx, perguntaAtual.pergunta, boxX + 20, boxY + 38, boxWidth - 40, 30);
 
     // 5. Opções
-    const optStartY = 275; // Movido para baixo
-    const optHeight = 70; // Altura aumentada
+    const optStartY = 255;
+    const optHeight = 68;
     const gap = 12;
 
     perguntaAtual.opcoes.forEach((opcao, i) => {
@@ -418,7 +430,7 @@ function capturarFoto(rotuloMomento) {
         let badgeBg = '#d4af37';
         let badgeTextColor = '#0f172a';
 
-        if (respostaSelecionada !== null) {
+        if (respostaSelecionada !== null && respostaSelecionada !== -1) {
             if (i === perguntaAtual.correta) {
                 bgColor = '#2ecc71';
                 borderColor = '#27ae60';
@@ -428,6 +440,13 @@ function capturarFoto(rotuloMomento) {
                 bgColor = '#e74c3c';
                 borderColor = '#c0392b';
             }
+        } else if (respostaSelecionada === -1) {
+            if (i === perguntaAtual.correta) {
+                bgColor = '#2ecc71';
+                borderColor = '#27ae60';
+                badgeBg = '#ffffff';
+                badgeTextColor = '#2ecc71';
+            }
         }
 
         ctx.fillStyle = bgColor;
@@ -436,7 +455,7 @@ function capturarFoto(rotuloMomento) {
 
         if (ctx.roundRect) {
             ctx.beginPath();
-            ctx.roundRect(boxX, y, boxWidth, optHeight, 12);
+            ctx.roundRect(boxX, y, boxWidth, optHeight, 14);
             ctx.fill();
             ctx.stroke();
         } else {
@@ -445,50 +464,64 @@ function capturarFoto(rotuloMomento) {
 
         ctx.fillStyle = badgeBg;
         ctx.beginPath();
-        ctx.arc(boxX + 35, y + 35, 20, 0, Math.PI * 2); // Bolinha de letra maior
+        ctx.arc(boxX + 35, y + 34, 21, 0, Math.PI * 2);
         ctx.fill();
 
         ctx.fillStyle = badgeTextColor;
-        ctx.font = 'bold 20px sans-serif'; // Letra maior
-        ctx.fillText(letrasOpcoes[i], boxX + 28, y + 42);
+        ctx.font = 'bold 20px sans-serif';
+        ctx.fillText(letrasOpcoes[i], boxX + 28, y + 41);
 
         ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 20px sans-serif'; // Texto da opção maior
-        ctx.fillText(opcao, boxX + 70, y + 42);
+        ctx.font = 'bold 20px sans-serif';
+        ctx.fillText(opcao, boxX + 70, y + 41);
     });
 
-    // 6. Explicação (quando visível)
+    // 6. Explicação / Fim de Tempo na Foto Renderizada
     const fbBanner = document.getElementById('feedback-banner');
     if (fbBanner && !fbBanner.classList.contains('hidden')) {
-        const expY = 615; // Ajustado para o fundo da tela
+        const expY = 585;
+        const expHeight = 110;
+        
+        const tempoEsgotado = (respostaSelecionada === -1);
         const acertou = (respostaSelecionada === perguntaAtual.correta);
+        
         let textoExplicacao = perguntaAtual.explicacao;
-        if (!textoExplicacao) {
+        
+        if (tempoEsgotado) {
+            if (!textoExplicacao) {
+                textoExplicacao = `Tempo esgotado! A resposta correta era a alternativa ${letrasOpcoes[perguntaAtual.correta]}.`;
+            }
+        } else if (!textoExplicacao) {
             textoExplicacao = acertou ? 
                 'Parabéns! Você mandou super bem!' : 
                 `A resposta correta era a alternativa ${letrasOpcoes[perguntaAtual.correta]}.`;
         }
 
         ctx.fillStyle = 'rgba(15, 23, 42, 0.95)';
-        ctx.strokeStyle = acertou ? '#2ecc71' : '#e74c3c';
+        ctx.strokeStyle = tempoEsgotado ? '#e74c3c' : (acertou ? '#2ecc71' : '#e74c3c');
         ctx.lineWidth = 2;
 
         if (ctx.roundRect) {
             ctx.beginPath();
-            ctx.roundRect(boxX, expY, boxWidth, 90, 14); // Caixa mais compacta
+            ctx.roundRect(boxX, expY, boxWidth, expHeight, 16);
             ctx.fill();
             ctx.stroke();
         } else {
-            ctx.fillRect(boxX, expY, boxWidth, 90);
+            ctx.fillRect(boxX, expY, boxWidth, expHeight);
         }
 
         ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 20px sans-serif';
-        ctx.fillText(`${acertou ? '🎉 RESPOSTA CORRETA!' : '🙈 RESPOSTA INCORRETA!'}`, boxX + 20, expY + 35);
+        ctx.font = 'bold 21px sans-serif';
+        
+        let tituloBanner = '🎉 RESPOSTA CORRETA!';
+        if (tempoEsgotado) tituloBanner = '⏱️ O TEMPO ACABOU!';
+        else if (!acertou) tituloBanner = '🙈 RESPOSTA INCORRETA!';
+
+        ctx.fillText(tituloBanner, boxX + 20, expY + 38);
 
         ctx.fillStyle = '#cbd5e1';
         ctx.font = '18px sans-serif';
-        quebrarTexto(ctx, textoExplicacao, boxX + 20, expY + 65, boxWidth - 40, 24);
+        quebrarTexto(ctx, textoExplicacao, boxX + 20, expY + 68, boxWidth - 40, 24);
     }
 
     const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
