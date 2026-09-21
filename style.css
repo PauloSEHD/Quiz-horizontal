@@ -172,20 +172,20 @@ TELA 2: CONTAGEM REGRESSIVA E MOLDURA DE ENQUADRAMENTO
 #screen-countdown {
   background: transparent !important;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start; /* Alinha o conteúdo de texto à esquerda */
   align-items: center;
   position: relative;
-  padding: 24px 32px;
+  padding: 24px 0 24px 48px; /* Remove padding da direita e aumenta o recuo da esquerda */
 }
 
-/* Gradiente na esquerda idêntico ao da tela do jogo */
+/* Gradiente na esquerda */
 .gradient-overlay-countdown {
   position: absolute;
   top: 0;
   left: 0;
   width: 55%;
   height: 100%;
-  background: linear-gradient(to right, rgba(15, 23, 42, 0.92) 0%, rgba(15, 23, 42, 0.65) 75%, transparent 100%);
+  background: linear-gradient(to right, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.75) 75%, transparent 100%);
   z-index: 1;
   pointer-events: none;
 }
@@ -193,8 +193,7 @@ TELA 2: CONTAGEM REGRESSIVA E MOLDURA DE ENQUADRAMENTO
 .countdown-overlay {
   position: relative;
   z-index: 12;
-  width: 48%; /* Ocupa o lado esquerdo */
-  min-width: 400px;
+  width: 42%; /* Reduzido levemente para recuar mais para a esquerda e abrir espaço para a moldura */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -204,40 +203,43 @@ TELA 2: CONTAGEM REGRESSIVA E MOLDURA DE ENQUADRAMENTO
 
 .countdown-overlay h2 {
   color: #ffffff;
-  font-size: 2.2rem;
-  margin-bottom: 8px;
+  font-size: 5.5rem; /* Do mesmo tamanho do número anterior */
+  font-weight: 800;
+  margin-bottom: 12px;
+  line-height: 1.1;
 }
 
 .countdown-instruction {
   color: #cbd5e1;
-  font-size: 1.25rem;
-  margin-bottom: 16px;
-  line-height: 1.4;
+  font-size: 1.6rem; /* Aumentado para maior legibilidade */
+  margin-bottom: 24px;
+  line-height: 1.35;
   font-weight: 500;
+  max-width: 480px; /* Garante a quebra em duas linhas limpas */
 }
 
 #countdown-number {
-  font-size: 5.5rem;
+  font-size: 8.25rem; /* Aumentado em 50% (de 5.5rem para 8.25rem) */
   font-weight: 900;
   color: #2ecc71;
   display: block;
   line-height: 1;
 }
 
-/* Moldura central de guia para a pessoa se enquadrar (Lado Direito) */
+/* Moldura que avança sobre o esmaecido para a esquerda */
 .camera-frame-guide {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
-  width: calc(45% + 50px); /* 45% do lado direito + 50px sobrepondo o gradiente */
-  height: 100%; /* Toca as bordas superior e inferior */
+  width: calc(50% + 50px); /* 50% da tela + 50px de avanço para a esquerda sobre a área esmaecida */
+  height: 100%;
   z-index: 11;
   display: flex;
   justify-content: center;
   align-items: center;
   background-image: url('imagens/moldura-vintage.png');
-  background-size: 100% 100%; /* Estica a moldura para colar perfeitamente nas bordas */
+  background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
   border: none;
@@ -245,12 +247,13 @@ TELA 2: CONTAGEM REGRESSIVA E MOLDURA DE ENQUADRAMENTO
 
 .frame-text {
   color: rgba(255, 255, 255, 0.5);
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;
   text-align: center;
 }
+
 /* -----------------------------------------------------
 TELA 3: JOGO DO QUIZ
 ----------------------------------------------------- */
