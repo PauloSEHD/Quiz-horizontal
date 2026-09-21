@@ -578,7 +578,7 @@ TELA 3: JOGO DO QUIZ
 
   min-height: 110px;
 
-  max-height: 200px; /*aumentei de 130 para 200>300>250>200*/
+  max-height: 170px; /*aumentei de 130 para 200>300>250>200>170*/
 
   margin-bottom: 8px;
 
@@ -592,7 +592,7 @@ TELA 3: JOGO DO QUIZ
 
   max-width: 800px; 
 
-  max-height: 200px; /*egunto turno. Aumentei aqui agora de 120 para 300>250>200*/
+  max-height: 170px; /*egunto turno. Aumentei aqui agora de 120 para 300>250>200>170*/
 
   object-fit: contain;
 
