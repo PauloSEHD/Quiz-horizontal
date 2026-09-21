@@ -193,7 +193,7 @@ TELA 2: CONTAGEM REGRESSIVA E MOLDURA DE ENQUADRAMENTO
 .countdown-overlay {
   position: relative;
   z-index: 12;
-  width: 42%; /* Reduzido levemente para recuar mais para a esquerda e abrir espaço para a moldura */
+  width: 40%; /* Reduzido levemente para recuar mais para a esquerda e abrir espaço para a moldura */
   display: flex;
   flex-direction: column;
   justify-content: center;
