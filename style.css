@@ -257,14 +257,14 @@ TELA 3: JOGO DO QUIZ
 ----------------------------------------------------- */
 #screen-game {
   background: transparent !important;
-  padding: 15px 40px;
+  padding: 20px 40px 24px 40px;
 }
 
 .gradient-overlay {
   position: absolute;
   top: 0;
   left: 0;
-  width: 55%; /* Restaurado para 55% para não invadir o lado da câmera */
+  width: 55%;
   height: 100%;
   background: linear-gradient(to right, rgba(15, 23, 42, 0.96) 0%, rgba(15, 23, 42, 0.75) 75%, transparent 100%);
   z-index: 2;
@@ -274,11 +274,11 @@ TELA 3: JOGO DO QUIZ
 .quiz-sidebar {
   position: relative;
   z-index: 3;
-  width: 50%; /* Restaurado para ocupar no máximo metade da tela */
-  min-width: 450px;
+  width: 50%;
+  min-width: 480px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  justify-content: space-between; /* Distribui verticalmente de forma harmoniosa */
   height: 100%;
 }
 
@@ -287,14 +287,15 @@ TELA 3: JOGO DO QUIZ
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 90px;
-  margin-bottom: 5px;
+  min-height: 110px;
+  max-height: 130px;
+  margin-bottom: 8px;
 }
 
 .app-logo {
   width: 100%; 
   max-width: 800px; 
-  max-height: 200px;
+  max-height: 120px;
   object-fit: contain;
   display: block;
 }
@@ -304,51 +305,52 @@ TELA 3: JOGO DO QUIZ
   border: 1px solid rgba(212, 175, 55, 0.4);
   border-left: 6px solid #d4af37;
   border-radius: 16px;
-  padding: 16px 20px;
-  min-height: 80px;
+  padding: 18px 22px;
+  min-height: 105px;
   display: flex;
   align-items: center;
 }
 
 #question-text {
-  font-size: 1.55rem;
+  font-size: 1.7rem; /* Fonte aumentada */
   color: #ffffff;
   font-weight: 600;
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
 .options-stack {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px; /* Aumentado espaçamento entre opções */
+  margin: 10px 0;
 }
 
 .btn-option {
   background: rgba(30, 41, 59, 0.9);
   color: #ffffff;
   border: 1.5px solid rgba(255, 255, 255, 0.15);
-  border-radius: 14px;
-  padding: 12px 18px;
-  font-size: 1.3rem;
+  border-radius: 16px;
+  padding: 16px 20px; /* Aumentado padding interno */
+  font-size: 1.4rem; /* Fonte das alternativas aumentada */
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
   text-align: left;
 }
 
 .opt-badge {
   background: #d4af37;
   color: #0f172a;
-  width: 40px;
-  height: 40px;
+  width: 46px;
+  height: 46px; /* Bolinha de letra maior */
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 900;
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   flex-shrink: 0;
 }
 
@@ -366,13 +368,13 @@ TELA 3: JOGO DO QUIZ
   border-color: #c0392b !important;
 }
 
+/* ZONA INFERIOR DE STATUS, CRONÔMETRO E MENSAGENS */
 .bottom-status-zone {
-  margin-top: auto;
-  min-height: 90px;
+  min-height: 105px; /* Altura aumentada para comportar mensagem e cronômetro maiores */
   display: flex;
   align-items: center; 
   gap: 20px;
-  padding-bottom: 0px;
+  margin-top: 5px;
 }
 
 #timer-badge {
@@ -383,18 +385,18 @@ TELA 3: JOGO DO QUIZ
 }
 
 #timer {
-  font-size: 2.6rem;
+  font-size: 3rem; /* Fonte maior do cronômetro */
   font-weight: 900;
   background: rgba(15, 23, 42, 0.95);
-  width: 80px;
-  height: 80px;
+  width: 95px; /* Aumentado para 95px x 95px */
+  height: 95px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 5px solid #2ecc71; 
   color: #2ecc71;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
 }
 
 .timer-verde { border-color: #2ecc71 !important; color: #2ecc71 !important; }
@@ -402,19 +404,20 @@ TELA 3: JOGO DO QUIZ
 .timer-laranja { border-color: #e67e22 !important; color: #e67e22 !important; }
 .timer-vermelho { border-color: #e74c3c !important; color: #e74c3c !important; }
 
-/* Mensagem de Aguardo enquanto a resposta não vem */
+/* Mensagem de Aguardo com fonte e altura maiores */
 .waiting-message {
   flex: 1;
+  height: 95px; /* Mesma altura do círculo do cronômetro */
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(15, 23, 42, 0.5);
-  border: 1.5px dashed rgba(212, 175, 55, 0.4);
-  border-radius: 16px;
-  padding: 16px 20px;
-  color: #cbd5e1;
-  font-size: 1.2rem;
-  font-weight: 500;
+  background: rgba(15, 23, 42, 0.7);
+  border: 2px dashed rgba(212, 175, 55, 0.5);
+  border-radius: 18px;
+  padding: 16px 22px;
+  color: #f1f5f9;
+  font-size: 1.35rem; /* Fonte aumentada para melhor visualização */
+  font-weight: 600;
   font-style: italic;
   text-align: center;
   animation: pulseOpacity 2s infinite;
@@ -425,15 +428,16 @@ TELA 3: JOGO DO QUIZ
 }
 
 @keyframes pulseOpacity {
-  0%, 100% { opacity: 0.6; }
+  0%, 100% { opacity: 0.7; }
   50% { opacity: 1; }
 }
 
 .feedback-banner {
   flex: 1;
+  min-height: 95px;
   background: rgba(15, 23, 42, 0.98);
-  border-radius: 16px;
-  padding: 16px 20px;
+  border-radius: 18px;
+  padding: 16px 22px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -451,7 +455,7 @@ TELA 3: JOGO DO QUIZ
 
 #feedback-title {
   color: #ffffff;
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   font-weight: 800;
   margin: 0;
   text-transform: uppercase;
@@ -459,7 +463,7 @@ TELA 3: JOGO DO QUIZ
 
 #feedback-text {
   color: #f8fafc;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   font-weight: 500;
   line-height: 1.4;
   margin: 0;
