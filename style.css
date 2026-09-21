@@ -203,7 +203,7 @@ TELA 2: CONTAGEM REGRESSIVA E MOLDURA DE ENQUADRAMENTO
 
 .countdown-overlay h2 {
   color: #ffffff;
-  font-size: 5.5rem; /* Do mesmo tamanho do número anterior */
+  font-size: 4.5rem; /* Do mesmo tamanho do número anterior */
   font-weight: 800;
   margin-bottom: 12px;
   line-height: 1.1;
@@ -211,7 +211,7 @@ TELA 2: CONTAGEM REGRESSIVA E MOLDURA DE ENQUADRAMENTO
 
 .countdown-instruction {
   color: #cbd5e1;
-  font-size: 1.6rem; /* Aumentado para maior legibilidade */
+  font-size: 1.8rem; /* Aumentado para maior legibilidade */
   margin-bottom: 24px;
   line-height: 1.35;
   font-weight: 500;
@@ -232,7 +232,7 @@ TELA 2: CONTAGEM REGRESSIVA E MOLDURA DE ENQUADRAMENTO
   top: 0;
   right: 0;
   bottom: 0;
-  width: calc(50% + 50px); /* 50% da tela + 50px de avanço para a esquerda sobre a área esmaecida */
+  width: calc(50% + 1000px); /* 50% da tela + 50px de avanço para a esquerda sobre a área esmaecida */
   height: 100%;
   z-index: 11;
   display: flex;
