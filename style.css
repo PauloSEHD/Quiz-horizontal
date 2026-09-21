@@ -226,20 +226,21 @@ TELA 2: CONTAGEM REGRESSIVA E MOLDURA DE ENQUADRAMENTO
 
 /* Moldura central de guia para a pessoa se enquadrar (Lado Direito) */
 .camera-frame-guide {
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: calc(45% + 50px); /* 45% do lado direito + 50px sobrepondo o gradiente */
+  height: 100%; /* Toca as bordas superior e inferior */
   z-index: 11;
-  width: 40%; /* Ocupa o lado direito */
-  height: 80%;
-  margin-right: 5%;
-  border: none; /PAULO MUDOU *6px dashed rgba(212, 175, 55, 0.8); /* Dourado combinando com o tema */*/
-  border-radius: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-image: url('imagens/moldura-vintage.png');
-  background-size: 100% 100%; /* Garante que a imagem preencha toda a div */
+  background-size: 100% 100%; /* Estica a moldura para colar perfeitamente nas bordas */
   background-position: center;
   background-repeat: no-repeat;
+  border: none;
 }
 
 .frame-text {
