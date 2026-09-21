@@ -257,16 +257,16 @@ TELA 3: JOGO DO QUIZ
 ----------------------------------------------------- */
 #screen-game {
   background: transparent !important;
-  padding: 15px 40px; /* Reduzido para encaixar na tela */
+  padding: 15px 30px;
 }
 
 .gradient-overlay {
   position: absolute;
   top: 0;
   left: 0;
-  width: 55%;
+  width: 68%; /* Aumentado para cobrir a área de texto mais ampla */
   height: 100%;
-  background: linear-gradient(to right, rgba(15, 23, 42, 0.96) 0%, rgba(15, 23, 42, 0.75) 75%, transparent 100%);
+  background: linear-gradient(to right, rgba(15, 23, 42, 0.96) 0%, rgba(15, 23, 42, 0.85) 80%, transparent 100%);
   z-index: 2;
   pointer-events: none;
 }
@@ -274,8 +274,8 @@ TELA 3: JOGO DO QUIZ
 .quiz-sidebar {
   position: relative;
   z-index: 3;
-  width: 50%;
-  min-width: 450px;
+  width: 65%; /* Expandido para usar mais largura da tela */
+  min-width: 580px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -285,7 +285,7 @@ TELA 3: JOGO DO QUIZ
 .logo-box-game {
   width: 100%;
   display: flex;
-  justify-content: center; /* Centralizado horizontalmente */
+  justify-content: center;
   align-items: center;
   min-height: 90px;
   margin-bottom: 5px;
@@ -294,7 +294,7 @@ TELA 3: JOGO DO QUIZ
 .app-logo {
   width: 100%; 
   max-width: 800px; 
-  max-height: 200px; /* Altura ajustada para não empurrar os elementos */
+  max-height: 200px;
   object-fit: contain;
   display: block;
 }
@@ -304,23 +304,23 @@ TELA 3: JOGO DO QUIZ
   border: 1px solid rgba(212, 175, 55, 0.4);
   border-left: 6px solid #d4af37;
   border-radius: 16px;
-  padding: 16px 20px;
-  min-height: 80px;
+  padding: 18px 24px;
+  min-height: 90px;
   display: flex;
   align-items: center;
 }
 
 #question-text {
-  font-size: 1.55rem;
+  font-size: 1.85rem; /* Fonte da pergunta significativamente maior */
   color: #ffffff;
-  font-weight: 600;
-  line-height: 1.3;
+  font-weight: 700;
+  line-height: 1.35;
 }
 
 .options-stack {
   display: flex;
   flex-direction: column;
-  gap: 6px; /* Ajuste vertical mais compacto */
+  gap: 8px;
 }
 
 .btn-option {
@@ -328,27 +328,27 @@ TELA 3: JOGO DO QUIZ
   color: #ffffff;
   border: 1.5px solid rgba(255, 255, 255, 0.15);
   border-radius: 14px;
-  padding: 10px 16px; /* Mais fino verticalmente */
-  font-size: 1.25rem; 
+  padding: 12px 20px;
+  font-size: 1.45rem; /* Fonte das opções maior */
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
   text-align: left;
 }
 
 .opt-badge {
   background: #d4af37;
   color: #0f172a;
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 900;
-  font-size: 1.2rem;
+  font-size: 1.35rem;
   flex-shrink: 0;
 }
 
@@ -368,11 +368,11 @@ TELA 3: JOGO DO QUIZ
 
 .bottom-status-zone {
   margin-top: auto;
-  min-height: 90px; /* Reduzido de 120px */
+  min-height: 90px;
   display: flex;
   align-items: center; 
   gap: 20px;
-  padding-bottom: 0px; /* Padding inferior removido */
+  padding-bottom: 0px;
 }
 
 #timer-badge {
@@ -383,10 +383,10 @@ TELA 3: JOGO DO QUIZ
 }
 
 #timer {
-  font-size: 2.6rem; /* Tamanho proporcional ao novo espaço */
+  font-size: 2.6rem;
   font-weight: 900;
   background: rgba(15, 23, 42, 0.95);
-  width: 80px; /* Reduzido */
+  width: 80px;
   height: 80px;
   border-radius: 50%;
   display: flex;
@@ -413,7 +413,7 @@ TELA 3: JOGO DO QUIZ
   border-radius: 16px;
   padding: 16px 20px;
   color: #cbd5e1;
-  font-size: 1.15rem;
+  font-size: 1.3rem;
   font-weight: 500;
   font-style: italic;
   text-align: center;
@@ -451,7 +451,7 @@ TELA 3: JOGO DO QUIZ
 
 #feedback-title {
   color: #ffffff;
-  font-size: 1.35rem;
+  font-size: 1.5rem;
   font-weight: 800;
   margin: 0;
   text-transform: uppercase;
@@ -459,7 +459,7 @@ TELA 3: JOGO DO QUIZ
 
 #feedback-text {
   color: #f8fafc;
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 500;
   line-height: 1.4;
   margin: 0;
