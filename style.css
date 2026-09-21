@@ -293,8 +293,8 @@ TELA 3: JOGO DO QUIZ
 
 .app-logo {
   width: 100%; 
-  max-width: 600px; 
-  max-height: 115px; /* Altura ajustada para não empurrar os elementos */
+  max-width: 800px; 
+  max-height: 200px; /* Altura ajustada para não empurrar os elementos */
   object-fit: contain;
   display: block;
 }
