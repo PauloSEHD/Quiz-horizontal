@@ -261,6 +261,10 @@ function atualizarHTMLJogo() {
 
     const fbBanner = document.getElementById('feedback-banner');
     if (fbBanner) fbBanner.classList.add('hidden');
+
+    // NOVO: Mostra a mensagem de aguardo de resposta
+    const waitMsg = document.getElementById('waiting-message');
+    if (waitMsg) waitMsg.classList.remove('hidden');
 }
 
 function responder(index) {
@@ -313,6 +317,10 @@ function processarResposta(index) {
 }
 
 function exibirFeedback(acertou) {
+    // NOVO: Esconde a mensagem de aguardo antes de exibir o feedback
+    const waitMsg = document.getElementById('waiting-message');
+    if (waitMsg) waitMsg.classList.add('hidden');
+
     const timerBox = document.getElementById('timer-badge');
     if (timerBox) timerBox.style.display = 'none';
 
