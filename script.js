@@ -356,7 +356,7 @@ function exibirFeedback(acertou) {
 }
 
 // ======================================================
-// RENDERIZADOR DO CANVAS E DISPARADOR DE FOTOS
+// RENDERIZADOR DO CANVAS E DISPARADOR DE FOTOS (ATUALIZADO)
 // ======================================================
 function capturarFoto(rotuloMomento) {
     const videoEl = document.getElementById('webcam');
@@ -378,27 +378,38 @@ function capturarFoto(rotuloMomento) {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    // 2. Gradiente Lateral
-    const grad = ctx.createLinearGradient(0, 0, canvas.width * 0.65, 0);
-    grad.addColorStop(0, 'rgba(15, 23, 42, 0.95)');
-    grad.addColorStop(0.75, 'rgba(15, 23, 42, 0.70)');
+    // 2. Gradiente Lateral (Ajustado para ocupar ~55% da tela igual o visual do jogo)
+    const grad = ctx.createLinearGradient(0, 0, canvas.width * 0.55, 0);
+    grad.addColorStop(0, 'rgba(15, 23, 42, 0.96)');
+    grad.addColorStop(0.75, 'rgba(15, 23, 42, 0.75)');
     grad.addColorStop(1, 'rgba(15, 23, 42, 0)');
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+    // Largura da coluna onde ficam as informações (pergunta, alternativas)
     const boxX = 40;
-    const boxWidth = 720;
+    const boxWidth = 640; 
 
-    // 3. Logo ajustado harmoniosamente
+    // 3. Logo ajustado e centralizado
     if (logoImg.complete && logoImg.naturalWidth !== 0) {
-        const logoWidth = 260; 
-        const logoHeight = (logoImg.naturalHeight / logoImg.naturalWidth) * logoWidth;
-        ctx.drawImage(logoImg, boxX, 15, logoWidth, logoHeight);
+        let maxLogoWidth = 500; 
+        let maxLogoHeight = 150;
+        let logoWidth = maxLogoWidth;
+        let logoHeight = (logoImg.naturalHeight / logoImg.naturalWidth) * logoWidth;
+        
+        // Mantém a proporção do logo sem ultrapassar a altura limite
+        if (logoHeight > maxLogoHeight) {
+            logoHeight = maxLogoHeight;
+            logoWidth = (logoImg.naturalWidth / logoImg.naturalHeight) * logoHeight;
+        }
+        
+        const logoX = boxX + (boxWidth - logoWidth) / 2;
+        ctx.drawImage(logoImg, logoX, 20, logoWidth, logoHeight);
     }
 
-    // 4. Pergunta (Posição e tamanhos proporcionalmente calculados)
-    const boxY = 125;
-    const boxHeight = 115;
+    // 4. Pergunta (Enquadramento ajustado)
+    const boxY = 185;
+    const boxHeight = 105;
 
     ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
     ctx.strokeStyle = 'rgba(212, 175, 55, 0.6)';
@@ -414,12 +425,12 @@ function capturarFoto(rotuloMomento) {
     }
 
     ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 23px sans-serif';
-    quebrarTexto(ctx, perguntaAtual.pergunta, boxX + 20, boxY + 38, boxWidth - 40, 30);
+    ctx.font = 'bold 24px sans-serif';
+    quebrarTexto(ctx, perguntaAtual.pergunta, boxX + 25, boxY + 45, boxWidth - 50, 32);
 
     // 5. Opções
-    const optStartY = 255;
-    const optHeight = 68;
+    const optStartY = 305;
+    const optHeight = 62;
     const gap = 12;
 
     perguntaAtual.opcoes.forEach((opcao, i) => {
@@ -462,25 +473,27 @@ function capturarFoto(rotuloMomento) {
             ctx.fillRect(boxX, y, boxWidth, optHeight);
         }
 
+        // Bolinha da Letra
         ctx.fillStyle = badgeBg;
         ctx.beginPath();
-        ctx.arc(boxX + 35, y + 34, 21, 0, Math.PI * 2);
+        ctx.arc(boxX + 40, y + 31, 22, 0, Math.PI * 2);
         ctx.fill();
 
         ctx.fillStyle = badgeTextColor;
-        ctx.font = 'bold 20px sans-serif';
-        ctx.fillText(letrasOpcoes[i], boxX + 28, y + 41);
+        ctx.font = 'bold 22px sans-serif';
+        ctx.fillText(letrasOpcoes[i], boxX + 32, y + 39);
 
+        // Texto da Alternativa
         ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 20px sans-serif';
-        ctx.fillText(opcao, boxX + 70, y + 41);
+        ctx.font = 'bold 22px sans-serif';
+        ctx.fillText(opcao, boxX + 80, y + 39);
     });
 
     // 6. Explicação / Fim de Tempo na Foto Renderizada
     const fbBanner = document.getElementById('feedback-banner');
     if (fbBanner && !fbBanner.classList.contains('hidden')) {
-        const expY = 585;
-        const expHeight = 110;
+        const expY = 610;
+        const expHeight = 95;
         
         const tempoEsgotado = (respostaSelecionada === -1);
         const acertou = (respostaSelecionada === perguntaAtual.correta);
@@ -511,17 +524,17 @@ function capturarFoto(rotuloMomento) {
         }
 
         ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 21px sans-serif';
+        ctx.font = 'bold 22px sans-serif';
         
         let tituloBanner = '🎉 RESPOSTA CORRETA!';
         if (tempoEsgotado) tituloBanner = '⏱️ O TEMPO ACABOU!';
         else if (!acertou) tituloBanner = '🙈 RESPOSTA INCORRETA!';
 
-        ctx.fillText(tituloBanner, boxX + 20, expY + 38);
+        ctx.fillText(tituloBanner, boxX + 25, expY + 35);
 
         ctx.fillStyle = '#cbd5e1';
-        ctx.font = '18px sans-serif';
-        quebrarTexto(ctx, textoExplicacao, boxX + 20, expY + 68, boxWidth - 40, 24);
+        ctx.font = '19px sans-serif';
+        quebrarTexto(ctx, textoExplicacao, boxX + 25, expY + 65, boxWidth - 50, 24);
     }
 
     const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
