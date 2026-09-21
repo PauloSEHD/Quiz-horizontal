@@ -170,61 +170,83 @@ background: linear-gradient(135deg, #27ae60, #1e8449);
 TELA 2: CONTAGEM REGRESSIVA E MOLDURA DE ENQUADRAMENTO
 ----------------------------------------------------- */
 #screen-countdown {
-background: transparent !important;
-justify-content: center;
-align-items: center;
-position: relative;
+  background: transparent !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding: 24px 32px;
 }
 
-/* Moldura central de guia para a pessoa se enquadrar /
-.camera-frame-guide {
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-width: 75vw;
-height: 75vh;
-border: 4px dashed #2ecc71;
-border-radius: 28px;
-box-shadow: 0 0 0 9999px rgba(15, 23, 42, 0.45); / Escurece suavemente ao redor */
-pointer-events: none;
-z-index: 11;
+/* Gradiente na esquerda idêntico ao da tela do jogo */
+.gradient-overlay-countdown {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(15, 23, 42, 0.92) 0%, rgba(15, 23, 42, 0.65) 75%, transparent 100%);
+  z-index: 1;
+  pointer-events: none;
 }
 
 .countdown-overlay {
-position: relative;
-z-index: 12;
-background: rgba(15, 23, 42, 0.85);
-padding: 32px 48px;
-border-radius: 24px;
-text-align: center;
-border: 1px solid rgba(255, 255, 255, 0.2);
-max-width: 550px;
-backdrop-filter: blur(4px);
+  position: relative;
+  z-index: 12;
+  width: 48%; /* Ocupa o lado esquerdo */
+  min-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .countdown-overlay h2 {
-color: #ffffff;
-font-size: 2.2rem;
-margin-bottom: 8px;
+  color: #ffffff;
+  font-size: 2.2rem;
+  margin-bottom: 8px;
 }
 
 .countdown-instruction {
-color: #cbd5e1;
-font-size: 1.25rem;
-margin-bottom: 16px;
-line-height: 1.4;
-font-weight: 500;
+  color: #cbd5e1;
+  font-size: 1.25rem;
+  margin-bottom: 16px;
+  line-height: 1.4;
+  font-weight: 500;
 }
 
 #countdown-number {
-font-size: 5.5rem;
-font-weight: 900;
-color: #2ecc71;
-display: block;
-line-height: 1;
+  font-size: 5.5rem;
+  font-weight: 900;
+  color: #2ecc71;
+  display: block;
+  line-height: 1;
 }
 
+/* Moldura central de guia para a pessoa se enquadrar (Lado Direito) */
+.camera-frame-guide {
+  position: relative;
+  z-index: 11;
+  width: 40%; /* Ocupa o lado direito */
+  height: 80%;
+  margin-right: 5%;
+  border: 6px dashed rgba(212, 175, 55, 0.8); /* Dourado combinando com o tema */
+  border-radius: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.15); /* Leve escurecimento interno para dar contraste */
+}
+
+.frame-text {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+}
 /* -----------------------------------------------------
 TELA 3: JOGO DO QUIZ
 ----------------------------------------------------- */
