@@ -288,7 +288,7 @@ TELA 3: JOGO DO QUIZ
   justify-content: center;
   align-items: center;
   min-height: 110px;
-  max-height: 130px;
+  max-height: 200px; /*aumentei de 130 para 200*/
   margin-bottom: 8px;
 }
 
