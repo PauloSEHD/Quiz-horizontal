@@ -4,7 +4,14 @@
 const listaFotosCasal = [
     'fotos/foto1.jpg',
     'fotos/foto2.jpg',
-    'fotos/foto3.jpg'
+    'fotos/foto3.jpg',
+    'fotos/foto4.jpg',
+    'fotos/foto5.jpg',
+    'fotos/foto6.jpg',
+    'fotos/foto7.jpg',
+    'fotos/foto8.jpg',
+    'fotos/foto9.jpg',
+    'fotos/foto10.jpg'
 ];
 
 const letrasOpcoes = ['A', 'B', 'C', 'D'];
