@@ -23,7 +23,7 @@ let respostaSelecionada = null;
 
 let cameraStream = null;
 
-let tempoRestante = 30; // Atualizado para 30 segundos
+let tempoRestante = 30; // 30 segundos de contagem
 let timerInterval = null;
 
 let slideIndex = 0;
@@ -31,6 +31,9 @@ let slideInterval = null;
 
 let inactivityTimer = null;
 const TEMPO_INATIVIDADE_MS = 2 * 60 * 1000; // 2 minutos
+
+// Contador para equilibrar as respostas corretas entre A, B, C e D
+let contagemRespostasCorretas = [0, 0, 0, 0]; 
 
 // Imagem do Logo para o Canvas
 let logoImg = new Image();
@@ -178,6 +181,49 @@ function mostrarTela(idTela) {
 }
 
 // ======================================================
+// EMBARALHAMENTO COM TENDÊNCIA DE EQUILÍBRIO (A, B, C, D)
+// ======================================================
+function prepararPerguntaEquilibrada(perguntaOriginal) {
+    let copia = JSON.parse(JSON.stringify(perguntaOriginal));
+    let textoCorreto = copia.opcoes[copia.correta];
+
+    // Encontra a alternativa (0=A, 1=B, 2=C, 3=D) que foi MENOS usada até agora como correta
+    let minUso = Math.min(...contagemRespostasCorretas);
+    let candidatosMin = [];
+    contagemRespostasCorretas.forEach((val, idx) => {
+        if (val === minUso) candidatosMin.push(idx);
+    });
+
+    // Escolhe aleatoriamente uma das opções com menor frequência para ser a correta desta pergunta
+    let novoIndiceCorreto = candidatosMin[Math.floor(Math.random() * candidatosMin.length)];
+
+    // Registra o uso da nova posição para manter a estatística em dia
+    contagemRespostasCorretas[novoIndiceCorreto]++;
+
+    // Separar as opções incorretas e embaralhá-las
+    let incorretas = copia.opcoes.filter((_, idx) => idx !== copia.correta);
+    incorretas.sort(() => Math.random() - 0.5);
+
+    // Montar o novo array de opções encaixando a resposta correta na posição escolhida
+    let novasOpcoes = [];
+    let incorretaIdx = 0;
+
+    for (let i = 0; i < 4; i++) {
+        if (i === novoIndiceCorreto) {
+            novasOpcoes.push(textoCorreto);
+        } else {
+            novasOpcoes.push(incorretas[incorretaIdx]);
+            incorretaIdx++;
+        }
+    }
+
+    copia.opcoes = novasOpcoes;
+    copia.correta = novoIndiceCorreto;
+
+    return copia;
+}
+
+// ======================================================
 // FLUXO DO JOGO
 // ======================================================
 async function iniciarFluxoJogo() {
@@ -210,7 +256,11 @@ async function iniciarFluxoJogo() {
 
 function iniciarPartida() {
     const sorteadas = [...perguntas].sort(() => Math.random() - 0.5);
-    perguntaAtual = sorteadas[0];
+    let perguntaBruta = sorteadas[0];
+    
+    // Embaralha as alternativas mantendo o equilíbrio global A, B, C, D
+    perguntaAtual = prepararPerguntaEquilibrada(perguntaBruta);
+
     respostaSelecionada = null;
     jogoAtivo = true;
     tempoRestante = 30; // 30 Segundos de contagem
@@ -239,7 +289,6 @@ function iniciarPartida() {
             tempoRestante--;
             if (timerEl) {
                 timerEl.innerText = tempoRestante;
-                // Transições de cores ajustadas para a escala de 30s
                 if (tempoRestante <= 5) timerEl.className = 'timer-vermelho';
                 else if (tempoRestante <= 12) timerEl.className = 'timer-laranja';
                 else if (tempoRestante <= 20) timerEl.className = 'timer-amarelo';
@@ -271,7 +320,6 @@ function atualizarHTMLJogo() {
     const fbBanner = document.getElementById('feedback-banner');
     if (fbBanner) fbBanner.classList.add('hidden');
 
-    // Mostra a mensagem de aguardo de resposta
     const waitMsg = document.getElementById('waiting-message');
     if (waitMsg) waitMsg.classList.remove('hidden');
 }
@@ -340,13 +388,11 @@ function exibirFeedback(acertou) {
 
     if (fbBanner) {
         if (respostaSelecionada === -1) {
-            // Caso de Tempo Esgotado
             fbBanner.className = 'feedback-banner erro';
             if (fbEmoji) fbEmoji.innerText = '⏱️';
             if (fbTitle) fbTitle.innerText = 'O TEMPO ACABOU!';
             if (fbText) fbText.innerText = explicacao || `Você não selecionou nenhuma opção a tempo. A resposta correta era a alternativa ${letrasOpcoes[perguntaAtual.correta]}.`;
         } else {
-            // Caso onde o usuário respondeu
             if (!explicacao) {
                 explicacao = acertou ? 
                     'Parabéns! Você mandou super bem!' : 
@@ -363,7 +409,7 @@ function exibirFeedback(acertou) {
 }
 
 // ======================================================
-// RENDERIZADOR DO CANVAS E DISPARADOR DE FOTOS (ATUALIZADO)
+// RENDERIZADOR DO CANVAS E DISPARADOR DE FOTOS
 // ======================================================
 function capturarFoto(rotuloMomento) {
     const videoEl = document.getElementById('webcam');
@@ -385,7 +431,7 @@ function capturarFoto(rotuloMomento) {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    // 2. Gradiente Lateral (Ajustado para ocupar ~55% da tela igual o visual do jogo)
+    // 2. Gradiente Lateral (~55% da tela)
     const grad = ctx.createLinearGradient(0, 0, canvas.width * 0.55, 0);
     grad.addColorStop(0, 'rgba(15, 23, 42, 0.96)');
     grad.addColorStop(0.75, 'rgba(15, 23, 42, 0.75)');
@@ -393,7 +439,6 @@ function capturarFoto(rotuloMomento) {
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Largura da coluna onde ficam as informações (pergunta, alternativas)
     const boxX = 40;
     const boxWidth = 640; 
 
@@ -404,7 +449,6 @@ function capturarFoto(rotuloMomento) {
         let logoWidth = maxLogoWidth;
         let logoHeight = (logoImg.naturalHeight / logoImg.naturalWidth) * logoWidth;
         
-        // Mantém a proporção do logo sem ultrapassar a altura limite
         if (logoHeight > maxLogoHeight) {
             logoHeight = maxLogoHeight;
             logoWidth = (logoImg.naturalWidth / logoImg.naturalHeight) * logoHeight;
@@ -414,7 +458,7 @@ function capturarFoto(rotuloMomento) {
         ctx.drawImage(logoImg, logoX, 20, logoWidth, logoHeight);
     }
 
-    // 4. Pergunta (Enquadramento ajustado)
+    // 4. Pergunta
     const boxY = 185;
     const boxHeight = 105;
 
