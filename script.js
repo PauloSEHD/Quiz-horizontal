@@ -30,7 +30,7 @@ let slideIndex = 0;
 let slideInterval = null;
 
 let inactivityTimer = null;
-const TEMPO_INATIVIDADE_MS = 2 * 60 * 1000; // 2 minutos
+const TEMPO_INATIVIDADE_MS = 2 * 60 * 1000; // 2 minutos (120.000 ms)
 
 // Contador para equilibrar as respostas corretas entre A, B, C e D
 let contagemRespostasCorretas = [0, 0, 0, 0]; 
@@ -110,9 +110,11 @@ function proximoSlide() {
 }
 
 function registrarMonitorDeInatividade() {
-    const resetarTimer = () => {
+    const resetarTimerInatividade = () => {
         clearTimeout(inactivityTimer);
+        
         const telaSlideshow = document.getElementById('screen-slideshow');
+        // Só mantém o timer de inatividade ligado se a tela atual NÃO for o próprio slideshow
         if (telaSlideshow && !telaSlideshow.classList.contains('active')) {
             inactivityTimer = setTimeout(() => {
                 voltarParaSlideShow();
@@ -120,13 +122,22 @@ function registrarMonitorDeInatividade() {
         }
     };
 
-    window.addEventListener('click', resetarTimer);
-    window.addEventListener('touchstart', resetarTimer);
+    // Monitora interações globais para zerar o tempo de inatividade
+    window.addEventListener('click', resetarTimerInatividade);
+    window.addEventListener('touchstart', resetarTimerInatividade);
+    window.addEventListener('mousemove', resetarTimerInatividade);
+
+    resetarTimerInatividade();
 }
 
 function voltarParaSlideShow() {
     jogoAtivo = false;
     clearInterval(timerInterval);
+    
+    // Oculta a webcam ao voltar para as fotos
+    const webcamEl = document.getElementById('webcam');
+    if (webcamEl) webcamEl.classList.remove('active');
+
     iniciarSlideShow();
     mostrarTela('screen-slideshow');
 }
@@ -140,6 +151,7 @@ function vincularEventos() {
         screenSlideshow.addEventListener('click', () => {
             ativarTelaCheia();
             mostrarTela('screen-intro');
+            registrarMonitorDeInatividade();
         });
     }
 
@@ -187,24 +199,18 @@ function prepararPerguntaEquilibrada(perguntaOriginal) {
     let copia = JSON.parse(JSON.stringify(perguntaOriginal));
     let textoCorreto = copia.opcoes[copia.correta];
 
-    // Encontra a alternativa (0=A, 1=B, 2=C, 3=D) que foi MENOS usada até agora como correta
     let minUso = Math.min(...contagemRespostasCorretas);
     let candidatosMin = [];
     contagemRespostasCorretas.forEach((val, idx) => {
         if (val === minUso) candidatosMin.push(idx);
     });
 
-    // Escolhe aleatoriamente uma das opções com menor frequência para ser a correta desta pergunta
     let novoIndiceCorreto = candidatosMin[Math.floor(Math.random() * candidatosMin.length)];
-
-    // Registra o uso da nova posição para manter a estatística em dia
     contagemRespostasCorretas[novoIndiceCorreto]++;
 
-    // Separar as opções incorretas e embaralhá-las
     let incorretas = copia.opcoes.filter((_, idx) => idx !== copia.correta);
     incorretas.sort(() => Math.random() - 0.5);
 
-    // Montar o novo array de opções encaixando a resposta correta na posição escolhida
     let novasOpcoes = [];
     let incorretaIdx = 0;
 
@@ -258,12 +264,11 @@ function iniciarPartida() {
     const sorteadas = [...perguntas].sort(() => Math.random() - 0.5);
     let perguntaBruta = sorteadas[0];
     
-    // Embaralha as alternativas mantendo o equilíbrio global A, B, C, D
     perguntaAtual = prepararPerguntaEquilibrada(perguntaBruta);
 
     respostaSelecionada = null;
     jogoAtivo = true;
-    tempoRestante = 30; // 30 Segundos de contagem
+    tempoRestante = 30;
 
     atualizarHTMLJogo();
     mostrarTela('screen-game');
@@ -295,7 +300,7 @@ function iniciarPartida() {
                 else timerEl.className = 'timer-verde';
             }
         } else if (tempoRestante === 0 && jogoAtivo) {
-            processarResposta(-1); // Tempo Esgotado
+            processarResposta(-1);
         }
     }, 1000);
 }
@@ -363,12 +368,19 @@ function processarResposta(index) {
 
     }, 1200);
 
+    // Exibe a tela de agradecimento com a foto final por alguns segundos
     setTimeout(() => {
         mostrarTela('screen-thanks');
     }, 4500);
 
+    // ALTERAÇÃO PRINCIPAL: Após mostrar a foto da pessoa por 7.5 segundos, 
+    // retorna para a TELA INICIAL (screen-intro) com o botão verde de reiniciar a brincadeira.
     setTimeout(() => {
-        voltarParaSlideShow();
+        const webcamEl = document.getElementById('webcam');
+        if (webcamEl) webcamEl.classList.remove('active');
+
+        mostrarTela('screen-intro');
+        registrarMonitorDeInatividade(); // Dispara a contagem regressiva de 2min de inatividade
     }, 12000);
 }
 
@@ -590,7 +602,7 @@ function capturarFoto(rotuloMomento) {
 
     const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
 
-    // Salva a foto automaticamente via download
+    // Salva a foto automaticamente
     const timestamp = Date.now();
     const a = document.createElement('a');
     a.href = dataUrl;
