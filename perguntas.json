@@ -1802,121 +1802,661 @@
   {
     "id": 151,
     "categoria": "casal",
-    "pergunta": "Quem é mais provável de esquecer onde deixou as chaves de casa?",
+    "pergunta": "Quem costuma pedir desculpas primeiro após uma discussão?",
     "opcoes": [
-      "O Noivo",
-      "A Noiva",
-      "Os dois empatados",
-      "Nenhum dos dois"
+      "O noivo",
+      "A noiva",
+      "Os dois ao mesmo tempo",
+      "Ninguém, fingem que nada aconteceu"
     ],
     "correta": 0
   },
   {
     "id": 152,
     "categoria": "casal",
-    "pergunta": "Quem é mais provável de demorar mais tempo para se arrumar antes de sair?",
+    "pergunta": "Quem disse 'eu te amo' primeiro no relacionamento?",
     "opcoes": [
-      "O Noivo",
-      "A Noiva",
-      "Demoram exatamente o mesmo tempo",
-      "Nenhum dos dois se arruma"
+      "O noivo",
+      "A noiva",
+      "Falaram juntos",
+      "Foi por mensagem"
     ],
-    "correta": 1
+    "correta": 0
   },
   {
     "id": 153,
     "categoria": "casal",
-    "pergunta": "Quem costuma dormir primeiro quando assistem a um filme à noite?",
+    "pergunta": "Quem cozinha melhor no dia a dia?",
     "opcoes": [
-      "O Noivo",
-      "A Noiva",
-      "Os dois dormem ao mesmo tempo",
-      "Nenhum dos dois dorme"
+      "O noivo",
+      "A noiva",
+      "O aplicativo de entrega",
+      "Os dois dividem bem"
     ],
-    "correta": 0
+    "correta": 1
   },
   {
     "id": 154,
     "categoria": "casal",
-    "pergunta": "Quem é mais provável de chorar durante a cerimônia do casamento?",
+    "pergunta": "Quem faz as piores piadas e piadas do 'tio do pavê'?",
     "opcoes": [
-      "O Noivo",
-      "A Noiva",
-      "Os dois vão chorar bastante",
-      "Ninguém vai chorar"
+      "O noivo",
+      "A noiva",
+      "O sogro",
+      "Os padrinhos"
     ],
-    "correta": 2
+    "correta": 0
   },
   {
     "id": 155,
     "categoria": "casal",
-    "pergunta": "Quem é o mais comilão do casal?",
+    "pergunta": "Quem é o mais pontual dos dois?",
     "opcoes": [
-      "O Noivo",
-      "A Noiva",
-      "Comem exatamente a mesma quantidade",
-      "Depende do prato"
+      "O noivo",
+      "A noiva",
+      "Nenhum, sempre chegam atrasados",
+      "Chegam sempre no horário exato"
     ],
-    "correta": 0
+    "correta": 1
   },
   {
     "id": 156,
     "categoria": "casal",
-    "pergunta": "Quem é o mais dramático quando fica gripado ou doente?",
+    "pergunta": "Quem chora mais assistindo a um filme romântico?",
     "opcoes": [
-      "O Noivo",
-      "A Noiva",
-      "Os dois são super dramáticos",
-      "Nenhum dos dois reclama"
+      "O noivo",
+      "A noiva",
+      "Os dois choram juntos",
+      "Nenhum chora"
     ],
-    "correta": 0
+    "correta": 3
   },
   {
     "id": 157,
     "categoria": "casal",
-    "pergunta": "Quem deu o primeiro passo no início do namoro?",
+    "pergunta": "Quem acorda mais bem-humorado de manhã?",
     "opcoes": [
-      "O Noivo",
-      "A Noiva",
-      "Foi mútuo ao mesmo tempo",
-      "Um amigo em comum"
+      "O noivo",
+      "A noiva",
+      "Nenhum dos dois até tomar café",
+      "Os dois acordam rindo"
     ],
     "correta": 0
   },
   {
     "id": 158,
     "categoria": "casal",
-    "pergunta": "Quem tem o controle remoto da TV na maioria das vezes?",
+    "pergunta": "Quem faz o melhor café da manhã?",
     "opcoes": [
-      "O Noivo",
-      "A Noiva",
-      "Fica dividindo o tempo todo",
-      "Ninguém assiste TV"
-    ],
-    "correta": 0
-  },
-  {
-    "id": 159,
-    "categoria": "casal",
-    "pergunta": "Quem é mais organizado com as tarefas da casa?",
-    "opcoes": [
-      "O Noivo",
-      "A Noiva",
-      "Os dois são muito organizados",
-      "Os dois são desorganizados"
+      "O noivo",
+      "A noiva",
+      "Pedem na padaria",
+      "Cada um faz o seu"
     ],
     "correta": 1
   },
   {
-    "id": 160,
+    "id": 159,
     "categoria": "casal",
-    "pergunta": "Quem costuma pedir desculpas primeiro após uma pequena discussão?",
+    "pergunta": "Quem é o mais sociável e faz amizade até na fila do pão?",
     "opcoes": [
-      "O Noivo",
-      "A Noiva",
-      "Os dois pedem juntos",
-      "Demoram dias para conversar"
+      "O noivo",
+      "A noiva",
+      "Os dois conversam com todos",
+      "São mais tímidos"
     ],
     "correta": 0
+  },
+  {
+    "id": 160,
+    "categoria": "casal",
+    "pergunta": "Quem passa mais tempo arrumando o cabelo?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "O noivo gasta mais pomada",
+      "Gastam o mesmo tempo"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 161,
+    "categoria": "casal",
+    "pergunta": "Quem é mais dramático quando pega uma gripe simples?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Os dois viram crianças",
+      "Superam sem reclamar"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 162,
+    "categoria": "casal",
+    "pergunta": "Quem costuma dormir mais no fim de semana?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Acordam cedo até no domingo",
+      "Ficam na cama até meio-dia"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 163,
+    "categoria": "casal",
+    "pergunta": "Quem tira mais fotos do casal durante um passeio?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Pedem para estranhos tirarem",
+      "Esquecem de tirar fotos"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 164,
+    "categoria": "casal",
+    "pergunta": "Quem se empolga mais em festas e é o último a ir embora?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Vão embora juntos bem cedo",
+      "Apagam as luzes da festa"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 165,
+    "categoria": "casal",
+    "pergunta": "Quem é o mais ciumento do relacionamento?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Zero ciúmes nos dois",
+      "Ciúmes na medida certa"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 166,
+    "categoria": "casal",
+    "pergunta": "Quem faz mais compras por impulso na internet?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Chega encomenda todo dia",
+      "Pensam 10 vezes antes"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 167,
+    "categoria": "casal",
+    "pergunta": "Quem responde às mensagens do WhatsApp mais rápido?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Deixam no vácuo sem querer",
+      "Respondem na mesma hora"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 168,
+    "categoria": "casal",
+    "pergunta": "Quem gosta mais de receber visitas surpresa em casa?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Preferem avisar com antecedência",
+      "Amam casa cheia"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 169,
+    "categoria": "casal",
+    "pergunta": "Quem é mais provável de chorar durante os votos no altar?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Os dois vão desabar",
+      "Vão segurar a emoção"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 170,
+    "categoria": "casal",
+    "pergunta": "Quem toma banho mais demorado?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Cronometram o tempo",
+      "Demoram o mesmo tempo"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 171,
+    "categoria": "casal",
+    "pergunta": "Quem fica mais emburrado quando está com fome?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "O humor muda instantaneamente",
+      "Ficam tranquilos com fome"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 172,
+    "categoria": "casal",
+    "pergunta": "Quem perde a paciência mais fácil quando algo dá errado?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Mantêm a calma sempre",
+      "Respiram fundo juntos"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 173,
+    "categoria": "casal",
+    "pergunta": "Quem é o mais vaidoso diante do espelho?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Conferem o visual a todo momento",
+      "Olham rapidinho e pronto"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 174,
+    "categoria": "casal",
+    "pergunta": "Quem é o primeiro a querer ir embora de eventos sociais?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Querem ser os últimos a sair",
+      "Ficam até o fim"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 175,
+    "categoria": "casal",
+    "pergunta": "Quem ama mais animais de estimação?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Adotariam todos os pets do mundo",
+      "Gostam na medida certa"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 176,
+    "categoria": "casal",
+    "pergunta": "Quem costuma esquecer de carregar o celular durante a noite?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Sempre acorda com 1% de bateria",
+      "Deixam carregando na tomada sempre"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 177,
+    "categoria": "casal",
+    "pergunta": "Quem tem o sono mais pesado e não acorda com o despertador?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Colocam 10 alarmes seguidos",
+      "Acordam no primeiro toque"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 178,
+    "categoria": "casal",
+    "pergunta": "Quem é mais aberto a experimentar pratos exóticos em viagens?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Preferem comida caseira tradicional",
+      "Provam tudo o que encontram"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 179,
+    "categoria": "casal",
+    "pergunta": "Quem faz o melhor cafuné na hora de relaxar?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Especialistas em massagem",
+      "Dormem no meio do cafuné"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 180,
+    "categoria": "casal",
+    "pergunta": "Quem é mais empolgado com datas comemorativas?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Comemoram até o aniversário do pet",
+      "Passam batido com frequência"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 181,
+    "categoria": "casal",
+    "pergunta": "Quem tira sarro da cara do outro amorosamente?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Trollam um ao outro o dia todo",
+      "São 100% sérios"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 182,
+    "categoria": "casal",
+    "pergunta": "Quem é o mais tímido na hora de tirar fotos?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Fazem pose profissional",
+      "Fogem de câmeras"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 183,
+    "categoria": "casal",
+    "pergunta": "Quem gosta mais de tomar um cafezinho à tarde?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Tomam café o dia inteiro",
+      "Preferem chá"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 184,
+    "categoria": "casal",
+    "pergunta": "Quem gosta mais de chocolate amargo?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Só gostam de chocolate ao leite",
+      "Preferem doces de frutas"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 185,
+    "categoria": "casal",
+    "pergunta": "Quem tem a caligrafia e letra mais bonita?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Letra de médico nos dois",
+      "Parece letra de computador"
+    ],
+    "correta": 2
+  },
+  {
+    "id": 186,
+    "categoria": "casal",
+    "pergunta": "Quem é o mais resistente a tomar remédio quando sente dor?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Ambos tomam remédio no primeiro sinal",
+      "Ambos esperam a dor passar sozinha"
+    ],
+    "correta": 3
+  },
+  {
+    "id": 187,
+    "categoria": "casal",
+    "pergunta": "Quem adora fazer maratona de filmes antigos nos domingos?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Preferem lançamentos do cinema",
+      "Assistem vídeos no YouTube"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 188,
+    "categoria": "casal",
+    "pergunta": "Quem se empolga mais ao ir em parques de diversão?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Vão em todas as montanhas-russas",
+      "Ficam só olhando com a pipoca"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 189,
+    "categoria": "casal",
+    "pergunta": "Quem é mais provável de esquecer o casaco ao sair à noite?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Passam frio por teimosia",
+      "Levam casaco extra sempre"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 190,
+    "categoria": "casal",
+    "pergunta": "Quem costuma dormir de meias mesmo no calor?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Dormem sempre descalços",
+      "Pés frios a noite toda"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 191,
+    "categoria": "casal",
+    "pergunta": "Quem fica conferindo o portão da casa 3 vezes antes de sair?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Voltam para conferir a tomada",
+      "Fecham e vão embora tranquilos"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 192,
+    "categoria": "casal",
+    "pergunta": "Quem curte mais ver jogos de futebol ou esportes no fim de semana?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Torcem juntos pelo mesmo time",
+      "Não acompanham esportes"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 193,
+    "categoria": "casal",
+    "pergunta": "Quem tem o riso mais fácil e frouxo do casal?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Riem até de piada sem graça",
+      "São bem sérios"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 194,
+    "categoria": "casal",
+    "pergunta": "Quem tem mais paciência ao ensinar algo ao outro?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Perdem a paciência em 2 minutos",
+      "Mestres da didática e calma"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 195,
+    "categoria": "casal",
+    "pergunta": "Quem tira os melhores cochilos à tarde no sofá?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Acordam sem saber em que ano estão",
+      "Não conseguem dormir de dia"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 196,
+    "categoria": "casal",
+    "pergunta": "Quem tira as fotos mais engraçadas e espontâneas do outro?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Guardam figurinhas secretas",
+      "Tiram fotos perfeitas para rede social"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 197,
+    "categoria": "casal",
+    "pergunta": "Quem domina a arte de negociar descontos em compras?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Conseguem desconto em tudo",
+      "Pagam o preço da etiqueta sem chorar"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 198,
+    "categoria": "casal",
+    "pergunta": "Quem fica mais chateado quando o time de futebol perde?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "O dia fica arruinado",
+      "Não ligam para futebol"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 199,
+    "categoria": "casal",
+    "pergunta": "Quem prefere praias calmas em vez de praias movimentadas?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Amam o agito do quiosque",
+      "Preferem piscina em hotel"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 200,
+    "categoria": "casal",
+    "pergunta": "Quem é mais provável de tentar consertar o chuveiro queimado sozinho?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Trocam em 5 minutos com segurança",
+      "Chamam o eletricista imediato"
+    ],
+    "correta": 0
+  },
+  {
+    "id": 201,
+    "categoria": "casal",
+    "pergunta": "Quem gosta mais de receber massagem nos pés após o trabalho?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Fazem troca de massagem",
+      "Pedem cafuné no lugar"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 202,
+    "categoria": "casal",
+    "pergunta": "Quem gosta mais de comida japonesa e sushi?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Comeriam sushi toda semana",
+      "Preferem hambúrguer e pizza"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 203,
+    "categoria": "casal",
+    "pergunta": "Quem é mais provável de carregar um lanchinho na bolsa para emergências?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Sempre têm uma barrinha ou fruta",
+      "Compram na rua quando dá fome"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 204,
+    "categoria": "casal",
+    "pergunta": "Quem assiste tutoriais no YouTube para aprender coisas novas?",
+    "opcoes": [
+      "O noivo",
+      "A noiva",
+      "Aprendem de tudo no vídeo",
+      "Preferem ler instruções ou tentar na prática"
+    ],
+    "correta": 1
+  },
+  {
+    "id": 205,
+    "categoria": "casal",
+    "pergunta": "Pra que time torcem o noivo e a noiva, respectivamente?",
+    "opcoes": [
+      "São Paulo e Corínthians",
+      "Corínthians e Palmeiras",
+      "São Paulo e São Paulo",
+      "Palmeiras e São Paulo"
+    ],
+    "correta": 3
   }
 ]
