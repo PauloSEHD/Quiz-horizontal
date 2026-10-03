@@ -114,7 +114,6 @@ function registrarMonitorDeInatividade() {
         clearTimeout(inactivityTimer);
         
         const telaSlideshow = document.getElementById('screen-slideshow');
-        // Só mantém o timer de inatividade ligado se a tela atual NÃO for o próprio slideshow
         if (telaSlideshow && !telaSlideshow.classList.contains('active')) {
             inactivityTimer = setTimeout(() => {
                 voltarParaSlideShow();
@@ -122,7 +121,6 @@ function registrarMonitorDeInatividade() {
         }
     };
 
-    // Monitora interações globais para zerar o tempo de inatividade
     window.addEventListener('click', resetarTimerInatividade);
     window.addEventListener('touchstart', resetarTimerInatividade);
     window.addEventListener('mousemove', resetarTimerInatividade);
@@ -134,7 +132,6 @@ function voltarParaSlideShow() {
     jogoAtivo = false;
     clearInterval(timerInterval);
     
-    // Oculta a webcam ao voltar para as fotos
     const webcamEl = document.getElementById('webcam');
     if (webcamEl) webcamEl.classList.remove('active');
 
@@ -368,19 +365,16 @@ function processarResposta(index) {
 
     }, 1200);
 
-    // Exibe a tela de agradecimento com a foto final por alguns segundos
     setTimeout(() => {
         mostrarTela('screen-thanks');
     }, 4500);
 
-    // ALTERAÇÃO PRINCIPAL: Após mostrar a foto da pessoa por 7.5 segundos, 
-    // retorna para a TELA INICIAL (screen-intro) com o botão verde de reiniciar a brincadeira.
     setTimeout(() => {
         const webcamEl = document.getElementById('webcam');
         if (webcamEl) webcamEl.classList.remove('active');
 
         mostrarTela('screen-intro');
-        registrarMonitorDeInatividade(); // Dispara a contagem regressiva de 2min de inatividade
+        registrarMonitorDeInatividade();
     }, 12000);
 }
 
@@ -451,13 +445,14 @@ function capturarFoto(rotuloMomento) {
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+    // DADOS DE LARGURA AJUSTADOS PARA BATER EXATAMENTE COM A TELA DO GAME
     const boxX = 40;
-    const boxWidth = 640; 
+    const boxWidth = 520; // Ajustado de 640 para 520 para dar a proporção exata da tela
 
     // 3. Logo ajustado e centralizado
     if (logoImg.complete && logoImg.naturalWidth !== 0) {
-        let maxLogoWidth = 500; 
-        let maxLogoHeight = 150;
+        let maxLogoWidth = 440; 
+        let maxLogoHeight = 140;
         let logoWidth = maxLogoWidth;
         let logoHeight = (logoImg.naturalHeight / logoImg.naturalWidth) * logoWidth;
         
@@ -471,8 +466,8 @@ function capturarFoto(rotuloMomento) {
     }
 
     // 4. Pergunta
-    const boxY = 185;
-    const boxHeight = 105;
+    const boxY = 175;
+    const boxHeight = 100;
 
     ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
     ctx.strokeStyle = 'rgba(212, 175, 55, 0.6)';
@@ -488,12 +483,12 @@ function capturarFoto(rotuloMomento) {
     }
 
     ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 24px sans-serif';
-    quebrarTexto(ctx, perguntaAtual.pergunta, boxX + 25, boxY + 45, boxWidth - 50, 32);
+    ctx.font = 'bold 22px sans-serif';
+    quebrarTexto(ctx, perguntaAtual.pergunta, boxX + 20, boxY + 40, boxWidth - 40, 28);
 
     // 5. Opções
-    const optStartY = 305;
-    const optHeight = 62;
+    const optStartY = 290;
+    const optHeight = 60;
     const gap = 12;
 
     perguntaAtual.opcoes.forEach((opcao, i) => {
@@ -539,23 +534,23 @@ function capturarFoto(rotuloMomento) {
         // Bolinha da Letra
         ctx.fillStyle = badgeBg;
         ctx.beginPath();
-        ctx.arc(boxX + 40, y + 31, 22, 0, Math.PI * 2);
+        ctx.arc(boxX + 35, y + 30, 20, 0, Math.PI * 2);
         ctx.fill();
 
         ctx.fillStyle = badgeTextColor;
-        ctx.font = 'bold 22px sans-serif';
-        ctx.fillText(letrasOpcoes[i], boxX + 32, y + 39);
+        ctx.font = 'bold 20px sans-serif';
+        ctx.fillText(letrasOpcoes[i], boxX + 28, y + 37);
 
         // Texto da Alternativa
         ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 22px sans-serif';
-        ctx.fillText(opcao, boxX + 80, y + 39);
+        ctx.font = 'bold 20px sans-serif';
+        ctx.fillText(opcao, boxX + 70, y + 37);
     });
 
     // 6. Explicação / Fim de Tempo na Foto Renderizada
     const fbBanner = document.getElementById('feedback-banner');
     if (fbBanner && !fbBanner.classList.contains('hidden')) {
-        const expY = 610;
+        const expY = 590;
         const expHeight = 95;
         
         const tempoEsgotado = (respostaSelecionada === -1);
@@ -587,17 +582,17 @@ function capturarFoto(rotuloMomento) {
         }
 
         ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 22px sans-serif';
+        ctx.font = 'bold 20px sans-serif';
         
         let tituloBanner = '🎉 RESPOSTA CORRETA!';
         if (tempoEsgotado) tituloBanner = '⏱️ O TEMPO ACABOU!';
         else if (!acertou) tituloBanner = '🙈 RESPOSTA INCORRETA!';
 
-        ctx.fillText(tituloBanner, boxX + 25, expY + 35);
+        ctx.fillText(tituloBanner, boxX + 20, expY + 32);
 
         ctx.fillStyle = '#cbd5e1';
-        ctx.font = '19px sans-serif';
-        quebrarTexto(ctx, textoExplicacao, boxX + 25, expY + 65, boxWidth - 50, 24);
+        ctx.font = '17px sans-serif';
+        quebrarTexto(ctx, textoExplicacao, boxX + 20, expY + 60, boxWidth - 40, 22);
     }
 
     const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
