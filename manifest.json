@@ -1,16 +1,20 @@
 {
-  "name": "Baú da Fé",
-  "short_name": "BauDaFe",
-  "start_url": "./index.html",
-  "display": "fullscreen",
-  "orientation": "landscape",
-  "background_color": "#0f172a",
-  "theme_color": "#0f172a",
+  "short_name": "Quiz",
+  "name": "Baú da Fé Quiz",
   "icons": [
     {
-      "src": "imagens/logo.jpg",
-      "sizes": "192x192",
-      "type": "image/jpeg"
+      "src": "icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
-  ]
+  ],
+  "start_url": "./index.html",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "display": "standalone"
 }
