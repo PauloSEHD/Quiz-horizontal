@@ -16,6 +16,16 @@ const listaFotosCasal = [
 
 const letrasOpcoes = ['A', 'B', 'C', 'D'];
 
+// PERGUNTAS EMBUTIDAS (Garante funcionamento offline sem servidor local)
+const perguntasEmbutidas = [
+    {
+        "pergunta": "Exemplo de Pergunta 1?",
+        "opcoes": ["Opção A", "Opção B", "Opção C", "Opção D"],
+        "correta": 0,
+        "explicacao": "Explicação da pergunta aqui."
+    }
+];
+
 let perguntas = [];
 let perguntaAtual = null;
 let jogoAtivo = false;
@@ -53,9 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
 async function carregarPerguntas() {
     try {
         const response = await fetch('perguntas.json');
+        if (!response.ok) throw new Error('Erro na resposta HTTP');
         perguntas = await response.json();
     } catch (error) {
-        console.error('Erro ao carregar perguntas.json:', error);
+        console.warn('Aviso ao carregar perguntas.json via fetch (modo arquivo local ativo). Usando perguntas internas:', error);
+        perguntas = perguntasEmbutidas;
     }
 }
 
@@ -231,8 +243,7 @@ function prepararPerguntaEquilibrada(perguntaOriginal) {
 // ======================================================
 async function iniciarFluxoJogo() {
     if (!perguntas.length) {
-        alert("Carregando perguntas... Tente novamente em instantes.");
-        return;
+        perguntas = perguntasEmbutidas;
     }
 
     ativarTelaCheia();
@@ -447,7 +458,7 @@ function capturarFoto(rotuloMomento) {
 
     // DADOS DE LARGURA AJUSTADOS PARA BATER EXATAMENTE COM A TELA DO GAME
     const boxX = 40;
-    const boxWidth = 520; // Ajustado de 640 para 520 para dar a proporção exata da tela
+    const boxWidth = 520; 
 
     // 3. Logo ajustado e centralizado
     if (logoImg.complete && logoImg.naturalWidth !== 0) {
@@ -484,72 +495,74 @@ function capturarFoto(rotuloMomento) {
 
     ctx.fillStyle = '#ffffff';
     ctx.font = 'bold 22px sans-serif';
-    quebrarTexto(ctx, perguntaAtual.pergunta, boxX + 20, boxY + 40, boxWidth - 40, 28);
+    quebrarTexto(ctx, perguntaAtual ? perguntaAtual.pergunta : '', boxX + 20, boxY + 40, boxWidth - 40, 28);
 
     // 5. Opções
     const optStartY = 290;
     const optHeight = 60;
     const gap = 12;
 
-    perguntaAtual.opcoes.forEach((opcao, i) => {
-        const y = optStartY + i * (optHeight + gap);
+    if (perguntaAtual && perguntaAtual.opcoes) {
+        perguntaAtual.opcoes.forEach((opcao, i) => {
+            const y = optStartY + i * (optHeight + gap);
 
-        let bgColor = 'rgba(30, 41, 59, 0.9)';
-        let borderColor = 'rgba(255, 255, 255, 0.2)';
-        let badgeBg = '#d4af37';
-        let badgeTextColor = '#0f172a';
+            let bgColor = 'rgba(30, 41, 59, 0.9)';
+            let borderColor = 'rgba(255, 255, 255, 0.2)';
+            let badgeBg = '#d4af37';
+            let badgeTextColor = '#0f172a';
 
-        if (respostaSelecionada !== null && respostaSelecionada !== -1) {
-            if (i === perguntaAtual.correta) {
-                bgColor = '#2ecc71';
-                borderColor = '#27ae60';
-                badgeBg = '#ffffff';
-                badgeTextColor = '#2ecc71';
-            } else if (i === respostaSelecionada) {
-                bgColor = '#e74c3c';
-                borderColor = '#c0392b';
+            if (respostaSelecionada !== null && respostaSelecionada !== -1) {
+                if (i === perguntaAtual.correta) {
+                    bgColor = '#2ecc71';
+                    borderColor = '#27ae60';
+                    badgeBg = '#ffffff';
+                    badgeTextColor = '#2ecc71';
+                } else if (i === respostaSelecionada) {
+                    bgColor = '#e74c3c';
+                    borderColor = '#c0392b';
+                }
+            } else if (respostaSelecionada === -1) {
+                if (i === perguntaAtual.correta) {
+                    bgColor = '#2ecc71';
+                    borderColor = '#27ae60';
+                    badgeBg = '#ffffff';
+                    badgeTextColor = '#2ecc71';
+                }
             }
-        } else if (respostaSelecionada === -1) {
-            if (i === perguntaAtual.correta) {
-                bgColor = '#2ecc71';
-                borderColor = '#27ae60';
-                badgeBg = '#ffffff';
-                badgeTextColor = '#2ecc71';
+
+            ctx.fillStyle = bgColor;
+            ctx.strokeStyle = borderColor;
+            ctx.lineWidth = 1.5;
+
+            if (ctx.roundRect) {
+                ctx.beginPath();
+                ctx.roundRect(boxX, y, boxWidth, optHeight, 14);
+                ctx.fill();
+                ctx.stroke();
+            } else {
+                ctx.fillRect(boxX, y, boxWidth, optHeight);
             }
-        }
 
-        ctx.fillStyle = bgColor;
-        ctx.strokeStyle = borderColor;
-        ctx.lineWidth = 1.5;
-
-        if (ctx.roundRect) {
+            // Bolinha da Letra
+            ctx.fillStyle = badgeBg;
             ctx.beginPath();
-            ctx.roundRect(boxX, y, boxWidth, optHeight, 14);
+            ctx.arc(boxX + 35, y + 30, 20, 0, Math.PI * 2);
             ctx.fill();
-            ctx.stroke();
-        } else {
-            ctx.fillRect(boxX, y, boxWidth, optHeight);
-        }
 
-        // Bolinha da Letra
-        ctx.fillStyle = badgeBg;
-        ctx.beginPath();
-        ctx.arc(boxX + 35, y + 30, 20, 0, Math.PI * 2);
-        ctx.fill();
+            ctx.fillStyle = badgeTextColor;
+            ctx.font = 'bold 20px sans-serif';
+            ctx.fillText(letrasOpcoes[i], boxX + 28, y + 37);
 
-        ctx.fillStyle = badgeTextColor;
-        ctx.font = 'bold 20px sans-serif';
-        ctx.fillText(letrasOpcoes[i], boxX + 28, y + 37);
-
-        // Texto da Alternativa
-        ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 20px sans-serif';
-        ctx.fillText(opcao, boxX + 70, y + 37);
-    });
+            // Texto da Alternativa
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 20px sans-serif';
+            ctx.fillText(opcao, boxX + 70, y + 37);
+        });
+    }
 
     // 6. Explicação / Fim de Tempo na Foto Renderizada
     const fbBanner = document.getElementById('feedback-banner');
-    if (fbBanner && !fbBanner.classList.contains('hidden')) {
+    if (fbBanner && !fbBanner.classList.contains('hidden') && perguntaAtual) {
         const expY = 590;
         const expHeight = 95;
         
@@ -598,13 +611,17 @@ function capturarFoto(rotuloMomento) {
     const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
 
     // Salva a foto automaticamente
-    const timestamp = Date.now();
-    const a = document.createElement('a');
-    a.href = dataUrl;
-    a.download = `quiz_${rotuloMomento}_${timestamp}.jpg`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    try {
+        const timestamp = Date.now();
+        const a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = `quiz_${rotuloMomento}_${timestamp}.jpg`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    } catch (e) {
+        console.warn("Download automático não permitido neste ambiente local:", e);
+    }
 
     return dataUrl;
 }
